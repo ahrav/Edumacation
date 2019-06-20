@@ -61,5 +61,11 @@ class CreateArticleApiTests(TestCase):
         """Ensure when article is created correct
            author username is in response"""
 
-        pass
+        self.client.force_authenticate(user=self.user)
 
+        res = self.client.post(
+            CREATE_ARTICLE_URL, CREATE_ARTICLE_PAYLOAD, format="json"
+        )
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(res.data["author"]["username"], self.user.username)
