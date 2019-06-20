@@ -147,7 +147,22 @@ class UpdateUserApiTest(TestCase):
 
         res = self.client.put(UPDATE_USER_URL, payload, format="json")
 
-        print(res.data)
         self.user.refresh_from_db()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(self.user.email, payload["user"]["email"])
+
+    def test_update_no_password_in_response(self):
+        """Make sure the password is not returned to the user"""
+
+        payload = {
+            "user": {"email": "edited@go.com", "password": "newpassword"}
+        }
+
+        res = self.client.put(UPDATE_USER_URL, payload, format="json")
+
+        self.user.refresh_from_db()
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.user.email, payload["user"]["email"])
+        self.assertTrue(self.user.check_password(payload["user"]["password"]))
+        self.assertNotIn("password", res.data)
+
