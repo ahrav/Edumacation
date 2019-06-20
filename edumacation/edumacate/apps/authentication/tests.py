@@ -165,4 +165,3 @@ class UpdateUserApiTest(TestCase):
         self.assertEqual(self.user.email, payload["user"]["email"])
         self.assertTrue(self.user.check_password(payload["user"]["password"]))
         self.assertNotIn("password", res.data)
-

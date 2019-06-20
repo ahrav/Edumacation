@@ -39,10 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_extensions",
     "rest_framework",
-    "articles",
-    "authentication",
-    "core",
-    "profiles",
+    "edumacate.apps.articles",
+    "edumacate.apps.authentication",
+    "edumacate.apps.core",
+    "edumacate.apps.profiles",
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "app.urls"
+ROOT_URLCONF = "edumacate.urls"
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "app.wsgi.application"
+WSGI_APPLICATION = "edumacate.wsgi.application"
 
 
 # Database
@@ -126,9 +126,9 @@ STATIC_URL = "/static/"
 AUTH_USER_MODEL = "authentication.User"
 
 REST_FRAMEWORK = {
-    "EXCEPTION_HANDLER": "core.exceptions.core_exception_handler",
+    "EXCEPTION_HANDLER": "edumacate.apps.core.exceptions.core_exception_handler",
     "NON_FIELD_ERRORS_KEY": "error",
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "authentication.backends.JWTAuthentication",
+        "edumacate.apps.authentication.backends.JWTAuthentication",
     ),
 }
