@@ -8,12 +8,11 @@ from .models import User
 
 CREATE_USER_URL = reverse("authentication:user-registration")
 LOGIN_USER_URL = reverse("authentication:user-login")
+UPDATE_USER_URL = reverse("authentication:user-update")
 USER_REQUEST_DATA = {
-    "user": {
-        "email": "ahrav@go.com",
-        "password": "thisisatestpass",
-        "username": "test_username",
-    }
+    "email": "ahrav@go.com",
+    "password": "thisisatestpass",
+    "username": "test_username",
 }
 
 
@@ -36,9 +35,7 @@ class RegisterUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         user = User.objects.get(username=res.data["username"])
-        self.assertTrue(
-            user.check_password(USER_REQUEST_DATA["user"]["password"])
-        )
+        self.assertTrue(user.check_password(USER_REQUEST_DATA["password"]))
         self.assertNotIn("password", res.data)
 
     def test_user_exists(self):
@@ -58,11 +55,9 @@ class RegisterUserApiTests(TestCase):
     def test_password_too_short(self):
         """Test to make sure password is longer than 8 characters"""
         payload = {
-            "user": {
-                "email": "ahrav@go.com",
-                "password": "short",
-                "username": "test_username",
-            }
+            "email": "ahrav@go.com",
+            "password": "short",
+            "username": "test_username",
         }
 
         res = self.client.post(CREATE_USER_URL, payload, format="json")
@@ -96,11 +91,6 @@ class LoginUserApiTest(TestCase):
             LOGIN_USER_URL, USER_REQUEST_DATA, format="json"
         )
 
-    #     self.token = Token.objects.create(user=self.user)
-
-    # def api_authentication(self):
-    #     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
-
     def test_login_existing_users(self):
         res = self.login()
 
@@ -108,11 +98,9 @@ class LoginUserApiTest(TestCase):
 
     def test_login_non_existing_users_fail(self):
         payload = {
-            "user": {
-                "email": "notexit@test.com",
-                "username": "nousername",
-                "password": "testpass",
-            }
+            "email": "notexit@test.com",
+            "username": "nousername",
+            "password": "testpass",
         }
 
         res = self.client.post(LOGIN_USER_URL, payload, format="json")
@@ -133,3 +121,33 @@ class LoginUserApiTest(TestCase):
         res = self.login()
 
         self.assertIn("email", res.data)
+
+
+class UpdateUserApiTest(TestCase):
+    """Tests for updating user account"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = create_user(
+            email="ahrav@go.com",
+            password="thisisatestpass",
+            username="test_username",
+        )
+        self.client.force_authenticate(user=self.user)
+
+    def test_retrieve_user_authorized(self):
+        """User can retrieve account if not authorized"""
+
+        res = self.client.get(UPDATE_USER_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_update_user_authorized(self):
+        payload = {"user": {"email": "edited@go.com"}}
+
+        res = self.client.put(UPDATE_USER_URL, payload, format="json")
+
+        print(res.data)
+        self.user.refresh_from_db()
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.user.email, payload["user"]["email"])
