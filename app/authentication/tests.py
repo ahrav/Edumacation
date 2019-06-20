@@ -1,14 +1,13 @@
 from django.test import TestCase
 from django.urls import reverse
-
-from rest_framework.test import APIClient
 from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
 
 from .models import User
 
 CREATE_USER_URL = reverse("authentication:user-registration")
-
-
+LOGIN_USER_URL = reverse("authentication:user-login")
 USER_REQUEST_DATA = {
     "user": {
         "email": "ahrav@go.com",
@@ -79,3 +78,58 @@ class RegisterUserApiTests(TestCase):
 
         self.assertIn("token", res.data)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+
+
+class LoginUserApiTest(TestCase):
+    """Tests for logging in users"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = create_user(
+            email="ahrav@go.com",
+            password="thisisatestpass",
+            username="test_username",
+        )
+
+    def login(self):
+        return self.client.post(
+            LOGIN_USER_URL, USER_REQUEST_DATA, format="json"
+        )
+
+    #     self.token = Token.objects.create(user=self.user)
+
+    # def api_authentication(self):
+    #     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+    def test_login_existing_users(self):
+        res = self.login()
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_login_non_existing_users_fail(self):
+        payload = {
+            "user": {
+                "email": "notexit@test.com",
+                "username": "nousername",
+                "password": "testpass",
+            }
+        }
+
+        res = self.client.post(LOGIN_USER_URL, payload, format="json")
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_token_exist_login(self):
+        res = self.login()
+
+        self.assertIn("token", res.data)
+
+    def test_username_exist_login(self):
+        res = self.login()
+
+        self.assertIn("username", res.data)
+
+    def test_email_exist_login(self):
+        res = self.login()
+
+        self.assertIn("email", res.data)
