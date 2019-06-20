@@ -5,7 +5,10 @@ def core_exception_handler(exc, context):
     """All exceptions not handled by us will still be handled by DRF"""
 
     response = exception_handler(exc, context)
-    handlers = {"ValidationError": _handle_generic_error}
+    handlers = {
+        "ValidationError": _handle_generic_error,
+        "ProfileDoesNotExist": _handle_generic_error,
+    }
 
     exception_class = exc.__class__.__name__
 

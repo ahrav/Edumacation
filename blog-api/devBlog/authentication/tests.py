@@ -162,5 +162,16 @@ class UpdateUserApiTest(TestCase):
         self.user.refresh_from_db()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(self.user.email, payload["user"]["email"])
-        self.assertTrue(self.user.check_password(payload["user"]["password"]))
+        self.assertNotIn("password", res.data)
+
+    def test_update_profile(self):
+        """Ensure profile gets updated when user modifies their account"""
+
+        payload = {"user": {"email": "edit@email.com", "bio": "new bio added"}}
+
+        res = self.client.put(UPDATE_USER_URL, payload, format="json")
+
+        self.user.refresh_from_db()
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.user.profile.bio, payload["user"]["bio"])
         self.assertNotIn("password", res.data)
