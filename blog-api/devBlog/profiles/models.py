@@ -1,7 +1,7 @@
 from django.db import models
 
-from edumacate.apps.authentication.models import User
-from edumacate.apps.core.models import TimestampModel
+from authentication.models import User
+from core.models import TimestampModel
 
 
 class Profile(TimestampModel):

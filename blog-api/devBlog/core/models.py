@@ -11,4 +11,3 @@ class TimestampModel(models.Model):
         abstract = True
 
         ordering = ["-created_at", "-updated_at"]
-

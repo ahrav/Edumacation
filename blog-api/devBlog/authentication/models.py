@@ -9,7 +9,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
-from edumacate.apps.core.models import TimestampModel
+from core.models import TimestampModel
 
 
 class UserManager(BaseUserManager):
@@ -36,7 +36,8 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, email, password):
-        """ Create and return a User with superuser (admin) admin permissions"""
+        """ Create and return a User with 
+            superuser (admin) admin permissions"""
 
         if password is None:
             raise TypeError("Superusers must have a password")
