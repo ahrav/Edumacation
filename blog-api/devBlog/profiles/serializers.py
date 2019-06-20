@@ -15,7 +15,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ("username", "bio", "image")
         read_only_fields = ("username",)
 
-    def get_image(slef, obj):
+    def get_image(self, obj):
         """returns an image object"""
 
         if obj.image:
