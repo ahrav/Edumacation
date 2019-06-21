@@ -101,3 +101,23 @@ class CommentsListCreateAPIView(generics.ListCreateAPIView):
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CommentsDestroyAPIView(generics.DestroyAPIView):
+    """view to delete comments"""
+
+    lookup_url_kwargs = "comment_pk"
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Comment.objects.all()
+
+    def destroy(self, request, article_slug=None, comment_pk=None):
+        """method to delete comment"""
+
+        try:
+            comment = Comment.objects.get(pk=comment_pk)
+        except Comment.DoesNotExist:
+            raise NotFound("A cooment with this ID does not exist")
+
+        comment.delete()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)

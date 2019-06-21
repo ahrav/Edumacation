@@ -25,6 +25,10 @@ def detail_comment_url(slug):
     return reverse("articles:comment-detail", args=[slug])
 
 
+def detail_comment_delete_url(slug, comment_pk):
+    return reverse("articles:comment-delete", args=[slug, comment_pk])
+
+
 def create_user(**params):
     return User.objects.create_user(**params)
 
@@ -208,3 +212,20 @@ class CommentApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIsInstance(res.data, list)
         self.assertEqual(len(res.data), 2)
+
+    def test_delete_comment_authorized(self):
+        """authorized users should be able to delete comments"""
+
+        self.client.force_authenticate(user=self.user)
+        url = detail_comment_delete_url(self.article.slug, self.comment1.id)
+
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertIsNone(res.data)
+        self.article.refresh_from_db()
+        self.assertEqual(len(self.article.comments.all()), 1)
+        self.assertEqual(
+            self.article.comments.first().body, self.comment2.body
+        )
+
