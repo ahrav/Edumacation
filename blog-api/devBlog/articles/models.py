@@ -29,4 +29,3 @@ class Comment(TimestampModel):
     author = models.ForeignKey(
         Profile, related_name="comments", on_delete=models.CASCADE
     )
-

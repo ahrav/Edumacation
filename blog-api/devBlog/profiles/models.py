@@ -13,6 +13,9 @@ class Profile(TimestampModel):
     follows = models.ManyToManyField(
         "self", related_name="followed_by", symmetrical=False
     )
+    favorites = models.ManyToManyField(
+        "articles.Article", related_name="favorited_by"
+    )
 
     def __str__(self):
         return self.user.username
@@ -33,6 +36,22 @@ class Profile(TimestampModel):
         return self.follows.filter(pk=profile.pk).exists()
 
     def is_followed(self, profile):
-        """return true if if another profile is following us, false otherwise"""
+        """return true if if another profile
+           is following us, false otherwise"""
 
         return self.followed_by.filter(pk=profile.pk).exists()
+
+    def favorite(self, article):
+        """favorite an article if not already favorited"""
+
+        self.favorites.add(article)
+
+    def unfavorite(self, article):
+        """un-favorite an article if already favorited"""
+
+        self.favorites.remove(article)
+
+    def has_favorited(self, article):
+        """return true if user has favorited an article, else returns false"""
+
+        return self.favorites.filter(pk=article.pk).exists()
