@@ -1,21 +1,21 @@
 from rest_framework import status
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import RetrieveUpdateAPIView
 
+from .renderers import UserJSONRenderer
 from .serializers import (
-    RegistrationSerializer,
     LoginSerializer,
+    RegistrationSerializer,
     UserSerializer,
 )
-from .renderers import UserJSONRenderer
 
 
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     """Allow users to modify their accounts"""
 
-    permission_class = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
     renderer_class = (UserJSONRenderer,)
 
@@ -50,7 +50,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 class RegistrationAPIView(APIView):
     """Allow any user to access endpoint to create/ register account"""
 
-    permission_class = (AllowAny,)
+    permission_classes = (AllowAny,)
     serializer_class = RegistrationSerializer
     renderer_class = (UserJSONRenderer,)
 
@@ -70,7 +70,7 @@ class RegistrationAPIView(APIView):
 class LoginAPIView(APIView):
     """Allow existing users to login"""
 
-    permission_class = (AllowAny,)
+    permission_classes = (AllowAny,)
     renderer_class = (UserJSONRenderer,)
     serializer_class = LoginSerializer
 
