@@ -17,7 +17,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
-    renderer_class = (UserJSONRenderer,)
+    # renderer_classes = (UserJSONRenderer,)
 
     def retrieve(self, request, *args, **kwargs):
         """return user object"""

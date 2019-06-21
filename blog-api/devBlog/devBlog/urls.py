@@ -23,5 +23,5 @@ urlpatterns = [
         "api/v1/users/",
         include("authentication.urls", namespace="authentication"),
     ),
-    path("api/v1/profile/", include("profiles.urls", namespace="profiles")),
+    path("api/v1/profiles/", include("profiles.urls", namespace="profiles")),
 ]

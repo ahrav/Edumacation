@@ -7,6 +7,6 @@ urlpatterns = [
     path(
         "<str:username>/",
         ProfileRetrieveAPIView.as_view(),
-        name="profile-retrieve",
+        name="profile-detail",
     )
 ]

@@ -10,7 +10,7 @@ from authentication.models import User
 
 
 def get_url(username):
-    return reverse("profile:profile-retrieve", args=["username"])
+    return reverse("profile:profile-detail", args=["username"])
 
 
 def create_user(**params):

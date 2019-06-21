@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.exceptions import NotFound
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -9,13 +9,14 @@ from .renderers import ProfileJSONRenderer
 from .serializers import ProfileSerializer
 
 
-class ProfileRetrieveAPIView(RetrieveAPIView):
+class ProfileRetrieveAPIView(RetrieveUpdateDestroyAPIView):
     """View to handle getting all information related to a single user"""
 
     queryset = Profile.objects.select_related("user")
     serializer_class = ProfileSerializer
-    renderer_classes = (ProfileJSONRenderer,)
+    # renderer_classes = (ProfileJSONRenderer,)
     permission_classes = (IsAuthenticated,)
+    lookup_field = "username"
 
     def retrieve(self, request, username, *args, **kwargs):
         """try to retrieve user for given user"""

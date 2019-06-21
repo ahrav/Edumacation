@@ -1,11 +1,11 @@
-from rest_framework import mixins, status, viewsets
+from rest_framework import mixins, status, viewsets, generics
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from .models import Article
-from .renderers import ArticleJSONRenderer
-from .serializers import ArticleSerializer
+from .models import Article, Comment
+from .renderers import ArticleJSONRenderer, CommentJSONRenderer
+from .serializers import ArticleSerializer, CommentSerializer
 
 
 class ArticleViewSet(
@@ -19,7 +19,7 @@ class ArticleViewSet(
     queryset = Article.objects.select_related("author", "author__user")
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = ArticleSerializer
-    renderer_classes = (ArticleJSONRenderer,)
+    # renderer_classes = (ArticleJSONRenderer,)
     lookup_field = "slug"
 
     def create(self, request):
@@ -64,3 +64,40 @@ class ArticleViewSet(
         serializer = self.serializer_class(serializer_instance)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CommentsListCreateAPIView(generics.ListCreateAPIView):
+    """view for listing and creating and new comments"""
+
+    lookup_field = "article__slug"
+    lookup_url_kwarg = "article_slug"
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    renderer_classes = (CommentJSONRenderer,)
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.select_related(
+        "article",
+        "article__author",
+        "article__author__user",
+        "author",
+        "author__user",
+    )
+
+    def filter_queryset(self, queryset):
+        filters = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
+
+        return queryset.filter(**filters)
+
+    def create(self, request, article_slug=None):
+        data = request.data.get("comment", {})
+        context = {"author": request.user.profile}
+
+        try:
+            context["article"] = Article.objects.get(slug=article_slug)
+        except Article.DoesNotExist:
+            raise NotFound("An article with this slug does not exist")
+
+        serializer = self.serializer_class(data=data, context=context)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
