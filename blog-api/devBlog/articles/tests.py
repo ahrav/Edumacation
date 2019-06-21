@@ -3,8 +3,9 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from .models import Article, Comment
 from authentication.models import User
+
+from .models import Article, Comment
 
 ARTICLE_URL = reverse("articles:article-list")
 CREATE_ARTICLE_PAYLOAD = {
@@ -278,4 +279,3 @@ class CommentApiTests(TestCase):
         self.assertEqual(
             self.article.comments.first().body, self.comment2.body
         )
-

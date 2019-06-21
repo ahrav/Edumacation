@@ -3,8 +3,9 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from .models import Profile
 from authentication.models import User
+
+from .models import Profile
 
 # PROFILE_URL = reverse("profiles:profile-retrieve")
 

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ProfileRetrieveAPIView, ProfileFollowAPIView
+from .views import ProfileFollowAPIView, ProfileRetrieveAPIView
 
 app_name = "profiles"
 urlpatterns = [
