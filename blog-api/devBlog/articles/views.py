@@ -52,3 +52,15 @@ class ArticleViewSet(
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def retrieve(self, request, slug):
+        """method to retrieve all articles for a given slug"""
+
+        try:
+            serializer_instance = self.queryset.get(slug=slug)
+        except Article.DoesNotExist:
+            raise NotFound("An article with this slug does not exist")
+
+        serializer = self.serializer_class(serializer_instance)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

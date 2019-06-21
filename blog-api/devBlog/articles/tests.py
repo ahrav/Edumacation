@@ -94,14 +94,22 @@ class RetrieveArticleApiTests(TestCase):
             author=self.user.profile,
             slug="test-slug",
         )
+        self.article = create_article(
+            body="test body 2",
+            title="test title 2",
+            description="test description 2",
+            author=self.user.profile,
+            slug="test-slug-2",
+        )
 
-    # def test_retrieve_all_articles_success(self):
-    #     """user should be return list of articles"""
+    def test_retrieve_all_articles_authenticated(self):
+        """user should be return list of articles"""
 
-    #     res = self.client.get(ARTICLE_URL)
-    #     print(res.status_code)
-    #     self.assertEqual(res.status_code, status.HTTP_200_OK)
-    #     self.assertContains(res.data, "articles")
+        res = self.client.get(ARTICLE_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 2)
+        self.assertIsInstance(res.data, list)
 
     def test_update_article_authorized(self):
         """Authenticated user should be able to update article"""
