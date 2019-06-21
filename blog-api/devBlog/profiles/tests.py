@@ -44,5 +44,7 @@ class RetrieveProfileApiTests(TestCase):
 
         url = get_url(self.user.username)
 
+        res = self.client.get(url)
+
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
         self.assertIn("errors", res.data)

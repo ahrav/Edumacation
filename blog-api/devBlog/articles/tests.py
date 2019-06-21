@@ -111,9 +111,10 @@ class RetrieveArticleApiTests(TestCase):
         self.assertEqual(len(res.data), 2)
         self.assertIsInstance(res.data, list)
 
-    def test_update_article_authorized(self):
-        """Authenticated user should be able to update article"""
+    def test_update_article(self):
+        """user should be able to update article"""
         self.client.force_authenticate(user=self.user)
+
         payload = {"article": {"body": "updated body"}}
 
         url = detail_url(self.article.slug)
