@@ -1,7 +1,11 @@
-from rest_framework import mixins, status, viewsets, generics
+from rest_framework import generics, mixins, status, viewsets
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+)
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Article, Comment
 from .renderers import ArticleJSONRenderer, CommentJSONRenderer
@@ -25,7 +29,10 @@ class ArticleViewSet(
     def create(self, request):
         """method to create new articles"""
 
-        serializer_context = {"author": request.user.profile}
+        serializer_context = {
+            "author": request.user.profile,
+            "request": request,
+        }
         serializer_data = request.data.get("article", {})
         serializer = self.serializer_class(
             data=serializer_data, context=serializer_context
@@ -35,9 +42,22 @@ class ArticleViewSet(
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def list(self, request):
+        """method to return all articles"""
+
+        serializer_context = {"request": request}
+        serializer_instances = self.queryset.all()
+
+        serializer = self.serializer_class(
+            serializer_instances, context=serializer_context, many=True
+        )
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def update(self, request, slug):
         """method to handler updating articles with given slug"""
 
+        serializer_context = {"request": request}
         try:
             serializer_instance = self.queryset.get(slug=slug)
         except Article.DoesNotExist:
@@ -46,7 +66,10 @@ class ArticleViewSet(
         serializer_data = request.data.get("article", {})
 
         serializer = self.serializer_class(
-            serializer_instance, data=serializer_data, partial=True
+            serializer_instance,
+            context=serializer_context,
+            data=serializer_data,
+            partial=True,
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -56,12 +79,56 @@ class ArticleViewSet(
     def retrieve(self, request, slug):
         """method to retrieve all articles for a given slug"""
 
+        serializer_context = {"request": request}
         try:
             serializer_instance = self.queryset.get(slug=slug)
         except Article.DoesNotExist:
             raise NotFound("An article with this slug does not exist")
 
-        serializer = self.serializer_class(serializer_instance)
+        serializer = self.serializer_class(
+            serializer_instance, context=serializer_context
+        )
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ArticlesFavoriteAPIView(APIView):
+    """view to handle favoriting articles"""
+
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ArticleSerializer
+
+    def delete(self, request, article_slug=None):
+        """method to unfavorite an article"""
+
+        profile = self.request.user.profile
+        serializer_context = {"request": request}
+
+        try:
+            article = Article.objects.get(slug=article_slug)
+        except Article.DoesNotExists:
+            raise NotFound("Article with this slug does not exist")
+
+        profile.unfavorite(article)
+
+        serializer = self.serializer_class(article, context=serializer_context)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, article_slug=None):
+        """method to handle favoriting an article"""
+
+        profile = self.request.user.profile
+        serializer_context = {"request": request}
+
+        try:
+            article = Article.objects.get(slug=article_slug)
+        except Article.DoesNotExist:
+            raise NotFound("Article with this slug does not exist")
+
+        profile.favorite(article)
+
+        serializer = self.serializer_class(article, context=serializer_context)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 

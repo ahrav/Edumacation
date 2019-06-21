@@ -11,6 +11,8 @@ class ArticleSerializer(serializers.ModelSerializer):
     author = serializers.PrimaryKeyRelatedField(read_only=True)
     description = serializers.CharField(required=False)
     slug = serializers.SlugField(required=False)
+    favorited = serializers.SerializerMethodField()
+    favorites_count = serializers.SerializerMethodField()
     createdAt = serializers.SerializerMethodField(method_name="get_created_at")
     updatedAt = serializers.SerializerMethodField(method_name="get_updated_at")
 
@@ -21,6 +23,8 @@ class ArticleSerializer(serializers.ModelSerializer):
             "body",
             "createdAt",
             "description",
+            "favorited",
+            "favorites_count",
             "slug",
             "title",
             "updatedAt",
@@ -35,6 +39,23 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     def get_updated_at(self, instance):
         return instance.updated_at.isoformat()
+
+    def get_favorited(self, instance):
+        """return True if article is favorited by user"""
+        request = self.context.get("request", None)
+
+        if not request:
+            return False
+
+        if not request.user.is_authenticated:
+            return False
+
+        return request.user.profile.has_favorited(instance)
+
+    def get_favorites_count(self, instance):
+        """return number of times an article has been favorited"""
+
+        return instance.favorited_by.count()
 
 
 class CommentSerializer(serializers.ModelSerializer):

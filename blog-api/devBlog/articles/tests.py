@@ -29,6 +29,10 @@ def detail_comment_delete_url(slug, comment_pk):
     return reverse("articles:comment-delete", args=[slug, comment_pk])
 
 
+def favorite_article_url(slug):
+    return reverse("articles:article-favorite", args=[slug])
+
+
 def create_user(**params):
     return User.objects.create_user(**params)
 
@@ -146,6 +150,52 @@ class ArticleApiTests(TestCase):
 
         self.assertIn("errors", res.data)
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_favorite_article_authenticated(self):
+        """authenticated users can favorite an article"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = favorite_article_url(self.article.slug)
+        res = self.client.post(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertTrue(res.data["favorited"])
+        self.assertEqual(res.data["slug"], self.article.slug)
+        self.assertEqual(res.data["favorites_count"], 1)
+
+    def test_favorite_article_un_authenticated(self):
+        """unauthenticated users should not be able to favorite articles"""
+
+        url = favorite_article_url(self.article.slug)
+        res = self.client.post(url)
+
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertFalse(self.article.author.has_favorited(self.article))
+
+    def test_un_favorite_article_authenticated(self):
+        """authenticated user should be able to unfavorite
+        and article if already favorited"""
+
+        self.client.force_authenticate(user=self.user)
+        self.article.author.favorite(self.article)
+
+        url = favorite_article_url(self.article.slug)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data["favorites_count"], 0)
+        self.assertFalse(res.data["favorited"])
+        self.assertEqual(res.data["slug"], self.article.slug)
+
+    def test_un_favorite_article_un_authenticated(self):
+        """unauthenticated user should not be able to unfavorite articles"""
+
+        self.article.author.favorite(self.article)
+        url = favorite_article_url(self.article.slug)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
 
 class CommentApiTests(TestCase):
