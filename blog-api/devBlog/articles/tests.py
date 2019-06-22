@@ -9,6 +9,7 @@ from .models import Article, Comment, Tag
 
 ARTICLE_URL = reverse("articles:article-list")
 TAGS_URL = reverse('articles:tag-list')
+FEED_URL = reverse('articles:article-feed')
 CREATE_ARTICLE_PAYLOAD = {
     "article": {
         "body": "test body action",
@@ -34,6 +35,8 @@ def detail_comment_delete_url(slug, comment_pk):
 def favorite_article_url(slug):
     return reverse("articles:article-favorite", args=[slug])
 
+def get_profile_follow_url(username):
+    return reverse("profiles:profile-follow", args=[username])
 
 def create_user(**params):
     return User.objects.create_user(**params)
@@ -264,6 +267,54 @@ class ArticleApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIsInstance(res.data['results'], list)
         self.assertIn('count', res.data)
+
+    def test_view_feed_authenticated(self):
+        """authenticated users that are following
+           others with published articles should
+           be able to view those articles in their feed."""
+
+        self.client.force_authenticate(user=self.user)
+        self.followee = create_user(
+            email="followee@test.com",
+            username="followee_user",
+            password="test_followee")
+        self.followee_article = create_article(
+            body="followee body",
+            title="test followee title",
+            description="test followee description",
+            author=self.followee.profile,
+            slug="test-followee")
+
+        url = get_profile_follow_url(self.followee.username)
+        self.client.post(url)
+
+        result = self.client.get(FEED_URL)
+
+        self.assertEqual(result.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(result.data['results']), 1)
+        self.assertEqual(result.data['results'][0]['author'], self.followee.id)
+
+    def test_view_feed_un_authenticated(self):
+        """unauthenticated users should not be
+           able to view articles of users they follow"""
+
+        self.followee = create_user(
+            email="followee@test.com",
+            username="followee_user",
+            password="test_followee")
+        self.followee_article = create_article(
+            body="followee body",
+            title="test followee title",
+            description="test followee description",
+            author=self.followee.profile,
+            slug="test-followee")
+
+        url = get_profile_follow_url(self.followee.username)
+        self.client.post(url)
+
+        result = self.client.get(FEED_URL)
+
+        self.assertEqual(result.status_code, status.HTTP_403_FORBIDDEN)
 
 
 class CommentApiTests(TestCase):

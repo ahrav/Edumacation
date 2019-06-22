@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (
     ArticlesFavoriteAPIView,
+    ArticlesFeedAPIView,
     ArticleViewSet,
     CommentsDestroyAPIView,
     CommentsListCreateAPIView,
@@ -10,11 +11,11 @@ from .views import (
 )
 
 router = DefaultRouter()
-router.register(r"articles", ArticleViewSet)
+router.register("articles", ArticleViewSet)
 
 app_name = "articles"
 urlpatterns = [
-    path("", include(router.urls)),
+    path("articles/feed/", ArticlesFeedAPIView.as_view(), name="article-feed"),
     path(
         "articles/<slug:article_slug>/favorite/",
         ArticlesFavoriteAPIView.as_view(),
@@ -31,4 +32,5 @@ urlpatterns = [
         name="comment-delete",
     ),
     path("tags/", TagListAPIView.as_view(), name="tag-list"),
+    path("", include(router.urls)),
 ]

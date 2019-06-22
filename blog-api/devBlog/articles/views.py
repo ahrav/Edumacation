@@ -135,6 +135,31 @@ class ArticlesFavoriteAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class ArticlesFeedAPIView(generics.ListAPIView):
+    """view to allow user to see all
+       articles created by other user they follow"""
+
+    permission_classes = (IsAuthenticated,)
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        return Article.objects.filter(
+            author__in=self.request.user.profile.follows.all()
+        )
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+
+        serializer_context = {"request": request}
+        serializer = self.serializer_class(
+            page, context=serializer_context, many=True
+        )
+
+        return self.get_paginated_response(serializer.data)
+
+
 class CommentsListCreateAPIView(generics.ListCreateAPIView):
     """view for listing and creating and new comments"""
 

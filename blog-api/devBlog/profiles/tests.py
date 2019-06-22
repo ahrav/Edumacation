@@ -5,8 +5,6 @@ from rest_framework.test import APIClient
 
 from authentication.models import User
 
-from .models import Profile
-
 # PROFILE_URL = reverse("profiles:profile-retrieve")
 
 
