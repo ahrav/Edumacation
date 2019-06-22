@@ -132,9 +132,11 @@ class ArticleApiTests(TestCase):
             password='testpass')
 
         user2_article = create_article(
-            body='tet boy', title='cant delete me',
+            body='tet boy',
+            title='cant delete me',
             description='this will last',
-            author=user2.profile, slug='slug=no-delete')
+            author=user2.profile, 
+            slug='slug=no-delete')
 
         url = get_detail_article_url(user2_article.slug)
         res = self.client.delete(url)
