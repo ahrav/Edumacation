@@ -6,6 +6,7 @@ from .views import (
     ArticleViewSet,
     CommentsDestroyAPIView,
     CommentsListCreateAPIView,
+    TagListAPIView,
 )
 
 router = DefaultRouter()
@@ -29,4 +30,5 @@ urlpatterns = [
         CommentsDestroyAPIView.as_view(),
         name="comment-delete",
     ),
+    path("tags/", TagListAPIView.as_view(), name="tag-list"),
 ]

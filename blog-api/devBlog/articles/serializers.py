@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from profiles.serializers import ProfileSerializer
 
-from .models import Article, Comment
+from .models import Article, Comment, Tag
 from .relations import TagRelatedField
 
 
@@ -94,3 +94,14 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_updated_at(self, instance):
         return instance.updated_at.isoformat()
+
+
+class TagSerializer(serializers.ModelSerializer):
+    """serializes tag objects"""
+
+    class Meta:
+        model = Tag
+        fields = ("tag",)
+
+    def to_representation(self, obj):
+        return obj.tag

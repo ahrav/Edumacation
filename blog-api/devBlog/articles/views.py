@@ -1,15 +1,17 @@
 from rest_framework import generics, mixins, status, viewsets
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import (
+    AllowAny,
     IsAuthenticated,
     IsAuthenticatedOrReadOnly,
 )
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Article, Comment
-from .renderers import ArticleJSONRenderer, CommentJSONRenderer
-from .serializers import ArticleSerializer, CommentSerializer
+from .models import Article, Comment, Tag
+
+# from .renderers import ArticleJSONRenderer, CommentJSONRenderer
+from .serializers import ArticleSerializer, CommentSerializer, TagSerializer
 
 
 class ArticleViewSet(
@@ -139,7 +141,7 @@ class CommentsListCreateAPIView(generics.ListCreateAPIView):
     lookup_field = "article__slug"
     lookup_url_kwarg = "article_slug"
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    renderer_classes = (CommentJSONRenderer,)
+    # renderer_classes = (CommentJSONRenderer,)
     serializer_class = CommentSerializer
     queryset = Comment.objects.select_related(
         "article",
@@ -188,3 +190,18 @@ class CommentsDestroyAPIView(generics.DestroyAPIView):
         comment.delete()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+class TagListAPIView(generics.ListAPIView):
+    """responsible for viewing all tags"""
+
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+
+    def list(self, request):
+        serializer_data = self.get_queryset()
+        serializer = self.serializer_class(serializer_data, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

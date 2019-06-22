@@ -8,6 +8,7 @@ from authentication.models import User
 from .models import Article, Comment, Tag
 
 ARTICLE_URL = reverse("articles:article-list")
+TAGS_URL = reverse('articles:tag-list')
 CREATE_ARTICLE_PAYLOAD = {
     "article": {
         "body": "test body action",
@@ -336,3 +337,47 @@ class CommentApiTests(TestCase):
         self.assertEqual(
             self.article.comments.first().body, self.comment2.body
         )
+
+
+class TagApiTests(TestCase):
+    """Tests for tags"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = create_user(
+            email="test@test.com", username="test_user", password="test_pass"
+        )
+        self.article = create_article(
+            body="test body",
+            title="test title",
+            description="test description",
+            author=self.user.profile,
+            slug="test-slug",
+        )
+        tag1 = create_tag(tag="test_tag1", slug="test-slug1")
+        tag2 = create_tag(tag="test_tag2", slug="test-slug2")
+
+        self.article.tags.add(tag1)
+        self.article.tags.add(tag2)
+
+    def test_list_of_tags_authenticated(self):
+        """authenticated users should be able to
+           view list of all tags created"""
+
+        self.client.force_authenticate(user=self.user)
+
+        res = self.client.get(TAGS_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 2)
+        self.assertIn('test_tag1', res.data)
+
+    def test_list_of_tags_un_authenticated(self):
+        """unauthenticated users should also
+           be able to view list of all tags"""
+
+        res = self.client.get(TAGS_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 2)
+        self.assertIn('test_tag1', res.data)
