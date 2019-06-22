@@ -10,7 +10,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
     """Serializes registration requests and creates a new user"""
 
     password = serializers.CharField(
-        max_length=128, min_length=8, write_only=True
+        max_length=128,
+        min_length=8,
+        write_only=True,
+        style={"input_type": "password"},
+        trim_whitespace=False,
     )
     token = serializers.CharField(max_length=255, read_only=True)
 

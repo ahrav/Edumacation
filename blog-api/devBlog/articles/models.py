@@ -1,4 +1,5 @@
 from django.db import models
+from django_extensions.db.fields import AutoSlugField
 
 from core.models import TimestampModel
 from profiles.models import Profile
@@ -7,7 +8,9 @@ from profiles.models import Profile
 class Article(TimestampModel):
     """Articles related to users"""
 
-    slug = models.SlugField(db_index=True, max_length=255, unique=True)
+    slug = AutoSlugField(
+        populate_from=["title"], db_index=True, max_length=255, unique=True
+    )
     title = models.CharField(db_index=True, max_length=255)
     description = models.TextField()
     body = models.TextField()
@@ -36,7 +39,7 @@ class Tag(TimestampModel):
     """Tags related to articles"""
 
     tag = models.CharField(max_length=255)
-    slug = models.SlugField(db_index=True, unique=True)
+    slug = AutoSlugField(db_index=True, unique=True, populate_from=["tag"])
 
     def __str__(self):
         return self.tag

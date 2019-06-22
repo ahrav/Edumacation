@@ -65,6 +65,7 @@ class RegistrationAPIView(APIView):
 
     def post(self, request):
         """Method to handle creating a new user"""
+
         username = request.data.get("username", "")
         email = request.data.get("email", "")
         password = request.data.get("password", "")

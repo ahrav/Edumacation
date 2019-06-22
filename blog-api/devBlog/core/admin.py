@@ -1,32 +1,36 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.utils.translation import gettext as _
 
 from authentication.models import User
 from profiles.models import Profile
+from articles.models import Article, Comment, Tag
 
 
-class UserAdmin(BaseUserAdmin):
-    ordering = ["id"]
-    list_display = ["email", "username"]
-    fieldsets = (
-        (None, {"fields": ("email", "username", "password")}),
-        (
-            _("Permissions"),
-            {"fields": ("is_active", "is_staff", "is_superuser")},
-        ),
-        (_("Important dates"), {"fields": ("last_login",)}),
-    )
-    add_fieldsets = (
-        (
-            None,
-            {
-                "classes": ("wide",),
-                "fields": ("email", "username", "password"),
-            },
-        ),
-    )
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+
+    list_display = ("username", "email")
 
 
-admin.site.register(User, UserAdmin)
-admin.site.register(Profile)
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+
+    list_display = ("user", "bio")
+
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+
+    list_display = ("title", "author", "description")
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+
+    list_display = ("body", "article", "author")
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+
+    list_display = ("tag", "slug")
+
