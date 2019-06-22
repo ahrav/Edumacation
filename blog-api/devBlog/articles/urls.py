@@ -10,7 +10,7 @@ from .views import (
     TagListAPIView,
 )
 
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register("articles", ArticleViewSet)
 
 app_name = "articles"

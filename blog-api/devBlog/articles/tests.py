@@ -20,23 +20,25 @@ CREATE_ARTICLE_PAYLOAD = {
 CREATE_COMMENT_PAYLOAD = {"comment": {"body": "test new comment"}}
 
 
-def detail_article_url(slug):
+def get_detail_article_url(slug):
     return reverse("articles:article-detail", args=[slug])
 
 
-def detail_comment_url(slug):
+def get_detail_comment_url(slug):
     return reverse("articles:comment-detail", args=[slug])
 
 
-def detail_comment_delete_url(slug, comment_pk):
+def get_detail_comment_delete_url(slug, comment_pk):
     return reverse("articles:comment-delete", args=[slug, comment_pk])
 
 
-def favorite_article_url(slug):
+def get_favorite_article_url(slug):
     return reverse("articles:article-favorite", args=[slug])
+
 
 def get_profile_follow_url(username):
     return reverse("profiles:profile-follow", args=[username])
+
 
 def create_user(**params):
     return User.objects.create_user(**params)
@@ -130,7 +132,7 @@ class ArticleApiTests(TestCase):
 
         payload = {"article": {"body": "updated body"}}
 
-        url = detail_article_url(self.article.slug)
+        url = get_detail_article_url(self.article.slug)
         res = self.client.put(url, payload, format="json")
 
         self.article.refresh_from_db()
@@ -142,7 +144,7 @@ class ArticleApiTests(TestCase):
 
         payload = {"article": {"body": "updated body"}}
 
-        url = detail_article_url(self.article.slug)
+        url = get_detail_article_url(self.article.slug)
         res = self.client.put(url, payload, format="json")
 
         self.article.refresh_from_db()
@@ -154,7 +156,7 @@ class ArticleApiTests(TestCase):
         self.client.force_authenticate(user=self.user)
         payload = {"article": {"body": "updated body"}}
 
-        url = detail_article_url("wrong_slug")
+        url = get_detail_article_url("wrong_slug")
         res = self.client.put(url, payload, format="json")
 
         self.assertIn("errors", res.data)
@@ -165,7 +167,7 @@ class ArticleApiTests(TestCase):
 
         self.client.force_authenticate(user=self.user)
 
-        url = favorite_article_url(self.article.slug)
+        url = get_favorite_article_url(self.article.slug)
         res = self.client.post(url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -176,7 +178,7 @@ class ArticleApiTests(TestCase):
     def test_favorite_article_un_authenticated(self):
         """unauthenticated users should not be able to favorite articles"""
 
-        url = favorite_article_url(self.article.slug)
+        url = get_favorite_article_url(self.article.slug)
         res = self.client.post(url)
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
@@ -189,7 +191,7 @@ class ArticleApiTests(TestCase):
         self.client.force_authenticate(user=self.user)
         self.article.author.favorite(self.article)
 
-        url = favorite_article_url(self.article.slug)
+        url = get_favorite_article_url(self.article.slug)
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -201,7 +203,7 @@ class ArticleApiTests(TestCase):
         """unauthenticated user should not be able to unfavorite articles"""
 
         self.article.author.favorite(self.article)
-        url = favorite_article_url(self.article.slug)
+        url = get_favorite_article_url(self.article.slug)
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
@@ -215,7 +217,7 @@ class ArticleApiTests(TestCase):
         self.article2.tags.add(tag1)
         self.article2.tags.add(tag2)
 
-        url = detail_article_url(self.article2.slug)
+        url = get_detail_article_url(self.article2.slug)
         res = self.client.get(url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -316,6 +318,56 @@ class ArticleApiTests(TestCase):
 
         self.assertEqual(result.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_articles_filtered_by_author(self):
+        """retrieve list of articles filtered by the author given"""
+
+        self.article3 = create_article(
+            body="test body 3",
+            title="test title 3",
+            description="test description 3",
+            author=self.user.profile,
+            slug="test-slug-3",
+        )
+
+        url = f"{ARTICLE_URL}?author={self.user.username}"
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data['results']), 3)
+        for article in res.data['results']:
+            self.assertEqual(article['author'], self.user.id)
+
+    def test_favorited_articles_by_username_filter(self):
+        """retrieve list of favorited articles based on username provided"""
+
+        self.client.force_authenticate(user=self.user)
+
+        article_url = get_favorite_article_url(self.article.slug)
+        res = self.client.post(article_url)
+
+        filter_url = f"{ARTICLE_URL}?favorited={self.user.username}"
+        res = self.client.get(filter_url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data['results'][0]['slug'], self.article.slug)
+        self.assertEqual(len(res.data['results']), 1)
+
+    def test_articles_filtered_by_tags(self):
+        """retrieve list of articles filtered by their tag """
+
+        self.client.force_authenticate(user=self.user)
+        tag1 = create_tag(tag="test_tag1", slug="test-slug1")
+        tag2 = create_tag(tag="test_tag2", slug="test-slug2")
+        self.article2.tags.add(tag1)
+        self.article.tags.add(tag2)
+
+        url = f"{ARTICLE_URL}?tag={tag1.tag}"
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data['results']), 1)
+        self.assertEqual(res.data['results'][0]['slug'], self.article2.slug)
+
 
 class CommentApiTests(TestCase):
     """Test ability to create comments for articles"""
@@ -344,7 +396,7 @@ class CommentApiTests(TestCase):
 
         self.client.force_authenticate(user=self.user)
 
-        url = detail_comment_url(self.article.slug)
+        url = get_detail_comment_url(self.article.slug)
         res = self.client.post(url, CREATE_COMMENT_PAYLOAD, format="json")
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -356,7 +408,7 @@ class CommentApiTests(TestCase):
     def test_create_comment_un_authorized(self):
         """unauthorized users should not be able to create comments"""
 
-        url = detail_comment_url(self.article.slug)
+        url = get_detail_comment_url(self.article.slug)
         res = self.client.post(url, CREATE_COMMENT_PAYLOAD, format="json")
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
@@ -366,7 +418,7 @@ class CommentApiTests(TestCase):
 
         self.client.force_authenticate(user=self.user)
 
-        url = detail_comment_url(self.article.slug)
+        url = get_detail_comment_url(self.article.slug)
         res = self.client.post(url, {}, format="json")
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
@@ -374,7 +426,7 @@ class CommentApiTests(TestCase):
     def test_retrieve_comments_for_article(self):
         """return list of comments for article"""
 
-        url = detail_comment_url(self.article.slug)
+        url = get_detail_comment_url(self.article.slug)
 
         res = self.client.get(url)
 
@@ -386,7 +438,7 @@ class CommentApiTests(TestCase):
         """authorized users should be able to delete comments"""
 
         self.client.force_authenticate(user=self.user)
-        url = detail_comment_delete_url(self.article.slug, self.comment1.id)
+        url = get_detail_comment_delete_url(self.article.slug, self.comment1.id)
 
         res = self.client.delete(url)
 

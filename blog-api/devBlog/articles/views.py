@@ -28,6 +28,25 @@ class ArticleViewSet(
     # renderer_classes = (ArticleJSONRenderer,)
     lookup_field = "slug"
 
+    def get_queryset(self):
+        queryset = self.queryset
+
+        author = self.request.query_params.get("author", None)
+        if author:
+            queryset = queryset.filter(author__user__username=author)
+
+        tag = self.request.query_params.get("tag", None)
+        if tag:
+            queryset = queryset.filter(tags__tag=tag)
+
+        favorited_by = self.request.query_params.get("favorited", None)
+        if favorited_by:
+            queryset = queryset.filter(
+                favorited_by__user__username=favorited_by
+            )
+
+        return queryset
+
     def create(self, request):
         """method to create new articles"""
 
@@ -48,7 +67,7 @@ class ArticleViewSet(
         """method to return all articles"""
 
         serializer_context = {"request": request}
-        page = self.paginate_queryset(self.queryset)
+        page = self.paginate_queryset(self.get_queryset())
 
         serializer = self.serializer_class(
             page, context=serializer_context, many=True
