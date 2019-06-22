@@ -118,8 +118,8 @@ class ArticleApiTests(TestCase):
         res = self.client.get(ARTICLE_URL)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(res.data), 2)
-        self.assertIsInstance(res.data, list)
+        self.assertEqual(len(res.data['results']), 2)
+        self.assertIsInstance(res.data['results'], list)
 
     def test_update_article(self):
         """user should be able to update article"""
@@ -256,6 +256,15 @@ class ArticleApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_articles_are_paginated(self):
+        """articles should be returuned in a paginated format"""
+
+        res = self.client.get(ARTICLE_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(res.data['results'], list)
+        self.assertIn('count', res.data)
+
 
 class CommentApiTests(TestCase):
     """Test ability to create comments for articles"""
@@ -319,8 +328,8 @@ class CommentApiTests(TestCase):
         res = self.client.get(url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertIsInstance(res.data, list)
-        self.assertEqual(len(res.data), 2)
+        self.assertIsInstance(res.data['results'], list)
+        self.assertEqual(len(res.data['results']), 2)
 
     def test_delete_comment_authorized(self):
         """authorized users should be able to delete comments"""

@@ -4,6 +4,9 @@ from core.renderers import DevBlogJSONRenderer
 class UserJSONRenderer(DevBlogJSONRenderer):
     object_level = "user"
 
+    pagination_object_label = "users"
+    pagination_count_label = "usersCount"
+
     def render(self, data, media_type=None, render_context=None):
         """First check for authentication and wrap errors in error namespace
            Decode token key in response so it serializes properly
