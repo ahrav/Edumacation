@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Article, Comment, Tag
+from .permissions import IsOwnerOrReadyOnly
 
 # from .renderers import ArticleJSONRenderer, CommentJSONRenderer
 from .serializers import ArticleSerializer, CommentSerializer, TagSerializer
@@ -18,12 +19,13 @@ class ArticleViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
+    mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
     """View for creating articles"""
 
     queryset = Article.objects.select_related("author", "author__user")
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsOwnerOrReadyOnly, IsAuthenticatedOrReadOnly)
     serializer_class = ArticleSerializer
     # renderer_classes = (ArticleJSONRenderer,)
     lookup_field = "slug"
@@ -116,7 +118,7 @@ class ArticleViewSet(
 class ArticlesFavoriteAPIView(APIView):
     """view to handle favoriting articles"""
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwnerOrReadyOnly)
     serializer_class = ArticleSerializer
 
     def delete(self, request, article_slug=None):
@@ -220,7 +222,7 @@ class CommentsDestroyAPIView(generics.DestroyAPIView):
     """view to delete comments"""
 
     lookup_url_kwargs = "comment_pk"
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadyOnly)
     queryset = Comment.objects.all()
 
     def destroy(self, request, article_slug=None, comment_pk=None):

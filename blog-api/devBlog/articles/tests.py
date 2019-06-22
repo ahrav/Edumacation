@@ -104,6 +104,43 @@ class ArticleApiTests(TestCase):
             res.data["body"], CREATE_ARTICLE_PAYLOAD["article"]["body"]
         )
 
+    def test_delete_article_authorized(self):
+        """authorized users can delete their article"""
+
+        self.client.force_authenticate(user=self.user)
+
+        url = get_detail_article_url(self.article.slug)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_delete_article_un_authorized(self):
+        """unauthorized users can not delete articles"""
+
+        url = get_detail_article_url(self.article.slug)
+        res = self.client.delete(url)
+
+        self.assertAlmostEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_delete_article_not_author(self):
+        """user can not delete article if they are not the author"""
+
+        self.client.force_authenticate(user=self.user)
+        user2 = create_user(
+            email='test2@test.com',
+            username='username22',
+            password='testpass')
+
+        user2_article = create_article(
+            body='tet boy', title='cant delete me',
+            description='this will last',
+            author=user2.profile, slug='slug=no-delete')
+
+        url = get_detail_article_url(user2_article.slug)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+
     def test_create_article_correct_author(self):
         """Ensure when article is created correct
            author username is in response"""
@@ -438,7 +475,8 @@ class CommentApiTests(TestCase):
         """authorized users should be able to delete comments"""
 
         self.client.force_authenticate(user=self.user)
-        url = get_detail_comment_delete_url(self.article.slug, self.comment1.id)
+        url = get_detail_comment_delete_url(
+            self.article.slug, self.comment1.id)
 
         res = self.client.delete(url)
 
