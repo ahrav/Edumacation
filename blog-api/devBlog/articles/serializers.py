@@ -3,6 +3,7 @@ from rest_framework import serializers
 from profiles.serializers import ProfileSerializer
 
 from .models import Article, Comment
+from .relations import TagRelatedField
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -12,7 +13,10 @@ class ArticleSerializer(serializers.ModelSerializer):
     description = serializers.CharField(required=False)
     slug = serializers.SlugField(required=False)
     favorited = serializers.SerializerMethodField()
-    favorites_count = serializers.SerializerMethodField()
+    favoritesCount = serializers.SerializerMethodField(
+        method_name="get_favorites_count"
+    )
+    tagList = TagRelatedField(many=True, required=False, source="tags")
     createdAt = serializers.SerializerMethodField(method_name="get_created_at")
     updatedAt = serializers.SerializerMethodField(method_name="get_updated_at")
 
@@ -24,15 +28,23 @@ class ArticleSerializer(serializers.ModelSerializer):
             "createdAt",
             "description",
             "favorited",
-            "favorites_count",
+            "favoritesCount",
             "slug",
+            "tagList",
             "title",
             "updatedAt",
         )
 
     def create(self, validated_data):
         author = self.context.get("author", None)
-        return Article.objects.create(author=author, **validated_data)
+        tags = validated_data.pop("tags", [])
+
+        article = Article.objects.create(author=author, **validated_data)
+
+        for tag in tags:
+            article.tags.add(tag)
+
+        return article
 
     def get_created_at(self, instance):
         return instance.created_at.isoformat()

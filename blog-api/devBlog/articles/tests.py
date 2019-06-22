@@ -5,7 +5,7 @@ from rest_framework.test import APIClient
 
 from authentication.models import User
 
-from .models import Article, Comment
+from .models import Article, Comment, Tag
 
 ARTICLE_URL = reverse("articles:article-list")
 CREATE_ARTICLE_PAYLOAD = {
@@ -46,6 +46,10 @@ def create_comment(**params):
     return Comment.objects.create(**params)
 
 
+def create_tag(**params):
+    return Tag.objects.create(**params)
+
+
 class ArticleApiTests(TestCase):
     """Test for articles"""
 
@@ -61,7 +65,7 @@ class ArticleApiTests(TestCase):
             author=self.user.profile,
             slug="test-slug",
         )
-        self.article = create_article(
+        self.article2 = create_article(
             body="test body 2",
             title="test title 2",
             description="test description 2",
@@ -163,7 +167,7 @@ class ArticleApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertTrue(res.data["favorited"])
         self.assertEqual(res.data["slug"], self.article.slug)
-        self.assertEqual(res.data["favorites_count"], 1)
+        self.assertEqual(res.data["favoritesCount"], 1)
 
     def test_favorite_article_un_authenticated(self):
         """unauthenticated users should not be able to favorite articles"""
@@ -185,7 +189,7 @@ class ArticleApiTests(TestCase):
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data["favorites_count"], 0)
+        self.assertEqual(res.data["favoritesCount"], 0)
         self.assertFalse(res.data["favorited"])
         self.assertEqual(res.data["slug"], self.article.slug)
 
@@ -195,6 +199,59 @@ class ArticleApiTests(TestCase):
         self.article.author.favorite(self.article)
         url = favorite_article_url(self.article.slug)
         res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_add_tags_to_article_authenticated(self):
+        """authenticated users should be able to add tags to articles"""
+
+        self.client.force_authenticate(user=self.user)
+        tag1 = create_tag(tag="test_tag1", slug="test-slug1")
+        tag2 = create_tag(tag="test_tag2", slug="test-slug2")
+        self.article2.tags.add(tag1)
+        self.article2.tags.add(tag2)
+
+        url = detail_article_url(self.article2.slug)
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data["tagList"]), 2)
+        self.assertIn("test_tag1", res.data["tagList"])
+
+    def test_create_article_with_tags(self):
+        """create and article and attach a list of tags"""
+
+        self.client.force_authenticate(user=self.user)
+
+        payload = {
+            "article": {
+                "title": "test title",
+                "description": "test description",
+                "body": "test body",
+                "tagList": ["test1", "test2"],
+            }
+        }
+
+        res = self.client.post(ARTICLE_URL, payload, format='json')
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(len(res.data['tagList']), 2)
+        self.assertEqual(res.data['title'], payload['article']['title'])
+        self.assertIn(payload['article']['tagList'][0], res.data['tagList'])
+
+    def test_add_tags_to_article_un_authenticated(self):
+        """unauthenticated users should not be able to tag articles"""
+
+        payload = {
+            "article": {
+                "title": "test title",
+                "description": "test description",
+                "body": "test body",
+                "tagList": ["test1", "test2"],
+            }
+        }
+
+        res = self.client.post(ARTICLE_URL, payload, format="json")
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
