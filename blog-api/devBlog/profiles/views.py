@@ -1,12 +1,13 @@
 from rest_framework import status, serializers
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Profile
-from .renderers import ProfileJSONRenderer
+
+# from .renderers import ProfileJSONRenderer
 from .serializers import ProfileSerializer
 
 
