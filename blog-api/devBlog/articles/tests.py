@@ -490,6 +490,32 @@ class CommentApiTests(TestCase):
             self.article.comments.first().body, self.comment2.body
         )
 
+    def test_delete_comment_un_authorized(self):
+        """unauthenticated users should not be able to modify comments"""
+
+        url = get_detail_comment_delete_url(self.article.slug, self.comment1.id)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertIsNotNone(self.comment1)
+
+    def test_delete_comment_not_author(self):
+        """a user that is not the author
+           should not be able to delete the comment"""
+
+        self.user2 = create_user(
+            username='cantdelete',
+            password='testpass', 
+            email='cant@test.com'
+            )
+        self.client.force_authenticate(user=self.user2)
+
+        url = get_detail_comment_delete_url(self.article.slug, self.comment1.id)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertIsNotNone(self.comment1)
+
 
 class TagApiTests(TestCase):
     """Tests for tags"""

@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import generics, mixins, status, viewsets
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import (
@@ -9,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Article, Comment, Tag
-from .permissions import IsOwnerOrReadyOnly
+from .permissions import IsOwnerOrReadOnly
 
 # from .renderers import ArticleJSONRenderer, CommentJSONRenderer
 from .serializers import ArticleSerializer, CommentSerializer, TagSerializer
@@ -25,7 +27,7 @@ class ArticleViewSet(
     """View for creating articles"""
 
     queryset = Article.objects.select_related("author", "author__user")
-    permission_classes = (IsOwnerOrReadyOnly, IsAuthenticatedOrReadOnly)
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly)
     serializer_class = ArticleSerializer
     # renderer_classes = (ArticleJSONRenderer,)
     lookup_field = "slug"
@@ -118,7 +120,7 @@ class ArticleViewSet(
 class ArticlesFavoriteAPIView(APIView):
     """view to handle favoriting articles"""
 
-    permission_classes = (IsAuthenticated, IsOwnerOrReadyOnly)
+    permission_classes = (IsAuthenticated,)
     serializer_class = ArticleSerializer
 
     def delete(self, request, article_slug=None):
@@ -129,7 +131,7 @@ class ArticlesFavoriteAPIView(APIView):
 
         try:
             article = Article.objects.get(slug=article_slug)
-        except Article.DoesNotExists:
+        except Article.DoesNotExist:
             raise NotFound("Article with this slug does not exist")
 
         profile.unfavorite(article)
@@ -222,16 +224,18 @@ class CommentsDestroyAPIView(generics.DestroyAPIView):
     """view to delete comments"""
 
     lookup_url_kwargs = "comment_pk"
-    permission_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadyOnly)
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
     def destroy(self, request, article_slug=None, comment_pk=None):
         """method to delete comment"""
 
         try:
             comment = Comment.objects.get(pk=comment_pk)
+            self.check_object_permissions(self.request, comment)
         except Comment.DoesNotExist:
-            raise NotFound("A cooment with this ID does not exist")
+            raise NotFound("A comment with this ID does not exist")
 
         comment.delete()
 

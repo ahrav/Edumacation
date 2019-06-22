@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class IsOwnerOrReadyOnly(permissions.BasePermission):
+class IsOwnerOrReadOnly(permissions.BasePermission):
     """Only allow owners of an object can modify it"""
 
     def has_object_permission(self, request, view, obj):
