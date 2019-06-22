@@ -20,14 +20,11 @@
 									"if (!(environment.isIntegrationTest)) {",
 									"var responseJSON = JSON.parse(responseBody);",
 									"",
-									"tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
 									"",
-									"var user = responseJSON.user || {};",
+									"var user = responseJSON || {};",
 									"",
 									"tests['User has \"email\" property'] = user.hasOwnProperty('email');",
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
-									"tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
-									"tests['User has \"image\" property'] = user.hasOwnProperty('image');",
 									"tests['User has \"token\" property'] = user.hasOwnProperty('token');",
 									"}",
 									""
@@ -74,14 +71,11 @@
 								"exec": [
 									"var responseJSON = JSON.parse(responseBody);",
 									"",
-									"tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
 									"",
-									"var user = responseJSON.user || {};",
+									"var user = responseJSON || {};",
 									"",
 									"tests['User has \"email\" property'] = user.hasOwnProperty('email');",
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
-									"tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
-									"tests['User has \"image\" property'] = user.hasOwnProperty('image');",
 									"tests['User has \"token\" property'] = user.hasOwnProperty('token');",
 									""
 								],
@@ -183,13 +177,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
+								"id": "356330c3-aaa6-4add-9bb0-f9c8451f38a2",
 								"exec": [
 									"var responseJSON = JSON.parse(responseBody);",
 									"",
-									"tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
 									"",
-									"var user = responseJSON.user || {};",
+									"",
+									"var user = responseJSON || {};",
 									"",
 									"tests['User has \"email\" property'] = user.hasOwnProperty('email');",
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
@@ -197,7 +191,8 @@
 									"tests['User has \"image\" property'] = user.hasOwnProperty('image');",
 									"tests['User has \"token\" property'] = user.hasOwnProperty('token');",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -218,12 +213,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{APIURL}}/user",
+							"raw": "{{APIURL}}users/me",
 							"host": [
-								"{{APIURL}}"
+								"{{APIURL}}users"
 							],
 							"path": [
-								"user"
+								"me"
 							]
 						}
 					},
@@ -239,9 +234,8 @@
 								"exec": [
 									"var responseJSON = JSON.parse(responseBody);",
 									"",
-									"tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
 									"",
-									"var user = responseJSON.user || {};",
+									"var user = responseJSON || {};",
 									"",
 									"tests['User has \"email\" property'] = user.hasOwnProperty('email');",
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
@@ -286,6 +280,52 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "356330c3-aaa6-4add-9bb0-f9c8451f38a2",
+								"exec": [
+									"var is204Response = responseCode.code === 204",
+									"",
+									"tests['Response code is 204 No Content'] = is204Response;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest"
+							},
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{APIURL}}users/me/",
+							"host": [
+								"{{APIURL}}users"
+							],
+							"path": [
+								"me",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -307,12 +347,12 @@
 									"if(is200Response){",
 									"    var responseJSON = JSON.parse(responseBody);",
 									"",
-									"    tests['Response contains \"articles\" property'] = responseJSON.hasOwnProperty('articles');",
-									"    tests['Response contains \"articlesCount\" property'] = responseJSON.hasOwnProperty('articlesCount');",
-									"    tests['articlesCount is an integer'] = Number.isInteger(responseJSON.articlesCount);",
+									"    tests['Response contains \"results\" property'] = responseJSON.hasOwnProperty('results');",
+									"    tests['Response contains \"count\" property'] = responseJSON.hasOwnProperty('count');",
+									"    tests['count is an integer'] = Number.isInteger(responseJSON.count);",
 									"",
-									"    if(responseJSON.articles.length){",
-									"        var article = responseJSON.articles[0];",
+									"    if(responseJSON.results.length){",
+									"        var article = responseJSON.results[0];",
 									"",
 									"        tests['Article has \"title\" property'] = article.hasOwnProperty('title');",
 									"        tests['Article has \"slug\" property'] = article.hasOwnProperty('slug');",
@@ -327,9 +367,9 @@
 									"        tests['Article has \"author\" property'] = article.hasOwnProperty('author');",
 									"        tests['Article has \"favorited\" property'] = article.hasOwnProperty('favorited');",
 									"        tests['Article has \"favoritesCount\" property'] = article.hasOwnProperty('favoritesCount');",
-									"        tests['favoritesCount is an integer'] = Number.isInteger(article.favoritesCount);",
+									"        tests['favoritesCount is an integer'] = Number.isInteger(article.results.favoritesCount);",
 									"    } else {",
-									"        tests['articlesCount is 0 when feed is empty'] = responseJSON.articlesCount === 0;",
+									"        tests['articlesCount is 0 when feed is empty'] = responseJSON.count === 0;",
 									"    }",
 									"}",
 									""
@@ -374,12 +414,12 @@
 									"if(is200Response){",
 									"    var responseJSON = JSON.parse(responseBody);",
 									"",
-									"    tests['Response contains \"articles\" property'] = responseJSON.hasOwnProperty('articles');",
-									"    tests['Response contains \"articlesCount\" property'] = responseJSON.hasOwnProperty('articlesCount');",
-									"    tests['articlesCount is an integer'] = Number.isInteger(responseJSON.articlesCount);",
+									"    tests['Response contains \"results\" property'] = responseJSON.hasOwnProperty('results');",
+									"    tests['Response contains \"count\" property'] = responseJSON.hasOwnProperty('count');",
+									"    tests['count is an integer'] = Number.isInteger(responseJSON.count);",
 									"",
-									"    if(responseJSON.articles.length){",
-									"        var article = responseJSON.articles[0];",
+									"    if(responseJSON.results.length){",
+									"        var article = responseJSON.results[0];",
 									"",
 									"        tests['Article has \"title\" property'] = article.hasOwnProperty('title');",
 									"        tests['Article has \"slug\" property'] = article.hasOwnProperty('slug');",
@@ -396,7 +436,7 @@
 									"        tests['Article has \"favoritesCount\" property'] = article.hasOwnProperty('favoritesCount');",
 									"        tests['favoritesCount is an integer'] = Number.isInteger(article.favoritesCount);",
 									"    } else {",
-									"        tests['articlesCount is 0 when feed is empty'] = responseJSON.articlesCount === 0;",
+									"        tests['count is 0 when feed is empty'] = responseJSON.count === 0;",
 									"    }",
 									"}",
 									""
@@ -447,12 +487,12 @@
 									"if(is200Response){",
 									"    var responseJSON = JSON.parse(responseBody);",
 									"    ",
-									"    tests['Response contains \"articles\" property'] = responseJSON.hasOwnProperty('articles');",
-									"    tests['Response contains \"articlesCount\" property'] = responseJSON.hasOwnProperty('articlesCount');",
-									"    tests['articlesCount is an integer'] = Number.isInteger(responseJSON.articlesCount);",
+									"    tests['Response contains \"results\" property'] = responseJSON.hasOwnProperty('results');",
+									"    tests['Response contains \"count\" property'] = responseJSON.hasOwnProperty('count');",
+									"    tests['count is an integer'] = Number.isInteger(responseJSON.count);",
 									"",
-									"    if(responseJSON.articles.length){",
-									"        var article = responseJSON.articles[0];",
+									"    if(responseJSON.results.length){",
+									"        var article = responseJSON.results[0];",
 									"",
 									"        tests['Article has \"title\" property'] = article.hasOwnProperty('title');",
 									"        tests['Article has \"slug\" property'] = article.hasOwnProperty('slug');",
@@ -469,7 +509,7 @@
 									"        tests['Article has \"favoritesCount\" property'] = article.hasOwnProperty('favoritesCount');",
 									"        tests['favoritesCount is an integer'] = Number.isInteger(article.favoritesCount);",
 									"    } else {",
-									"        tests['articlesCount is 0 when feed is empty'] = responseJSON.articlesCount === 0;",
+									"        tests['count is 0 when feed is empty'] = responseJSON.count === 0;",
 									"    }",
 									"}",
 									""
@@ -520,12 +560,12 @@
 									"if(is200Response){",
 									"    var responseJSON = JSON.parse(responseBody);",
 									"",
-									"    tests['Response contains \"articles\" property'] = responseJSON.hasOwnProperty('articles');",
-									"    tests['Response contains \"articlesCount\" property'] = responseJSON.hasOwnProperty('articlesCount');",
-									"    tests['articlesCount is an integer'] = Number.isInteger(responseJSON.articlesCount);",
+									"    tests['Response contains \"results\" property'] = responseJSON.hasOwnProperty('results');",
+									"    tests['Response contains \"count\" property'] = responseJSON.hasOwnProperty('count');",
+									"    tests['count is an integer'] = Number.isInteger(responseJSON.count);",
 									"",
-									"    if(responseJSON.articles.length){",
-									"        var article = responseJSON.articles[0];",
+									"    if(responseJSON.results.length){",
+									"        var article = responseJSON.results[0];",
 									"",
 									"        tests['Article has \"title\" property'] = article.hasOwnProperty('title');",
 									"        tests['Article has \"slug\" property'] = article.hasOwnProperty('slug');",
@@ -542,7 +582,7 @@
 									"        tests['Article has \"favoritesCount\" property'] = article.hasOwnProperty('favoritesCount');",
 									"        tests['favoritesCount is an integer'] = Number.isInteger(article.favoritesCount);",
 									"    } else {",
-									"        tests['articlesCount is 0 when feed is empty'] = responseJSON.articlesCount === 0;",
+									"        tests['count is 0 when feed is empty'] = responseJSON.count === 0;",
 									"    }",
 									"}",
 									""
@@ -639,9 +679,12 @@
 							"raw": "{\"article\":{\"title\":\"How to train your dragon\", \"description\":\"Ever wonder how?\", \"body\":\"Very carefully.\", \"tagList\":[\"dragons\",\"training\"]}}"
 						},
 						"url": {
-							"raw": "{{APIURL}}articles",
+							"raw": "{{APIURL}}articles/",
 							"host": [
 								"{{APIURL}}articles"
+							],
+							"path": [
+								""
 							]
 						}
 					},
@@ -736,7 +779,7 @@
 									"if(is200Response){",
 									"    var responseJSON = JSON.parse(responseBody);",
 									"    ",
-									"    tests['Response contains \"articles\" property'] = responseJSON.hasOwnProperty('results');",
+									"",
 									"    tests['Response contains \"articlesCount\" property'] = responseJSON.hasOwnProperty('count');",
 									"    tests['count is an integer'] = Number.isInteger(responseJSON.count);",
 									"",
@@ -1360,12 +1403,13 @@
 							"raw": "{\"article\":{\"body\":\"With two hands\"}}"
 						},
 						"url": {
-							"raw": "{{APIURL}}articles/{{slug}}",
+							"raw": "{{APIURL}}articles/{{slug}}/",
 							"host": [
 								"{{APIURL}}articles"
 							],
 							"path": [
-								"{{slug}}"
+								"{{slug}}",
+								""
 							]
 						}
 					},
@@ -1749,8 +1793,6 @@
 									"",
 									"tests['User has \"email\" property'] = user.hasOwnProperty('email');",
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
-									"tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
-									"tests['User has \"image\" property'] = user.hasOwnProperty('image');",
 									"tests['User has \"token\" property'] = user.hasOwnProperty('token');",
 									"}",
 									""
