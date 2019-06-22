@@ -9,7 +9,7 @@ from .relations import TagRelatedField
 class ArticleSerializer(serializers.ModelSerializer):
     """serializer for article model"""
 
-    author = serializers.PrimaryKeyRelatedField(read_only=True)
+    author = ProfileSerializer(read_only=True)
     description = serializers.CharField(required=False)
     slug = serializers.SlugField(required=False)
     favorited = serializers.SerializerMethodField()
