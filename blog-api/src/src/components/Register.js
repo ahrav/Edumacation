@@ -42,7 +42,7 @@ const Register = ({
           <div className='col-md-6 offset-md-3 col-xs-12'>
             <h1 className='text-xs-center'>Sign Up</h1>
             <p className='text-xs-center'>
-              <Link to='login'>Have an account?</Link>
+              <Link to='/login'>Have an account?</Link>
             </p>
 
             <ListErrors errors={errors} />
@@ -93,7 +93,7 @@ const Register = ({
                     placeholder='Re-enter Password'
                     name='password2'
                     required
-                    value={password}
+                    value={password2}
                     onChange={e => onChange(e)}
                   />
                 </fieldset>
@@ -115,7 +115,7 @@ const Register = ({
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth.isAuthenticated
+  auth: state.auth
 });
 
 export default connect(

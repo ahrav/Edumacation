@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import { login } from '../actions/auth';
 import ListErrors from './ListErrors';
@@ -31,7 +31,7 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
           <div className='col-md-6 offset-md-3 col-xs-12'>
             <h1 className='text-xs-center'>Sign In</h1>
             <p className='text-xs-center'>
-              <a>Need an account?</a>
+              <Link to='/register'>Need an account?</Link>
             </p>
 
             <ListErrors errors={errors} />
