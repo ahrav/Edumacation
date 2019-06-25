@@ -7,12 +7,13 @@ import store from './store';
 import App from './components/App';
 import Home from './components/Home/Index';
 import Login from './components/Login';
-import { loadUser } from './actions/auth';
-import setAuthToken from './utils/setAuthToken';
+import Alert from './components/layout/Alert';
+import './index';
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
+      <Alert />
       {/* <Switch> */}
       <Route exact path='/' component={App} />
       <Route exact path='/' component={Home} />

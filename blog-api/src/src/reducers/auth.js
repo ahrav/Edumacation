@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOAD_USER } from '../actions/types';
+import { LOGIN_USER, LOAD_USER, LOGIN_FAIL } from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -28,6 +28,15 @@ export default (state = {}, action) => {
         inProgress: false,
         errors: errors ? payload.errors : null
       };
+    case LOGIN_FAIL:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false
+      };
+    default:
+      return state;
   }
-  return state;
 };

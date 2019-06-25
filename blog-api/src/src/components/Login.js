@@ -42,6 +42,7 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
                   <input
                     className='form-control form-control-lg'
                     type='email'
+                    name='email'
                     placeholder='Email'
                     value={email}
                     onChange={e => onChange(e)}
@@ -53,6 +54,7 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
                   <input
                     className='form-control form-control-lg'
                     type='password'
+                    name='password'
                     placeholder='Password'
                     onChange={e => onChange(e)}
                     value={password}
