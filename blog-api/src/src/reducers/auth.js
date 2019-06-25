@@ -3,7 +3,9 @@ import {
   LOAD_USER,
   LOGIN_FAIL,
   REGISTER_FAIL,
-  REGISTER_USER
+  REGISTER_USER,
+  LOGOUT_USER,
+  CLEAR_PROFILE
 } from '../actions/types';
 
 const initialState = {
@@ -37,6 +39,7 @@ export default (state = {}, action) => {
       };
     case LOGIN_FAIL:
     case REGISTER_FAIL:
+    case LOGOUT_USER:
       localStorage.removeItem('token');
       return {
         ...state,

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
-import ListErrors from './ListErrors';
-import { register } from '../actions/auth';
-import { setAlert } from '../actions/alert';
+import ListErrors from '../ListErrors';
+import { register } from '../../actions/auth';
+import { setAlert } from '../../actions/alert';
 
 const Register = ({
   register,

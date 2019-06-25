@@ -4,7 +4,9 @@ import {
   LOAD_USER,
   LOGIN_FAIL,
   REGISTER_FAIL,
-  REGISTER_USER
+  REGISTER_USER,
+  LOGOUT_USER,
+  CLEAR_PROFILE
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
@@ -90,4 +92,14 @@ export const register = ({ username, email, password }) => async dispatch => {
       type: REGISTER_FAIL
     });
   }
+};
+
+export const logout = () => dispatch => {
+  dispatch({
+    type: CLEAR_PROFILE
+  });
+
+  dispatch({
+    type: LOGOUT_USER
+  });
 };

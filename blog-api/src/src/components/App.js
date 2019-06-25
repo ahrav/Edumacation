@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import Header from './Header';
+import Header from './layout/Header';
 import setAuthToken from '../utils/setAuthToken';
 import store from '../store';
 import { loadUser } from '../actions/auth';

@@ -9,3 +9,5 @@ export const LOAD_USER = 'LOAD_USER';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const REGISTER_USER = 'REGISTER_USER';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const CLEAR_PROFILE = 'CLEAR_PROFILE';
+export const LOGOUT_USER = 'LOGOUT_USER';

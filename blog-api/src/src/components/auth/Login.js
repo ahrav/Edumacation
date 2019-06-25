@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
-import { login } from '../actions/auth';
-import ListErrors from './ListErrors';
+import { login } from '../../actions/auth';
+import ListErrors from '../ListErrors';
 
 const Login = ({ login, isAuthenticated, inProgress, errors }) => {
   const [formData, setFormData] = useState({
