@@ -4,7 +4,6 @@ import { GET_ALL_ARTICLES, HOME_PAGE_LOADED } from './types';
 export const getArticles = () => async dispatch => {
   try {
     const res = await axios.get('/api/v1/articles');
-    console.log(res);
 
     dispatch({
       type: GET_ALL_ARTICLES,

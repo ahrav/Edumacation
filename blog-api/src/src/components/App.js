@@ -2,13 +2,12 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Header from './Header';
-import Home from './Home';
 
-const App = ({ appName }) => {
+const App = props => {
   return (
     <Fragment>
-      <Header appName={appName} />
-      <Home />
+      <Header appName={props.appName} />
+      {props.children}
     </Fragment>
   );
 };
