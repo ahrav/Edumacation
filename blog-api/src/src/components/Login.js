@@ -1,7 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const Login = () => {
+import { login } from '../actions/auth';
+import ListErrors from './ListErrors';
+
+const Login = ({ login, isAuthenticated, inProgress, errors }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const { email, password } = formData;
+
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    login(email, password);
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to='/' />;
+  }
   return (
     <div className='auth-page'>
       <div className='container page'>
@@ -12,13 +34,18 @@ const Login = () => {
               <a>Need an account?</a>
             </p>
 
-            <form>
+            <ListErrors errors={errors} />
+
+            <form onSubmit={e => onSubmit(e)}>
               <fieldset>
                 <fieldset className='form-group'>
                   <input
                     className='form-control form-control-lg'
                     type='email'
                     placeholder='Email'
+                    value={email}
+                    onChange={e => onChange(e)}
+                    required
                   />
                 </fieldset>
 
@@ -27,12 +54,17 @@ const Login = () => {
                     className='form-control form-control-lg'
                     type='password'
                     placeholder='Password'
+                    onChange={e => onChange(e)}
+                    value={password}
+                    required
+                    minLength='8'
                   />
                 </fieldset>
 
                 <button
                   className='btn btn-lg btn-primary pull-xs-right'
                   type='submit'
+                  disabled={inProgress}
                 >
                   Sign in
                 </button>
@@ -45,7 +77,13 @@ const Login = () => {
   );
 };
 
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  inProgress: state.auth.inProgress,
+  errors: state.auth.errors
+});
+
 export default connect(
-  null,
-  null
+  mapStateToProps,
+  { login }
 )(Login);

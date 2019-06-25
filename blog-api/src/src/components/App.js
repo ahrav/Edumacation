@@ -1,9 +1,19 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Header from './Header';
+import setAuthToken from '../utils/setAuthToken';
+import store from '../store';
+import { loadUser } from '../actions/auth';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = props => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   return (
     <Fragment>
       <Header appName={props.appName} />
