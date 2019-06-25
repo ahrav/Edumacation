@@ -8,7 +8,8 @@ import App from './components/App';
 import Home from './components/Home/Index';
 import Login from './components/Login';
 import Alert from './components/layout/Alert';
-import './index';
+import Register from './components/Register';
+import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route exact path='/' component={App} />
       <Route exact path='/' component={Home} />
       <Route path='/login' component={Login} />
+      <Route path='/register' component={Register} />
       {/* </Switch> */}
     </Router>
   </Provider>,

@@ -1,4 +1,10 @@
-import { LOGIN_USER, LOAD_USER, LOGIN_FAIL } from '../actions/types';
+import {
+  LOGIN_USER,
+  LOAD_USER,
+  LOGIN_FAIL,
+  REGISTER_FAIL,
+  REGISTER_USER
+} from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -20,6 +26,7 @@ export default (state = {}, action) => {
         user: payload
       };
     case LOGIN_USER:
+    case REGISTER_USER:
       localStorage.setItem('token', payload.token);
       return {
         ...state,
@@ -29,6 +36,7 @@ export default (state = {}, action) => {
         errors: errors ? payload.errors : null
       };
     case LOGIN_FAIL:
+    case REGISTER_FAIL:
       localStorage.removeItem('token');
       return {
         ...state,

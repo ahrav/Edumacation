@@ -16,14 +16,15 @@ const App = props => {
   }, []);
   return (
     <Fragment>
-      <Header appName={props.appName} />
+      <Header appName={props.appName} currentUser={props.currentUser} />
       {props.children}
     </Fragment>
   );
 };
 
 const mapStateToProps = state => ({
-  appName: state.common.appName
+  appName: state.common.appName,
+  currentUser: state.auth.user
 });
 
 export default connect(
