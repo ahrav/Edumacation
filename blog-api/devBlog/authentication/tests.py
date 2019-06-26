@@ -142,36 +142,34 @@ class UpdateUserApiTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_update_user_authorized(self):
-        payload = {"user": {"email": "edited@go.com"}}
+        payload = {"email": "edited@go.com"}
 
-        res = self.client.put(UPDATE_USER_URL, payload, format="json")
+        res = self.client.put(UPDATE_USER_URL, payload)
 
         self.user.refresh_from_db()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(self.user.email, payload["user"]["email"])
+        self.assertEqual(self.user.email, payload["email"])
 
     def test_update_no_password_in_response(self):
         """Make sure the password is not returned to the user"""
 
-        payload = {
-            "user": {"email": "edited@go.com", "password": "newpassword"}
-        }
+        payload = {"email": "edited@go.com", "password": "newpassword"}
 
-        res = self.client.put(UPDATE_USER_URL, payload, format="json")
+        res = self.client.put(UPDATE_USER_URL, payload)
 
         self.user.refresh_from_db()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(self.user.email, payload["user"]["email"])
+        self.assertEqual(self.user.email, payload["email"])
         self.assertNotIn("password", res.data)
 
     def test_update_profile(self):
         """Ensure profile gets updated when user modifies their account"""
 
-        payload = {"user": {"email": "edit@email.com", "bio": "new bio added"}}
+        payload = {"email": "edit@email.com", "bio": "new bio added"}
 
-        res = self.client.put(UPDATE_USER_URL, payload, format="json")
+        res = self.client.put(UPDATE_USER_URL, payload)
 
         self.user.refresh_from_db()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(self.user.profile.bio, payload["user"]["bio"])
+        self.assertEqual(self.user.profile.bio, payload["bio"])
         self.assertNotIn("password", res.data)

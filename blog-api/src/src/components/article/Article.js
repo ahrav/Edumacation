@@ -15,13 +15,11 @@ const Article = ({
   getArticle,
   getArticleComments
 }) => {
-  async function getArticleData() {
-    await getArticle(match.params.id);
-    await getArticleComments(match.params.id);
-  }
-
   useEffect(() => {
-    getArticleData();
+    (async () => {
+      await getArticle(match.params.id);
+      await getArticleComments(match.params.id);
+    })();
   }, [getArticleComments, getArticle, match.params.id]);
 
   if (loading || article === null) return <Spinner />;

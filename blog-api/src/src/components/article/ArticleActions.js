@@ -18,6 +18,7 @@ const ArticleActions = ({ deleteArticle, article: { slug }, canModify }) => {
         <button
           className='btn btn-outline-danger btn-sm'
           onClick={() => deleteArticle(slug)}
+          style={{ marginLeft: '3px' }}
         >
           <i className='ion-trash-a' /> Delete Article
         </button>

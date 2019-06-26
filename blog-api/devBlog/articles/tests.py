@@ -154,7 +154,7 @@ class ArticleApiTests(TestCase):
         )
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(res.data["author"], self.user.id)
+        self.assertEqual(res.data["author"]['username'], self.user.username)
 
     def test_retrieve_all_articles_authenticated(self):
         """user should be return list of articles"""
@@ -333,7 +333,8 @@ class ArticleApiTests(TestCase):
 
         self.assertEqual(result.status_code, status.HTTP_200_OK)
         self.assertEqual(len(result.data['results']), 1)
-        self.assertEqual(result.data['results'][0]['author'], self.followee.id)
+        self.assertEqual(result.data['results'][0]['author']['username'],
+                         self.followee.username)
 
     def test_view_feed_un_authenticated(self):
         """unauthenticated users should not be
@@ -374,7 +375,7 @@ class ArticleApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data['results']), 3)
         for article in res.data['results']:
-            self.assertEqual(article['author'], self.user.id)
+            self.assertEqual(article['author']['username'], self.user.username)
 
     def test_favorited_articles_by_username_filter(self):
         """retrieve list of favorited articles based on username provided"""

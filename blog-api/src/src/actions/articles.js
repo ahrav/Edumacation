@@ -46,7 +46,6 @@ export const getArticle = slug => async dispatch => {
 export const getArticleComments = slug => async dispatch => {
   try {
     const res = await axios.get(`/api/v1/articles/${slug}/comments/`);
-    console.log(res.data);
 
     dispatch({
       type: GET_ARTICLE_COMMENTS,
