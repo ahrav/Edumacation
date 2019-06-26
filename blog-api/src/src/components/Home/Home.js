@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { getArticles } from '../../actions/articles';
-
 import Banner from './Banner';
 import MainView from './MainView';
+import { getArticles } from '../../actions/articles';
 
-const Home = ({ getArticles, appName }) => {
+const Home = ({ appName, getArticles }) => {
   useEffect(() => {
     getArticles();
   }, [getArticles]);
+
   return (
     <div className='home-page'>
       <Banner appName={appName} />

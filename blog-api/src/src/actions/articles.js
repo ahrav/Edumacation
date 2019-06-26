@@ -61,14 +61,15 @@ export const getArticleComments = slug => async dispatch => {
   }
 };
 
-export const deleteArticle = slug => async dispatch => {
+export const deleteArticle = (slug, history) => async dispatch => {
   try {
-    const res = await axios.delete(`/api/v1/articles/${slug}`);
+    await axios.delete(`/api/v1/articles/${slug}`);
 
     dispatch({
       type: DELETE_ARTICLE,
       payload: slug
     });
+    history.push('/');
   } catch (err) {
     dispatch({
       type: ARTICLE_ERROR,

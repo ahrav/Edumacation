@@ -24,8 +24,7 @@ const SettingsForm = ({
       image: loading || !profile.image ? '' : profile.image,
       username: loading || !profile.username ? '' : profile.username,
       bio: loading || !profile.bio ? '' : profile.bio,
-      email: loading || !profile.email ? '' : profile.email,
-      password: ''
+      email: loading || !profile.email ? '' : profile.email
     });
   }, [getCurrentProfile, loading]);
 
@@ -93,8 +92,7 @@ const SettingsForm = ({
             type='password'
             placeholder='New Password'
             name='password'
-            minLength='8'
-            value={password}
+            value={password || ''}
             onChange={e => onChange(e)}
           />
         </fieldset>

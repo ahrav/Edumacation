@@ -43,8 +43,6 @@ export default (state = initialState, action) => {
     case DELETE_ARTICLE:
       return {
         ...state,
-        article: null,
-        articles: state.articles.map(article => article.slug !== payload),
         loading: false
       };
     default:

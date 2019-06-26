@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import ArticleList from '../ArticleList';
 
-const MainView = ({ articles }) => {
+const MainView = () => {
   return (
     <div className='col-md-9'>
       <div className='feed-toggle'>
@@ -16,16 +16,9 @@ const MainView = ({ articles }) => {
         </ul>
       </div>
 
-      <ArticleList articles={articles} />
+      <ArticleList />
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-  articles: state.articles.articles
-});
-
-export default connect(
-  mapStateToProps,
-  null
-)(MainView);
+export default withRouter(MainView);

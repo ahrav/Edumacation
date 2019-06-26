@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import ArticlePreview from './ArticlePreview';
 
-const ArticleList = ({ articles }) => {
+const ArticleList = ({ getArticles, articles: { articles, loading } }) => {
   if (!articles) {
     return <div className='article-preview'>Loading...</div>;
   }
@@ -20,4 +22,11 @@ const ArticleList = ({ articles }) => {
   );
 };
 
-export default ArticleList;
+const mapStateToProps = state => ({
+  articles: state.articles
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(withRouter(ArticleList));

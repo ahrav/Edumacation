@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { deleteArticle } from '../../actions/articles';
 
-const ArticleActions = ({ deleteArticle, article: { slug }, canModify }) => {
+const ArticleActions = ({
+  deleteArticle,
+  article: { slug },
+  canModify,
+  history
+}) => {
   if (canModify) {
     return (
       <span>
@@ -17,7 +22,7 @@ const ArticleActions = ({ deleteArticle, article: { slug }, canModify }) => {
 
         <button
           className='btn btn-outline-danger btn-sm'
-          onClick={() => deleteArticle(slug)}
+          onClick={() => deleteArticle(slug, history)}
           style={{ marginLeft: '3px' }}
         >
           <i className='ion-trash-a' /> Delete Article
@@ -31,4 +36,4 @@ const ArticleActions = ({ deleteArticle, article: { slug }, canModify }) => {
 export default connect(
   null,
   { deleteArticle }
-)(ArticleActions);
+)(withRouter(ArticleActions));

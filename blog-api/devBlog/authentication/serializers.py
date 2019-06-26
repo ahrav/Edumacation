@@ -13,8 +13,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         write_only=True,
         min_length=8,
         error_messages={
-            "blank": "Password cannot be empty.",
-            "min_length": "Password must be at least 8 characters.",
+            "min_length": "Password must be at least 8 characters."
         },
         style={"input_type": "password"},
         trim_whitespace=False,
