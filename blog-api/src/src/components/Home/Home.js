@@ -6,7 +6,7 @@ import { getArticles } from '../../actions/articles';
 import Banner from './Banner';
 import MainView from './MainView';
 
-const Index = ({ getArticles, appName }) => {
+const Home = ({ getArticles, appName }) => {
   useEffect(() => {
     getArticles();
   }, [getArticles]);
@@ -36,4 +36,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getArticles }
-)(Index);
+)(Home);

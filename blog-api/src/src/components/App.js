@@ -11,7 +11,7 @@ import '../index.css';
 import Header from './layout/Header';
 import setAuthToken from '../utils/setAuthToken';
 import { loadUser } from '../actions/auth';
-import Home from './Home/Index';
+import Home from './home/Home';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
