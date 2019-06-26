@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const LoggedOutView = ({ currentUser }) => {
+const LoggedOutView = ({ currentUser, appName }) => {
   if (!currentUser) {
     return (
       <ul className='nav navbar-nav pull-xs-right'>
@@ -81,4 +82,12 @@ const Header = ({ appName, currentUser }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = state => ({
+  appName: state.common.appName,
+  currentUser: state.auth.user
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Header);

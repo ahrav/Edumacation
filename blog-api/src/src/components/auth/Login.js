@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, withRouter } from 'react-router-dom';
 
 import { login } from '../../actions/auth';
 import ListErrors from '../ListErrors';
@@ -21,9 +21,8 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
     login(email, password);
   };
 
-  if (isAuthenticated) {
-    return <Redirect to='/' />;
-  }
+  if (isAuthenticated) return <Redirect to='/' />;
+
   return (
     <div className='auth-page'>
       <div className='container page'>
@@ -88,4 +87,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { login }
-)(Login);
+)(withRouter(Login));
