@@ -9,16 +9,20 @@ import marked from 'marked';
 import { getArticle, getArticleComments } from '../../actions/articles';
 
 const Article = ({
-  article: { article, loading, comments, commentErrors },
+  article: { article, loading },
   currentUser,
   match,
   getArticle,
   getArticleComments
 }) => {
+  async function getArticleData() {
+    await getArticle(match.params.id);
+    await getArticleComments(match.params.id);
+  }
+
   useEffect(() => {
-    getArticle(match.params.id);
-    getArticleComments(match.params.id);
-  }, [getArticle, getArticleComments, match.params.id]);
+    getArticleData();
+  }, [getArticleComments, getArticle, match.params.id]);
 
   if (loading || article === null) return <Spinner />;
   const markup = { __html: marked(article.body) };
@@ -57,8 +61,8 @@ const Article = ({
 
           <div className='row'>
             <CommentContainer
-              comments={comments || []}
-              errors={commentErrors}
+              comments={article.comments || []}
+              errors={article.commentErrors}
               slug={match.params.id}
               currentUser={currentUser}
             />

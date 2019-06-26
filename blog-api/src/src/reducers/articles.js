@@ -2,15 +2,15 @@ import {
   GET_ALL_ARTICLES,
   GET_ARTICLE,
   ARTICLE_ERROR,
-  GET_ARTICLE_COMMENTS
+  GET_ARTICLE_COMMENTS,
+  DELETE_ARTICLE
 } from '../actions/types';
 
 const initialState = {
   articles: [],
   article: null,
   loading: true,
-  error: {},
-  comments: []
+  error: {}
 };
 
 export default (state = initialState, action) => {
@@ -31,13 +31,20 @@ export default (state = initialState, action) => {
     case GET_ARTICLE_COMMENTS:
       return {
         ...state,
-        comments: payload,
+        article: { ...state.article, comments: payload },
         loading: false
       };
     case ARTICLE_ERROR:
       return {
         ...state,
         error: payload,
+        loading: false
+      };
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        article: null,
+        articles: state.articles.map(article => article.slug !== payload),
         loading: false
       };
     default:
