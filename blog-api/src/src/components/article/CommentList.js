@@ -3,7 +3,6 @@ import React from 'react';
 import Comment from './Comment';
 
 const CommentList = ({ comments, slug, currentUser }) => {
-  console.log(comments);
   return (
     <div>
       {comments.map(comment => {
