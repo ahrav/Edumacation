@@ -33,11 +33,7 @@ export const updateUser = (
       }
     };
 
-    const res = await axios.put(
-      '/api/v1/users/me/',
-      { users: formData },
-      config
-    );
+    const res = await axios.put('/api/v1/users/me/', formData, config);
 
     dispatch({
       type: UPDATE_USER,
@@ -47,11 +43,12 @@ export const updateUser = (
     dispatch(setAlert('Updated Account', 'success'));
     history.push('/');
   } catch (err) {
-    console.log(err.response);
-    const errors = err.response.data.errors.error;
+    const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error, 'danger')));
+      Object.keys(errors).forEach(key =>
+        dispatch(setAlert(errors[key][0], 'danger'))
+      );
     }
   }
 };

@@ -93,6 +93,7 @@ const SettingsForm = ({
             type='password'
             placeholder='New Password'
             name='password'
+            // minLength='8'
             value={password}
             onChange={e => onChange(e)}
           />

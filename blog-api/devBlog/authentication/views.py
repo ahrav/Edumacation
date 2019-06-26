@@ -29,13 +29,13 @@ class UserRetrieveUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
     def update(self, request, *args, **kwargs):
         """update user information"""
 
-        user_data = request.data.get("user", {})
         serializer_data = {
-            "username": user_data.get("username", request.user.username),
-            "email": user_data.get("email", request.user.email),
+            "username": request.data.get("username", request.user.username),
+            "email": request.data.get("email", request.user.email),
+            "password": request.data.get("password", request.user.password),
             "profile": {
-                "bio": user_data.get("bio", request.user.profile.bio),
-                "image": user_data.get("image", request.user.profile.image),
+                "bio": request.data.get("bio", request.user.profile.bio),
+                "image": request.data.get("image", request.user.profile.image),
             },
         }
 

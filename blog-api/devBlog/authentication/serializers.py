@@ -10,9 +10,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
     """Serializes registration requests and creates a new user"""
 
     password = serializers.CharField(
-        max_length=128,
-        min_length=8,
         write_only=True,
+        min_length=8,
+        error_messages={
+            "blank": "Password cannot be empty.",
+            "min_length": "Password must be at least 8 characters.",
+        },
         style={"input_type": "password"},
         trim_whitespace=False,
     )
@@ -69,12 +72,16 @@ class UserSerializer(serializers.ModelSerializer):
     """Serializes user object"""
 
     password = serializers.CharField(
-        max_length=128,
-        min_length=8,
         write_only=True,
+        min_length=8,
+        error_messages={
+            "blank": "Password cannot be empty.",
+            "min_length": "Password must be at least 8 characters.",
+        },
         style={"input_type": "password"},
         trim_whitespace=False,
     )
+
     profile = ProfileSerializer(write_only=True)
     bio = serializers.CharField(source="profile.bio", read_only=True)
     image = serializers.CharField(source="profile.image", read_only=True)
