@@ -3,7 +3,8 @@ import {
   GET_ARTICLE,
   ARTICLE_ERROR,
   GET_ARTICLE_COMMENTS,
-  DELETE_ARTICLE
+  DELETE_ARTICLE,
+  ADD_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +30,7 @@ export default (state = initialState, action) => {
         loading: false
       };
     case GET_ARTICLE_COMMENTS:
+    case ADD_COMMENT:
       return {
         ...state,
         article: { ...state.article, comments: payload },
