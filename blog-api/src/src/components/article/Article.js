@@ -9,29 +9,27 @@ import marked from 'marked';
 import { getArticle, getArticleComments } from '../../actions/articles';
 
 const Article = ({
-  article: { body, title, author, tagList },
+  article: { article, loading, comments, commentErrors },
   currentUser,
   match,
-  loading,
-  comments,
-  commentErrors
+  getArticle,
+  getArticleComments
 }) => {
   useEffect(() => {
     getArticle(match.params.id);
     getArticleComments(match.params.id);
   }, [getArticle, getArticleComments, match.params.id]);
 
-  const markup = { __html: marked(body) };
-  const canModify = currentUser && currentUser.username === author.username;
-
-  return loading || article === null ? (
-    <Spinner />
-  ) : (
+  if (loading || article === null) return <Spinner />;
+  const markup = { __html: marked(article.body) };
+  const canModify =
+    currentUser && currentUser.username === article.author.username;
+  return (
     <Fragment>
       <div className='article-page'>
         <div className='banner'>
           <div className='container'>
-            <h1>{title}</h1>
+            <h1>{article.title}</h1>
             <ArticleMeta article={article} canModify={canModify} />
           </div>
         </div>
@@ -42,7 +40,7 @@ const Article = ({
               <div dangerouslySetInnerHTML={markup} />
 
               <ul className='tag-list'>
-                {tagList.map(tag => {
+                {article.tagList.map(tag => {
                   return (
                     <li className='tag-default tag-pill tag-outline' key={tag}>
                       {tag}
@@ -74,7 +72,7 @@ const Article = ({
 
 const mapStateToProps = state => ({
   currentUser: state.auth.user,
-  article: state.article
+  article: state.articles
 });
 
 export default connect(
