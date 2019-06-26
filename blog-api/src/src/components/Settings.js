@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import ListErrors from './ListErrors';
 import { logout } from '../actions/auth';
 import SettingsForm from './SettingsForm';
-// import {update_profile} from '../actions/profile'
 
-const Settings = ({ currentUser, logout, errors }) => {
+const Settings = ({ logout, errors }) => {
   return (
     <div className='settings-page'>
       <div className='container page'>
@@ -17,7 +16,7 @@ const Settings = ({ currentUser, logout, errors }) => {
 
             <ListErrors errors={errors} />
 
-            <SettingsForm currentUser={currentUser} onSubmitForm={() => {}} />
+            <SettingsForm />
 
             <hr />
 
@@ -35,7 +34,6 @@ const Settings = ({ currentUser, logout, errors }) => {
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.user,
   errors: state.auth.errors
 });
 

@@ -16,7 +16,7 @@ const initialState = {
   inProgress: false
 };
 
-export default (state = {}, action) => {
+export default (state = initialState, action) => {
   const { type, payload, errors, subtype } = action;
 
   switch (type) {
@@ -24,6 +24,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        token: payload.token,
         loading: false,
         user: payload
       };

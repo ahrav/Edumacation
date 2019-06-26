@@ -11,3 +11,6 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const GET_PROFILE = 'GET_PROFILE';
+export const PROFILE_ERROR = 'PROFILE_ERROR';
