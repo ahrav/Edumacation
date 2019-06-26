@@ -6,7 +6,8 @@ import {
   ARTICLE_ERROR,
   DELETE_ARTICLE,
   ADD_COMMENT,
-  COMMENT_ERROR
+  COMMENT_ERROR,
+  DELETE_COMMENT
 } from './types';
 
 export const getArticles = () => async dispatch => {
@@ -88,16 +89,37 @@ export const addComment = (body, slug) => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
+  const payload = {
+    comment: { body: body }
+  };
   try {
     const res = await axios.post(
       `/api/v1/articles/${slug}/comments/`,
-      { comment: { body: body } },
+      payload,
       config
     );
 
     dispatch({
       type: ADD_COMMENT,
       payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: COMMENT_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const deleteComment = (slug, id) => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/v1/articles/${slug}/comments/${id}/`);
+
+    dispatch({
+      type: DELETE_COMMENT,
+      payload: id
     });
   } catch (err) {
     dispatch({

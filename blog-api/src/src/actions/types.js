@@ -19,3 +19,4 @@ export const ARTICLE_ERROR = 'ARTICLE_ERROR';
 export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const COMMENT_ERROR = 'COMMENT_ERROR';
+export const DELETE_COMMENT = 'DELETE_COMMENT';

@@ -9,6 +9,7 @@ const CommentInput = ({ addComment, slug, currentUser }) => {
   const onSubmit = e => {
     e.preventDefault();
     addComment(body, slug);
+    setBody('');
   };
   return (
     <form className='card comment-form' onSubmit={e => onSubmit(e)}>
@@ -18,7 +19,7 @@ const CommentInput = ({ addComment, slug, currentUser }) => {
           placeholder='Write a comment...'
           name='body'
           value={body}
-          onChange={e => setBody({ [e.target.name]: e.target.value })}
+          onChange={e => setBody(e.target.value)}
           rows='3'
         />
       </div>

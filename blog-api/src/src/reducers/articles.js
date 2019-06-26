@@ -4,7 +4,9 @@ import {
   ARTICLE_ERROR,
   GET_ARTICLE_COMMENTS,
   DELETE_ARTICLE,
-  ADD_COMMENT
+  ADD_COMMENT,
+  DELETE_COMMENT,
+  COMMENT_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -30,13 +32,13 @@ export default (state = initialState, action) => {
         loading: false
       };
     case GET_ARTICLE_COMMENTS:
-    case ADD_COMMENT:
       return {
         ...state,
         article: { ...state.article, comments: payload },
         loading: false
       };
     case ARTICLE_ERROR:
+    case COMMENT_ERROR:
       return {
         ...state,
         error: payload,
@@ -46,6 +48,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false
+      };
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          comments: state.article.comments.filter(
+            comment => comment.id !== payload
+          )
+        },
+        loading: false
+      };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        article: {
+          ...state.article,
+          comments: [payload].concat(state.article.comments)
+        }
       };
     default:
       return state;
