@@ -13,6 +13,7 @@ import setAuthToken from '../utils/setAuthToken';
 import { loadUser } from '../actions/auth';
 import Home from './home/Home';
 import Article from './article/Article';
+import Profile from '../components/Profile';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -34,6 +35,7 @@ const App = ({ appName, currentUser }) => {
             <Route path='/register' component={Register} />
             <Route path='/settings' component={Settings} />
             <Route path='/article/:id' component={Article} />
+            <Route path='/:username' component={Profile} />
           </Switch>
         </Fragment>
       </Router>

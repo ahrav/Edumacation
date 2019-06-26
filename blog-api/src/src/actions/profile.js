@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { UPDATE_USER, GET_PROFILE, PROFILE_ERROR } from './types';
+import {
+  UPDATE_USER,
+  GET_PROFILE,
+  PROFILE_ERROR,
+  FOLLOW_PROFILE,
+  UN_FOLLOW_PROFILE
+} from './types';
 import { setAlert } from './alert';
 
 export const getCurrentProfile = () => async dispatch => {
@@ -26,13 +32,12 @@ export const updateUser = (
   history,
   edit = false
 ) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
   try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
     const res = await axios.put('/api/v1/users/me/', formData, config);
 
     dispatch({
@@ -50,5 +55,49 @@ export const updateUser = (
         dispatch(setAlert(errors[key][0], 'danger'))
       );
     }
+  }
+};
+
+export const followProfile = username => async dispatch => {
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const res = await axios.post(
+      `/api/v1/profiles/${username}/follow/`,
+      config
+    );
+
+    dispatch({
+      type: FOLLOW_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+export const unFollowProfile = username => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/v1/profiles/${username}/unfollow/`);
+
+    dispatch({
+      type: FOLLOW_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
   }
 };

@@ -1,4 +1,10 @@
-import { UPDATE_USER, GET_PROFILE, PROFILE_ERROR } from '../actions/types';
+import {
+  UPDATE_USER,
+  GET_PROFILE,
+  PROFILE_ERROR,
+  FOLLOW_PROFILE,
+  UN_FOLLOW_PROFILE
+} from '../actions/types';
 
 const initialState = {
   profile: null,
@@ -12,6 +18,8 @@ export default (state = initialState, action) => {
   switch (type) {
     case UPDATE_USER:
     case GET_PROFILE:
+    case FOLLOW_PROFILE:
+    case UN_FOLLOW_PROFILE:
       return {
         ...state,
         profile: payload,
