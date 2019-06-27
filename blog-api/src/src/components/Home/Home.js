@@ -23,7 +23,6 @@ const Home = ({
   useEffect(() => {
     (async () => {
       await getTags();
-      console.log(token);
       await (token ? getFeed() : getArticles());
     })();
   }, [getTags]);

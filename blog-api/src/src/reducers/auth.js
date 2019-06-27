@@ -25,6 +25,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: payload,
+        token: payload.token,
         isAuthenticated: true,
         loading: false,
         errors: errors ? payload.errors : null
