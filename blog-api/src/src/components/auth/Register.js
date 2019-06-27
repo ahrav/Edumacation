@@ -42,7 +42,9 @@ const Register = ({
           <span className='shape' />
         </div>
 
-        <div className='title'>REGISTER</div>
+        <div id='register' className='title'>
+          REGISTER
+        </div>
 
         <div className='input'>
           <label>

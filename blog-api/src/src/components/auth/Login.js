@@ -29,7 +29,9 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
     <div className='body'>
       <div className='materialContainer'>
         <div className='box'>
-          <div className='title'>LOGIN</div>
+          <div id='login' className='title'>
+            LOGIN
+          </div>
           <form onSubmit={e => onSubmit(e)}>
             <div className='input'>
               <label>

@@ -60,13 +60,23 @@ input::-webkit-input-placeholder {
   position: relative;
 }
 
-.title:before {
+#register.title:before {
   content: '';
   width: 5px;
   height: 100%;
   position: absolute;
   top: 0;
   left: -60px;
+  background: #fbfafa;
+}
+
+#login.title:before {
+  content: '';
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -50px;
   background: #ed2553;
 }
 
