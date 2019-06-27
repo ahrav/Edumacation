@@ -33,9 +33,10 @@ export default (state = initialState, action) => {
     case GET_ALL_ARTICLES:
     case GET_ARTICLES_BY_TAG:
     case GET_ARTICLES_BY_AUTHOR:
+    case GET_FAVORITED_ARTICLES:
       return {
         ...state,
-        articles: payload.results,
+        articles: payload.results || [],
         articleCount: payload.count,
         loading: false
       };

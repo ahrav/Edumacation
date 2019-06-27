@@ -74,7 +74,7 @@ const Profile = ({
       await getCurrentProfile(match.params.username);
       await getArticlesByAuthor(match.params.username);
     })();
-  }, [getCurrentProfile, match.params.username]);
+  }, [getCurrentProfile, getArticlesByAuthor, match.params.username]);
   const renderTabs = () => {
     return (
       <ul className='nav nav-pills outline-active'>
