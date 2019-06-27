@@ -4,57 +4,18 @@ import { connect } from 'react-redux';
 
 import ArticleList from '../ArticleList';
 import { getArticles, getFeed, onTabClick } from '../../actions/articles';
-
-const YourFeedTab = ({ token, getFeed, tab, onTabClick }) => {
-  if (token) {
-    const clickHandler = async e => {
-      e.preventDefault();
-      await getFeed();
-      await onTabClick('feed');
-    };
-
-    return (
-      <li className='nav-item'>
-        <a
-          href=''
-          className={tab === 'feed' ? 'nav-link active' : 'nav-link'}
-          onClick={e => clickHandler(e)}
-        >
-          Your Feed
-        </a>
-      </li>
-    );
-  }
-  return null;
-};
-
-const GlobalFeedTab = ({ getArticles, onTabClick, tab }) => {
-  const clickHandler = async e => {
-    e.preventDefault();
-    await getArticles();
-    await onTabClick('all');
-  };
-  return (
-    <li className='nav-item'>
-      <a
-        href=''
-        className={tab === 'all' ? 'nav-link active' : 'nav-link'}
-        onClick={e => clickHandler(e)}
-      >
-        Global Feed
-      </a>
-    </li>
-  );
-};
+import YourFeedTab from './Feed/YourFeedTab';
+import GlobalFeedTab from './Feed/GlobalFeedTab';
+import Spinner from '../layout/Spinner';
 
 const MainView = ({
-  articles,
+  articles: { articles, tab, loading },
   getFeed,
   getArticles,
   token,
-  tab,
   onTabClick
 }) => {
+  if (loading) return <Spinner />;
   return (
     <div className='col-md-9'>
       <div className='feed-toggle'>
@@ -80,9 +41,8 @@ const MainView = ({
 };
 
 const mapStateToProps = state => ({
-  articles: state.articles.articles,
-  token: state.auth.token,
-  tab: state.articles.tab
+  articles: state.articles,
+  token: state.auth.token
 });
 
 export default connect(
