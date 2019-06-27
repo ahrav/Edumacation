@@ -10,7 +10,10 @@ import {
   DELETE_COMMENT,
   GET_FAVORITED_ARTICLES,
   GET_FEED,
-  CHANGE_TAB
+  CHANGE_TAB,
+  GET_TAGS,
+  TAG_ERROR,
+  GET_ARTICLES_BY_TAG
 } from './types';
 
 export const getArticles = () => async dispatch => {
@@ -175,4 +178,40 @@ export const onTabClick = tab => dispatch => {
     type: CHANGE_TAB,
     tab: tab
   });
+};
+
+export const getTags = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/v1/tags/');
+
+    dispatch({
+      type: GET_TAGS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: TAG_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const getArticlesByTag = name => async dispatch => {
+  try {
+    const res = await axios.get(`/api/v1/articles?tag=${name}`);
+
+    dispatch({
+      type: GET_ARTICLES_BY_TAG,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: TAG_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
 };

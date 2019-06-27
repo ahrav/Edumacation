@@ -25,3 +25,6 @@ export const UN_FOLLOW_PROFILE = 'UN_FOLLOW_PROFILE';
 export const GET_FAVORITED_ARTICLES = 'GET_FAVORITED_ARTICLES';
 export const GET_FEED = 'GET_FEED';
 export const CHANGE_TAB = 'CHANGE_TAB';
+export const GET_TAGS = 'GET_TAGS';
+export const TAG_ERROR = 'TAG_ERROR';
+export const GET_ARTICLES_BY_TAG = 'GET_ARTICLES_BY_TAG';

@@ -9,7 +9,10 @@ import {
   COMMENT_ERROR,
   GET_FAVORITED_ARTICLES,
   GET_FEED,
-  CHANGE_TAB
+  CHANGE_TAB,
+  GET_TAGS,
+  TAG_ERROR,
+  GET_ARTICLES_BY_TAG
 } from '../actions/types';
 
 const initialState = {
@@ -18,7 +21,8 @@ const initialState = {
   articleCount: null,
   loading: true,
   tab: 'feed',
-  error: {}
+  error: {},
+  tags: null
 };
 
 export default (state = initialState, action) => {
@@ -26,6 +30,7 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case GET_ALL_ARTICLES:
+    case GET_ARTICLES_BY_TAG:
       return {
         ...state,
         articles: payload.results,
@@ -46,6 +51,7 @@ export default (state = initialState, action) => {
       };
     case ARTICLE_ERROR:
     case COMMENT_ERROR:
+    case TAG_ERROR:
       return {
         ...state,
         error: payload,
@@ -73,7 +79,8 @@ export default (state = initialState, action) => {
         article: {
           ...state.article,
           comments: [payload].concat(state.article.comments)
-        }
+        },
+        loading: false
       };
     case GET_FEED:
       return {
@@ -86,6 +93,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tab: tab,
+        loading: false
+      };
+    case GET_TAGS:
+      return {
+        ...state,
+        tags: payload,
         loading: false
       };
     default:
