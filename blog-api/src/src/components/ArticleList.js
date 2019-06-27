@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import ArticlePreview from './ArticlePreview';
 
-const ArticleList = ({ getArticles, articles: { articles, loading } }) => {
+const ArticleList = ({ articles: { articles, loading } }) => {
   if (!articles) {
     return <div className='article-preview'>Loading...</div>;
   }

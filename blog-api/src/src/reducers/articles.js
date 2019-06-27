@@ -6,24 +6,31 @@ import {
   DELETE_ARTICLE,
   ADD_COMMENT,
   DELETE_COMMENT,
-  COMMENT_ERROR
+  COMMENT_ERROR,
+  GET_FAVORITED_ARTICLES,
+  GET_FEED,
+  CHANGE_TAB
 } from '../actions/types';
 
 const initialState = {
   articles: [],
   article: null,
+  articleCount: null,
   loading: true,
+  tab: null,
   error: {}
 };
 
 export default (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type, payload, tab } = action;
 
   switch (type) {
     case GET_ALL_ARTICLES:
       return {
         ...state,
-        articles: payload
+        articles: payload.results,
+        articleCount: payload.count,
+        loading: false
       };
     case GET_ARTICLE:
       return {
@@ -67,6 +74,19 @@ export default (state = initialState, action) => {
           ...state.article,
           comments: [payload].concat(state.article.comments)
         }
+      };
+    case GET_FEED:
+      return {
+        ...state,
+        articles: payload.results,
+        articleCount: payload.count,
+        loading: false
+      };
+    case CHANGE_TAB:
+      return {
+        ...state,
+        tab: tab,
+        loading: false
       };
     default:
       return state;

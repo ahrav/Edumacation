@@ -7,7 +7,10 @@ import {
   DELETE_ARTICLE,
   ADD_COMMENT,
   COMMENT_ERROR,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  GET_FAVORITED_ARTICLES,
+  GET_FEED,
+  CHANGE_TAB
 } from './types';
 
 export const getArticles = () => async dispatch => {
@@ -16,7 +19,7 @@ export const getArticles = () => async dispatch => {
 
     dispatch({
       type: GET_ALL_ARTICLES,
-      payload: res.data.results
+      payload: res.data
     });
   } catch (err) {
     dispatch({
@@ -129,4 +132,47 @@ export const deleteComment = (slug, id) => async dispatch => {
       }
     });
   }
+};
+
+export const getFavoritedArticles = username => async dispatch => {
+  try {
+    const res = await axios.get(`/api/v1/articles?favorited=${username}`);
+
+    dispatch({
+      type: GET_FAVORITED_ARTICLES,
+      payload: res.data.results
+    });
+  } catch (err) {
+    dispatch({
+      type: ARTICLE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const getFeed = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/v1/articles/feed/');
+
+    dispatch({
+      type: GET_FEED,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: ARTICLE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const onTabClick = tab => dispatch => {
+  dispatch({
+    type: CHANGE_TAB,
+    tab: tab
+  });
 };
