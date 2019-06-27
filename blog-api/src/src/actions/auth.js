@@ -6,7 +6,8 @@ import {
   REGISTER_FAIL,
   REGISTER_USER,
   LOGOUT_USER,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  APP_LOAD
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
@@ -21,6 +22,11 @@ export const loadUser = () => async dispatch => {
 
     dispatch({
       type: LOAD_USER,
+      payload: res.data
+    });
+
+    dispatch({
+      type: APP_LOAD,
       payload: res.data
     });
   } catch (err) {}

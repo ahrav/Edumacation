@@ -3,13 +3,8 @@ import { connect } from 'react-redux';
 
 import Banner from './Banner';
 import MainView from './MainView';
-import { getArticles } from '../../actions/articles';
 
-const Home = ({ appName, getArticles }) => {
-  useEffect(() => {
-    getArticles();
-  }, [getArticles]);
-
+const Home = ({ common: { appName } }) => {
   return (
     <div className='home-page'>
       <Banner appName={appName} />
@@ -30,10 +25,11 @@ const Home = ({ appName, getArticles }) => {
 };
 
 const mapStateToProps = state => ({
-  appName: state.common.appName
+  common: state.common,
+  token: state.auth.token
 });
 
 export default connect(
   mapStateToProps,
-  { getArticles }
+  null
 )(Home);

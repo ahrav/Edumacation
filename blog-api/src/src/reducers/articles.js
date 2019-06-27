@@ -17,7 +17,7 @@ const initialState = {
   article: null,
   articleCount: null,
   loading: true,
-  tab: null,
+  tab: 'feed',
   error: {}
 };
 

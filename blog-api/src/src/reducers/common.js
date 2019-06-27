@@ -13,7 +13,7 @@ export default (state = defaultState, action) => {
     case APP_LOAD:
       return {
         ...state,
-        token: action.token || null,
+        token: payload.token || null,
         appLoaded: true,
         currentUser: payload ? payload.user : null
       };

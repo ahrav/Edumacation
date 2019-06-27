@@ -1,11 +1,12 @@
 import React from 'react';
 
-const GlobalFeedTab = ({ getArticles, onTabClick, tab }) => {
+const GlobalFeedTab = ({ getArticles, onTabClick, tab, loading }) => {
   const clickHandler = async e => {
     e.preventDefault();
     await getArticles();
     await onTabClick('all');
   };
+
   return (
     <li className='nav-item'>
       <a

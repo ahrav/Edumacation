@@ -6,16 +6,13 @@ import ArticleList from '../ArticleList';
 import { getArticles, getFeed, onTabClick } from '../../actions/articles';
 import YourFeedTab from './Feed/YourFeedTab';
 import GlobalFeedTab from './Feed/GlobalFeedTab';
-import Spinner from '../layout/Spinner';
-
 const MainView = ({
-  articles: { articles, tab, loading },
+  articles: { articles, tab },
   getFeed,
   getArticles,
   token,
   onTabClick
 }) => {
-  if (loading) return <Spinner />;
   return (
     <div className='col-md-9'>
       <div className='feed-toggle'>
