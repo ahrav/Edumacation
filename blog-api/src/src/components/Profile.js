@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ArticleList from './ArticleList';
-import { followProfile, unFollowProfile } from '../actions/profile';
+import {
+  followProfile,
+  unFollowProfile,
+  getCurrentProfile
+} from '../actions/profile';
+import { getArticlesByAuthor } from '../actions/articles';
 
 const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
@@ -46,7 +51,7 @@ const FollowUserButton = ({
   };
 
   return (
-    <button className={classes} onClick={handleClick}>
+    <button className={classes} onClick={e => handleClick(e)}>
       <i className='ion-plus-round' />
       &nbsp;
       {user.following ? 'Unfollow' : 'Follow'} {user.username}
@@ -59,19 +64,28 @@ const Profile = ({
   unFollowProfile,
   profile,
   articles,
-  currentUser
+  currentUser,
+  getCurrentProfile,
+  getArticlesByAuthor,
+  match
 }) => {
+  useEffect(() => {
+    (async () => {
+      await getCurrentProfile(match.params.username);
+      await getArticlesByAuthor(match.params.username);
+    })();
+  }, [getCurrentProfile, match.params.username]);
   const renderTabs = () => {
     return (
       <ul className='nav nav-pills outline-active'>
         <li className='nav-item'>
-          <Link className='nav-link active' to={`@${profile.username}`}>
+          <Link className='nav-link active' to={`/${profile.username}`}>
             My Articles
           </Link>
         </li>
 
         <li className='nav-item'>
-          <Link className='nav-link' to={`@${profile.username}/favorites`}>
+          <Link className='nav-link' to={`/${profile.username}/favorites`}>
             Favorited Articles
           </Link>
         </li>
@@ -98,8 +112,8 @@ const Profile = ({
               <FollowUserButton
                 isUser={isUser}
                 user={profile}
-                follow={() => unFollowProfile()}
-                unfollow={() => followProfile()}
+                follow={followProfile}
+                unfollow={unFollowProfile}
               />
             </div>
           </div>
@@ -120,12 +134,12 @@ const Profile = ({
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
+  profile: state.profile.profile,
   articles: state.articles.articles,
   currentUser: state.auth.user
 });
 
 export default connect(
   mapStateToProps,
-  { followProfile, unFollowProfile }
+  { followProfile, unFollowProfile, getCurrentProfile, getArticlesByAuthor }
 )(Profile);

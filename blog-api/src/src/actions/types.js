@@ -28,3 +28,4 @@ export const CHANGE_TAB = 'CHANGE_TAB';
 export const GET_TAGS = 'GET_TAGS';
 export const TAG_ERROR = 'TAG_ERROR';
 export const GET_ARTICLES_BY_TAG = 'GET_ARTICLES_BY_TAG';
+export const GET_ARTICLES_BY_AUTHOR = 'GET_ARTICLES_BY_AUTHOR';

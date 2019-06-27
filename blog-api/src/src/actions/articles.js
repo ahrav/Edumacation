@@ -13,7 +13,8 @@ import {
   CHANGE_TAB,
   GET_TAGS,
   TAG_ERROR,
-  GET_ARTICLES_BY_TAG
+  GET_ARTICLES_BY_TAG,
+  GET_ARTICLES_BY_AUTHOR
 } from './types';
 
 export const getArticles = () => async dispatch => {
@@ -209,6 +210,24 @@ export const getArticlesByTag = name => async dispatch => {
   } catch (err) {
     dispatch({
       type: TAG_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const getArticlesByAuthor = username => async dispatch => {
+  try {
+    const res = await axios.get(`/api/v1/articles?author=${username}`);
+
+    dispatch({
+      type: GET_ARTICLES_BY_AUTHOR,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: ARTICLE_ERROR,
       payload: {
         msg: err.response.errors
       }

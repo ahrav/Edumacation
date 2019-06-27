@@ -5,12 +5,12 @@ const ArticlePreview = ({ article }) => {
   return (
     <div className='article-preview'>
       <div className='article-meta'>
-        <Link to={`@${article.author.username}`}>
+        <Link to={`${article.author.username}`}>
           <img src={article.author.image} />
         </Link>
 
         <div className='info'>
-          <Link to={`@${article.author.username}`} className='author'>
+          <Link to={`${article.author.username}`} className='author'>
             {article.author.username}
           </Link>
           <span className='date'>

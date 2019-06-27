@@ -12,7 +12,8 @@ import {
   CHANGE_TAB,
   GET_TAGS,
   TAG_ERROR,
-  GET_ARTICLES_BY_TAG
+  GET_ARTICLES_BY_TAG,
+  GET_ARTICLES_BY_AUTHOR
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +32,7 @@ export default (state = initialState, action) => {
   switch (type) {
     case GET_ALL_ARTICLES:
     case GET_ARTICLES_BY_TAG:
+    case GET_ARTICLES_BY_AUTHOR:
       return {
         ...state,
         articles: payload.results,

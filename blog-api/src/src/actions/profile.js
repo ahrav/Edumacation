@@ -8,9 +8,9 @@ import {
 } from './types';
 import { setAlert } from './alert';
 
-export const getCurrentProfile = () => async dispatch => {
+export const getCurrentProfile = username => async dispatch => {
   try {
-    const res = await axios.get('/api/v1/users/me/');
+    const res = await axios.get(`/api/v1/profiles/${username}`);
 
     dispatch({
       type: GET_PROFILE,
