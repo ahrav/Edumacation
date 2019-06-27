@@ -4,11 +4,24 @@ import { connect } from 'react-redux';
 import Banner from './Banner';
 import MainView from './MainView';
 import Tags from './Tags';
-import { getTags, getArticlesByTag } from '../../actions/articles';
+import {
+  getTags,
+  getArticlesByTag,
+  getArticles,
+  getFeed
+} from '../../actions/articles';
 
-const Home = ({ common: { appName }, getTags, tags, getArticlesByTag }) => {
+const Home = ({
+  common: { appName, token },
+  getTags,
+  tags,
+  getArticlesByTag
+}) => {
   useEffect(() => {
-    getTags();
+    (async () => {
+      await getTags();
+      (await token) ? getFeed() : getArticles();
+    })();
   }, [getTags]);
 
   const onClickTag = name => {
@@ -43,5 +56,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getTags, getArticlesByTag }
+  { getTags, getArticlesByTag, getArticles, getFeed }
 )(Home);

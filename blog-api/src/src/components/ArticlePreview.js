@@ -1,7 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const ArticlePreview = ({ article }) => {
+import { favoriteArticle, unFavoriteArticle } from '../actions/articles';
+
+const FAVORITED_CLASS = 'btn btn-sm btn-primary';
+const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
+
+const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
+  const favoriteButtonClass = article.favorited
+    ? FAVORITED_CLASS
+    : NOT_FAVORITED_CLASS;
+
+  const handleClick = e => {
+    e.preventDefault();
+    if (article.favorited) {
+      unFavoriteArticle(article.slug);
+    } else {
+      favoriteArticle(article.slug);
+    }
+  };
   return (
     <div className='article-preview'>
       <div className='article-meta'>
@@ -19,7 +37,10 @@ const ArticlePreview = ({ article }) => {
         </div>
 
         <div className='pull-xs-right'>
-          <button className='btn btn-sm btn-outline-primary'>
+          <button
+            onClick={e => handleClick(e)}
+            className={favoriteButtonClass}
+          >
             <i className='ion-heart' /> {article.favoritesCount}
           </button>
         </div>
@@ -43,4 +64,7 @@ const ArticlePreview = ({ article }) => {
   );
 };
 
-export default ArticlePreview;
+export default connect(
+  null,
+  { favoriteArticle, unFavoriteArticle }
+)(ArticlePreview);

@@ -6,8 +6,20 @@ import ArticleList from '../ArticleList';
 import { getArticles, getFeed, onTabClick } from '../../actions/articles';
 import YourFeedTab from './Feed/YourFeedTab';
 import GlobalFeedTab from './Feed/GlobalFeedTab';
+
+const TagFilterTab = ({ tag }) => {
+  if (!tag) return null;
+  return (
+    <li className='nav-item'>
+      <a href='' className='nav-link active'>
+        <i className='ion-pound' /> {tag}
+      </a>
+    </li>
+  );
+};
+
 const MainView = ({
-  articles: { articles, tab },
+  articles: { articles, tab, tag },
   getFeed,
   getArticles,
   token,
@@ -29,6 +41,8 @@ const MainView = ({
             tab={tab}
             onTabClick={onTabClick}
           />
+
+          <TagFilterTab tag={tag} />
         </ul>
       </div>
 

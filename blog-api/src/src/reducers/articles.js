@@ -13,7 +13,9 @@ import {
   GET_TAGS,
   TAG_ERROR,
   GET_ARTICLES_BY_TAG,
-  GET_ARTICLES_BY_AUTHOR
+  GET_ARTICLES_BY_AUTHOR,
+  FAVORITE_ARTICLE,
+  UN_FAVORITE_ARTICLE
 } from '../actions/types';
 
 const initialState = {
@@ -23,11 +25,12 @@ const initialState = {
   loading: true,
   tab: 'feed',
   error: {},
-  tags: null
+  tags: null,
+  tag: null
 };
 
 export default (state = initialState, action) => {
-  const { type, payload, tab } = action;
+  const { type, payload, tab, tag } = action;
 
   switch (type) {
     case GET_ALL_ARTICLES:
@@ -38,6 +41,8 @@ export default (state = initialState, action) => {
         ...state,
         articles: payload.results || [],
         articleCount: payload.count,
+        tag: tag || null,
+        tab: 'all',
         loading: false
       };
     case GET_ARTICLE:
@@ -90,18 +95,36 @@ export default (state = initialState, action) => {
         ...state,
         articles: payload.results,
         articleCount: payload.count,
+        tab: 'feed',
         loading: false
       };
     case CHANGE_TAB:
       return {
         ...state,
         tab: tab,
+        tag: null,
         loading: false
       };
     case GET_TAGS:
       return {
         ...state,
         tags: payload,
+        loading: false
+      };
+    case FAVORITE_ARTICLE:
+    case UN_FAVORITE_ARTICLE:
+      return {
+        ...state,
+        articles: state.articles.map(article =>
+          article.slug === payload.slug
+            ? {
+                ...article,
+                favoritesCount: payload.article.favoritesCount,
+                favorited: payload.article.favorited
+              }
+            : article
+        ),
+        article: payload.article,
         loading: false
       };
     default:

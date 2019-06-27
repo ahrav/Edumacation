@@ -14,7 +14,9 @@ import {
   GET_TAGS,
   TAG_ERROR,
   GET_ARTICLES_BY_TAG,
-  GET_ARTICLES_BY_AUTHOR
+  GET_ARTICLES_BY_AUTHOR,
+  FAVORITE_ARTICLE,
+  UN_FAVORITE_ARTICLE
 } from './types';
 
 export const getArticles = () => async dispatch => {
@@ -205,7 +207,8 @@ export const getArticlesByTag = name => async dispatch => {
 
     dispatch({
       type: GET_ARTICLES_BY_TAG,
-      payload: res.data
+      payload: res.data,
+      tag: name
     });
   } catch (err) {
     dispatch({
@@ -224,6 +227,57 @@ export const getArticlesByAuthor = username => async dispatch => {
     dispatch({
       type: GET_ARTICLES_BY_AUTHOR,
       payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: ARTICLE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const favoriteArticle = slug => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  try {
+    const res = await axios.post(`/api/v1/articles/${slug}/favorite/`, config);
+    console.log(res.data.favoritesCount);
+
+    dispatch({
+      type: FAVORITE_ARTICLE,
+      payload: { slug, article: res.data }
+    });
+  } catch (err) {
+    dispatch({
+      type: ARTICLE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const unFavoriteArticle = slug => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  try {
+    const res = await axios.delete(
+      `/api/v1/articles/${slug}/favorite/`,
+      config
+    );
+    console.log(res.data.favoritesCount);
+
+    dispatch({
+      type: UN_FAVORITE_ARTICLE,
+      payload: { slug, article: res.data }
     });
   } catch (err) {
     dispatch({

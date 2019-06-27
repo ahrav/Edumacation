@@ -24,12 +24,7 @@ const EditProfileSettings = ({ isUser }) => {
   return null;
 };
 
-const FollowUserButton = ({
-  isUser,
-  user,
-  unFollowProfile,
-  followProfile
-}) => {
+const FollowUserButton = ({ isUser, user, unfollow, follow }) => {
   if (isUser) {
     return null;
   }
@@ -44,9 +39,9 @@ const FollowUserButton = ({
   const handleClick = e => {
     e.preventDefault();
     if (user.following) {
-      followProfile(user.username);
+      unfollow(user.username);
     } else {
-      unFollowProfile(user.username);
+      follow(user.username);
     }
   };
 

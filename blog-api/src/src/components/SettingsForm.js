@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, updateUser } from '../actions/profile';
 
 const SettingsForm = ({
-  profile: { profile, errors, loading },
+  profile: { profile, loading },
   history,
   getCurrentProfile,
   updateUser

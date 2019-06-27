@@ -9,8 +9,14 @@ import {
 import { setAlert } from './alert';
 
 export const getCurrentProfile = username => async dispatch => {
+  let url;
+  if (username) {
+    url = `/api/v1/profiles/${username}`;
+  } else {
+    url = `/api/v1/users/me/`;
+  }
   try {
-    const res = await axios.get(`/api/v1/profiles/${username}`);
+    const res = await axios.get(url);
 
     dispatch({
       type: GET_PROFILE,
@@ -20,18 +26,14 @@ export const getCurrentProfile = username => async dispatch => {
     dispatch({
       type: PROFILE_ERROR,
       payload: {
-        msg: err.response.errors.error,
+        msg: err.response.errors,
         status: err.response.status
       }
     });
   }
 };
 
-export const updateUser = (
-  formData,
-  history,
-  edit = false
-) => async dispatch => {
+export const updateUser = (formData, history) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -86,7 +88,7 @@ export const followProfile = username => async dispatch => {
 };
 export const unFollowProfile = username => async dispatch => {
   try {
-    const res = await axios.delete(`/api/v1/profiles/${username}/unfollow/`);
+    const res = await axios.delete(`/api/v1/profiles/${username}/follow/`);
 
     dispatch({
       type: FOLLOW_PROFILE,
