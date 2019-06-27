@@ -5,7 +5,7 @@ const YourFeedTab = ({ token, getFeed, tab, onTabClick }) => {
     const clickHandler = async e => {
       e.preventDefault();
       await getFeed();
-      await onTabClick('feed');
+      // await onTabClick('feed');
     };
 
     return (

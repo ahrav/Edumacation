@@ -3,7 +3,8 @@ import {
   GET_PROFILE,
   PROFILE_ERROR,
   FOLLOW_PROFILE,
-  UN_FOLLOW_PROFILE
+  UN_FOLLOW_PROFILE,
+  CLEAR_PROFILE
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +30,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: payload,
+        loading: false
+      };
+    case CLEAR_PROFILE:
+      return {
+        ...state,
+        profile: null,
         loading: false
       };
     default:

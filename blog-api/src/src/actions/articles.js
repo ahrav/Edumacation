@@ -246,7 +246,6 @@ export const favoriteArticle = slug => async dispatch => {
   };
   try {
     const res = await axios.post(`/api/v1/articles/${slug}/favorite/`, config);
-    console.log(res.data.favoritesCount);
 
     dispatch({
       type: FAVORITE_ARTICLE,
@@ -273,7 +272,6 @@ export const unFavoriteArticle = slug => async dispatch => {
       `/api/v1/articles/${slug}/favorite/`,
       config
     );
-    console.log(res.data.favoritesCount);
 
     dispatch({
       type: UN_FAVORITE_ARTICLE,

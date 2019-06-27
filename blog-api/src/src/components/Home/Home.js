@@ -15,12 +15,13 @@ const Home = ({
   common: { appName, token },
   getTags,
   tags,
-  getArticlesByTag
+  getArticlesByTag,
+  getArticles
 }) => {
   useEffect(() => {
     (async () => {
       await getTags();
-      (await token) ? getFeed() : getArticles();
+      await (token ? getFeed() : getArticles());
     })();
   }, [getTags]);
 

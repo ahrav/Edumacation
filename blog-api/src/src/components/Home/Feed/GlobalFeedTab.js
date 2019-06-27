@@ -4,7 +4,7 @@ const GlobalFeedTab = ({ getArticles, onTabClick, tab, loading }) => {
   const clickHandler = async e => {
     e.preventDefault();
     await getArticles();
-    await onTabClick('all');
+    // await onTabClick('all');
   };
 
   return (

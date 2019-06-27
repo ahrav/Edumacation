@@ -25,23 +25,12 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
     store.dispatch(loadUser());
   }, []);
 
-  let view;
-
-  if (appLoaded) {
-    view = (
-      <Fragment>
-        <Header appName={appName} currentUser={currentUser} />
-        <Route exact path='/' component={Home} />
-      </Fragment>
-    );
-  } else {
-    view = <Header appName={appName} currentUser={currentUser} />;
-  }
   return (
     <Router>
       <Fragment>
         <Alert />
-        {view}
+        <Header appName={appName} currentUser={currentUser} />
+        <Route exact path='/' component={Home} />
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
