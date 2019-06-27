@@ -71,7 +71,7 @@ const Header = ({ appName, currentUser }) => {
     <nav className='navbar navbar-light'>
       <div className='container'>
         <Link to='/' className='navbar-brand'>
-          {appName.toLowerCase()}
+          {appName}
         </Link>
 
         <LoggedOutView currentUser={currentUser} />

@@ -2,20 +2,20 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import store from '../store';
-import Login from './auth/Login';
-import Alert from './layout/Alert';
-import Register from './auth/Register';
-import Settings from './Settings';
-import '../index.css';
-import Header from './layout/Header';
-import setAuthToken from '../utils/setAuthToken';
-import { loadUser } from '../actions/auth';
-import Home from './home/Home';
-import Article from './article/Article';
-import Profile from '../components/Profile';
-import ProfileFavorites from '../components/ProfileFavorites';
-import PrivateRoute from '../components/routing/PrivateRoute';
+import store from './store';
+import Login from './components/auth/Login';
+import Alert from './components/layout/Alert';
+import Register from './components/auth/Register';
+import Settings from './components/settings/Settings';
+import './index.css';
+import Header from './components/layout/Header';
+import setAuthToken from './utils/setAuthToken';
+import { loadUser } from './actions/auth';
+import Home from './components/home/Home';
+import Article from './components/article/Article';
+import Profile from './components/profile/Profile';
+import ProfileFavorites from './components/profile/ProfileFavorites';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

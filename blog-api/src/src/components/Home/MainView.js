@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ArticleList from '../ArticleList';
+import ArticleList from '../article/ArticleList';
 import { getArticles, getFeed, onTabClick } from '../../actions/articles';
 import YourFeedTab from './Feed/YourFeedTab';
 import GlobalFeedTab from './Feed/GlobalFeedTab';

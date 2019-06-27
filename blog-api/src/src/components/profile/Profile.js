@@ -1,14 +1,14 @@
-import React, { useEffect, Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import ArticleList from '../article/ArticleList';
 import {
   followProfile,
   unFollowProfile,
   getCurrentProfile
-} from '../actions/profile';
-import { getFavoritedArticles } from '../actions/articles';
-import ArticleList from './ArticleList';
+} from '../../actions/profile';
+import { getArticlesByAuthor } from '../../actions/articles';
 
 const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
@@ -24,12 +24,7 @@ const EditProfileSettings = ({ isUser }) => {
   return null;
 };
 
-const FollowUserButton = ({
-  isUser,
-  user,
-  unFollowProfile,
-  followProfile
-}) => {
+const FollowUserButton = ({ isUser, user, unfollow, follow }) => {
   if (isUser) {
     return null;
   }
@@ -44,9 +39,9 @@ const FollowUserButton = ({
   const handleClick = e => {
     e.preventDefault();
     if (user.following) {
-      followProfile(user.username);
+      unfollow(user.username);
     } else {
-      unFollowProfile(user.username);
+      follow(user.username);
     }
   };
 
@@ -59,42 +54,44 @@ const FollowUserButton = ({
   );
 };
 
-const ProfileFavorites = ({
-  getFavoritedArticles,
+const Profile = ({
   followProfile,
   unFollowProfile,
-  match,
   profile,
+  articles,
   currentUser,
-  articles
+  getCurrentProfile,
+  getArticlesByAuthor,
+  match
 }) => {
   useEffect(() => {
     (async () => {
       await getCurrentProfile(match.params.username);
-      await getFavoritedArticles(match.params.username);
+      await getArticlesByAuthor(match.params.username);
     })();
-  }, [getCurrentProfile, getFavoritedArticles, match.params.username]);
-
+  }, [getCurrentProfile, getArticlesByAuthor, match.params.username]);
   const renderTabs = () => {
     return (
       <ul className='nav nav-pills outline-active'>
         <li className='nav-item'>
-          <Link className='nav-link' to={`/${profile.username}`}>
+          <Link className='nav-link active' to={`/${profile.username}`}>
             My Articles
           </Link>
         </li>
 
         <li className='nav-item'>
-          <Link
-            className='nav-link active'
-            to={`/${profile.username}/favorites`}
-          >
+          <Link className='nav-link' to={`/${profile.username}/favorites`}>
             Favorited Articles
           </Link>
         </li>
       </ul>
     );
   };
+
+  if (!profile) {
+    return null;
+  }
+
   const isUser = currentUser && profile.username === currentUser.username;
   return (
     <div className='profile-page'>
@@ -102,7 +99,7 @@ const ProfileFavorites = ({
         <div className='container'>
           <div className='row'>
             <div className='col-xs-12 col-md-10 offset-md-1'>
-              <img src={profile.image} className='user-img' />
+              <img src={profile.image} alt='' className='user-img' />
               <h4>{profile.username}</h4>
               <p>{profile.bio}</p>
 
@@ -133,11 +130,11 @@ const ProfileFavorites = ({
 
 const mapStateToProps = state => ({
   profile: state.profile.profile,
-  currentUser: state.auth.user,
-  articles: state.articles.articles
+  articles: state.articles.articles,
+  currentUser: state.auth.user
 });
 
 export default connect(
   mapStateToProps,
-  { followProfile, unFollowProfile, getFavoritedArticles }
-)(ProfileFavorites);
+  { followProfile, unFollowProfile, getCurrentProfile, getArticlesByAuthor }
+)(Profile);

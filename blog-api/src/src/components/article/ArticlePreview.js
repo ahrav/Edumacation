@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { favoriteArticle, unFavoriteArticle } from '../actions/articles';
+import { favoriteArticle, unFavoriteArticle } from '../../actions/articles';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';

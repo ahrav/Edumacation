@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import ArticlePreview from './ArticlePreview';
-import Spinner from './layout/Spinner';
+import Spinner from '../layout/Spinner';
 
 const ArticleList = ({ articles: { articles, loading } }) => {
   // if (!articles) {

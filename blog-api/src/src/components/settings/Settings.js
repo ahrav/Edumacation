@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ListErrors from './ListErrors';
-import { logout } from '../actions/auth';
+import ListErrors from '../ListErrors';
+import { logout } from '../../actions/auth';
 import SettingsForm from './SettingsForm';
 
 const Settings = ({ logout, errors }) => {
