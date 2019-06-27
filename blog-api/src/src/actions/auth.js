@@ -52,7 +52,6 @@ export const login = (email, password) => async dispatch => {
       payload: res.data,
       error: res.data.errors
     });
-    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors.error;
 

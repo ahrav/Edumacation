@@ -2,7 +2,6 @@ import { APP_LOAD, REDIRECT } from '../actions/types';
 
 const defaultState = {
   appName: 'BloggIn',
-  token: null,
   viewChangeCounter: 0
 };
 
@@ -13,7 +12,6 @@ export default (state = defaultState, action) => {
     case APP_LOAD:
       return {
         ...state,
-        token: payload.token || null,
         appLoaded: true,
         currentUser: payload ? payload.user : null
       };

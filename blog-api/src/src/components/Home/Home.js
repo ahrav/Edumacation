@@ -12,15 +12,18 @@ import {
 } from '../../actions/articles';
 
 const Home = ({
-  common: { appName, token },
+  common: { appName },
+  token,
   getTags,
   tags,
   getArticlesByTag,
-  getArticles
+  getArticles,
+  getFeed
 }) => {
   useEffect(() => {
     (async () => {
       await getTags();
+      console.log(token);
       await (token ? getFeed() : getArticles());
     })();
   }, [getTags]);

@@ -54,7 +54,7 @@ const LoggedInView = ({ currentUser }) => {
         </li>
 
         <li className='nav-item'>
-          <Link to={`@${currentUser.username}`} className='nav-link'>
+          <Link to={`/${currentUser.username}`} className='nav-link'>
             <img src={currentUser.image} className='user-pic' />
             {currentUser.username}
           </Link>

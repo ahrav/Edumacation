@@ -4,38 +4,29 @@ import {
   LOGIN_FAIL,
   REGISTER_FAIL,
   REGISTER_USER,
-  LOGOUT_USER,
-  CLEAR_PROFILE
+  LOGOUT_USER
 } from '../actions/types';
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem('token') || null,
   isAuthenticated: null,
   loading: true,
-  user: null,
-  inProgress: false
+  user: null
 };
 
 export default (state = initialState, action) => {
-  const { type, payload, errors, subtype } = action;
+  const { type, payload, errors } = action;
 
   switch (type) {
-    case LOAD_USER:
-      return {
-        ...state,
-        isAuthenticated: true,
-        token: payload.token,
-        loading: false,
-        user: payload
-      };
     case LOGIN_USER:
+    case LOAD_USER:
     case REGISTER_USER:
       localStorage.setItem('token', payload.token);
       return {
         ...state,
         user: payload,
         isAuthenticated: true,
-        inProgress: false,
+        loading: false,
         errors: errors ? payload.errors : null
       };
     case LOGIN_FAIL:

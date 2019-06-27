@@ -87,4 +87,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { login }
-)(withRouter(Login));
+)(Login);
