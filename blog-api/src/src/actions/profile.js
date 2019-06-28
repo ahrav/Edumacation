@@ -9,14 +9,8 @@ import {
 import { setAlert } from './alert';
 
 export const getCurrentProfile = username => async dispatch => {
-  let url;
-  if (username) {
-    url = `/api/v1/profiles/${username}`;
-  } else {
-    url = `/api/v1/users/me/`;
-  }
   try {
-    const res = await axios.get(url);
+    const res = await axios.get(`/api/v1/profiles/${username}`);
 
     dispatch({
       type: GET_PROFILE,

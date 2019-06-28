@@ -1,3 +1,7 @@
+html {
+  overflow: scroll;
+}
+
 :root {
   --primary-color: #17a2b8;
   --dark-color: #343a40;

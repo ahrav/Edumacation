@@ -2,14 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getCurrentProfile, updateUser } from '../../actions/profile';
+import { updateUser } from '../../actions/profile';
 
-const SettingsForm = ({
-  profile: { profile, loading },
-  history,
-  getCurrentProfile,
-  updateUser
-}) => {
+const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
   const [formData, setFormData] = useState({
     image: '',
     username: '',
@@ -19,14 +14,13 @@ const SettingsForm = ({
   });
 
   useEffect(() => {
-    getCurrentProfile();
     setFormData({
-      image: loading || !profile.image ? '' : profile.image,
-      username: loading || !profile.username ? '' : profile.username,
-      bio: loading || !profile.bio ? '' : profile.bio,
-      email: loading || !profile.email ? '' : profile.email
+      image: loading || !user.image ? '' : user.image,
+      username: loading || !user.username ? '' : user.username,
+      bio: loading || !user.bio ? '' : user.bio,
+      email: loading || !user.email ? '' : user.email
     });
-  }, [getCurrentProfile, loading]);
+  }, [loading, user]);
 
   const { image, username, bio, email, password } = formData;
 
@@ -110,10 +104,11 @@ const SettingsForm = ({
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, updateUser }
+  { updateUser }
 )(withRouter(SettingsForm));

@@ -26,7 +26,7 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
   if (isAuthenticated) return <Redirect to='/' />;
 
   return (
-    <div className='body'>
+    <div className='main_form'>
       <div className='materialContainer'>
         <div className='box'>
           <div id='login' className='title'>
