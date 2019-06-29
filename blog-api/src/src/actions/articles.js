@@ -364,7 +364,10 @@ export const createArticle = (formData, history) => async dispatch => {
     }
 
     dispatch({
-      type: ARTICLE_ERROR
+      type: ARTICLE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
     });
   }
 };

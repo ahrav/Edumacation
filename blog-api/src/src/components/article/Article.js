@@ -69,7 +69,6 @@ const Article = ({
       </div>
     </Fragment>
   );
-  return <div />;
 };
 
 const mapStateToProps = state => ({
