@@ -7,7 +7,7 @@ import {
   unFollowProfile,
   getCurrentProfile
 } from '../../actions/profile';
-import { getFavoritedArticles } from '../../actions/articles';
+import { getFavoritedArticles, onSetPage } from '../../actions/articles';
 import ArticleList from '../article/ArticleList';
 
 const EditProfileSettings = ({ isUser }) => {
@@ -75,6 +75,10 @@ const ProfileFavorites = ({
     })();
   }, [getCurrentProfile, getFavoritedArticles, match.params.username]);
 
+  const settingPage = page => {
+    onSetPage(() => getFavoritedArticles(profile.username, page));
+  };
+
   const renderTabs = () => {
     return (
       <ul className='nav nav-pills outline-active'>
@@ -96,6 +100,7 @@ const ProfileFavorites = ({
     );
   };
   const isUser = currentUser && profile.username === currentUser.username;
+  const setPage = page => settingPage(page);
   return (
     <div className='profile-page'>
       <div className='user-info'>
@@ -127,6 +132,7 @@ const ProfileFavorites = ({
               articles={articles}
               currentPage={currentPage}
               articlesCount={articleCount}
+              onSetPage={setPage}
             />
           </div>
         </div>
@@ -143,5 +149,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { followProfile, unFollowProfile, getFavoritedArticles }
+  { followProfile, unFollowProfile, getFavoritedArticles, onSetPage }
 )(ProfileFavorites);

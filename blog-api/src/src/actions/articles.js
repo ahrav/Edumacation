@@ -152,7 +152,8 @@ export const getFavoritedArticles = (username, page) => async dispatch => {
 
     dispatch({
       type: GET_FAVORITED_ARTICLES,
-      payload: res.data.results
+      payload: res.data.results,
+      page: page
     });
   } catch (err) {
     dispatch({
