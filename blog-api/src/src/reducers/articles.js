@@ -46,7 +46,8 @@ export default (state = initialState, action) => {
         tag: tag || null,
         tab: 'all',
         loading: false,
-        currentPage: page || 0
+        currentPage: page || 0,
+        article: null
       };
     case GET_ARTICLES_BY_TAG:
       return {
@@ -111,7 +112,8 @@ export default (state = initialState, action) => {
         articleCount: payload.count,
         tab: 'feed',
         loading: false,
-        currentPage: page || 0
+        currentPage: page || 0,
+        article: null
       };
     case CHANGE_TAB:
       return {
