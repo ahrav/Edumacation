@@ -15,7 +15,9 @@ import {
   GET_ARTICLES_BY_TAG,
   GET_ARTICLES_BY_AUTHOR,
   FAVORITE_ARTICLE,
-  UN_FAVORITE_ARTICLE
+  UN_FAVORITE_ARTICLE,
+  CREATE_ARTICLE,
+  UPDATE_ARTICLE
 } from '../actions/types';
 
 const initialState = {
@@ -56,6 +58,8 @@ export default (state = initialState, action) => {
         loading: false
       };
     case GET_ARTICLE:
+    case CREATE_ARTICLE:
+    case UPDATE_ARTICLE:
       return {
         ...state,
         article: payload,

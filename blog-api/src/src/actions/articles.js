@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setAlert } from './alert';
 import {
   GET_ALL_ARTICLES,
   GET_ARTICLE,
@@ -17,7 +18,9 @@ import {
   GET_ARTICLES_BY_AUTHOR,
   FAVORITE_ARTICLE,
   UN_FAVORITE_ARTICLE,
-  SET_PAGE
+  UPDATE_ARTICLE,
+  CREATE_ARTICLE,
+  ADD_TAG
 } from './types';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
@@ -309,6 +312,59 @@ export const onSetPage = view => dispatch => {
       payload: {
         msg: err.response.errors
       }
+    });
+  }
+};
+
+export const updateArticle = (slug, formData, history) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  try {
+    const res = await axios.put(`/api/v1/articles/${slug}/`, formData, config);
+
+    dispatch({
+      type: UPDATE_ARTICLE,
+      payload: res.data
+    });
+    history.push(`/article/${slug}`);
+  } catch (err) {
+    const errors = err.response.data.errors.error;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error, 'danger')));
+    }
+    dispatch({
+      type: ARTICLE_ERROR
+    });
+  }
+};
+
+export const createArticle = (formData, history) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  try {
+    const res = await axios.post(`/api/v1/articles/`, formData, config);
+
+    dispatch({
+      type: CREATE_ARTICLE,
+      payload: res.data
+    });
+    history.push(`/article/${res.data.slug}`);
+  } catch (err) {
+    const errors = err.response.data.errors.error;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error, 'danger')));
+    }
+
+    dispatch({
+      type: ARTICLE_ERROR
     });
   }
 };

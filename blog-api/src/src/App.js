@@ -15,6 +15,7 @@ import Home from './components/home/Home';
 import Article from './components/article/Article';
 import Profile from './components/profile/Profile';
 import ProfileFavorites from './components/profile/ProfileFavorites';
+import Editor from './components/editor/Editor';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 if (localStorage.token) {
@@ -35,14 +36,17 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
-          <PrivateRoute path='/settings' component={Settings} />
-          <PrivateRoute path='/article/:id' component={Article} />
-          <PrivateRoute exact path='/:username' component={Profile} />
+          <PrivateRoute exact path='/settings' component={Settings} />
+          <PrivateRoute exact path='/article/:id' component={Article} />
+
           <PrivateRoute
             exact
             path='/:username/favorites'
             component={ProfileFavorites}
           />
+          <PrivateRoute exact path='/editor/:slug' component={Editor} />
+          <PrivateRoute exact path='/editor' component={Editor} />
+          <PrivateRoute exact path='/:username' component={Profile} />
         </Switch>
       </Fragment>
     </Router>
