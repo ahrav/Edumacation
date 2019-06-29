@@ -6,6 +6,7 @@ import ArticleList from '../article/ArticleList';
 import { getArticles, getFeed, onTabClick } from '../../actions/articles';
 import YourFeedTab from './Feed/YourFeedTab';
 import GlobalFeedTab from './Feed/GlobalFeedTab';
+import Spinner from '../layout/Spinner';
 
 const TagFilterTab = ({ tag }) => {
   if (!tag) return null;
@@ -19,12 +20,16 @@ const TagFilterTab = ({ tag }) => {
 };
 
 const MainView = ({
-  articles: { articles, tab, tag },
+  articles: { articles, tab, tag, loading },
   getFeed,
   getArticles,
   token,
   onTabClick
 }) => {
+  let view;
+  loading
+    ? (view = <Spinner />)
+    : (view = <ArticleList articles={articles} />);
   return (
     <div className='col-md-9'>
       <div className='feed-toggle'>
@@ -45,8 +50,7 @@ const MainView = ({
           <TagFilterTab tag={tag} />
         </ul>
       </div>
-
-      <ArticleList articles={articles} />
+      {view}
     </div>
   );
 };
