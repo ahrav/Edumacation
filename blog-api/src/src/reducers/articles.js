@@ -26,11 +26,12 @@ const initialState = {
   tab: 'feed',
   error: {},
   tags: null,
-  tag: null
+  tag: null,
+  currentPage: 0
 };
 
 export default (state = initialState, action) => {
-  const { type, payload, tab, tag } = action;
+  const { type, payload, tab, tag, page } = action;
 
   switch (type) {
     case GET_ALL_ARTICLES:
@@ -42,7 +43,8 @@ export default (state = initialState, action) => {
         articleCount: payload.count,
         tag: tag || null,
         tab: 'all',
-        loading: false
+        loading: false,
+        currentPage: page || 0
       };
     case GET_ARTICLES_BY_TAG:
       return {
@@ -104,7 +106,8 @@ export default (state = initialState, action) => {
         articles: payload.results,
         articleCount: payload.count,
         tab: 'feed',
-        loading: false
+        loading: false,
+        currentPage: page || 0
       };
     case CHANGE_TAB:
       return {

@@ -16,16 +16,20 @@ import {
   GET_ARTICLES_BY_TAG,
   GET_ARTICLES_BY_AUTHOR,
   FAVORITE_ARTICLE,
-  UN_FAVORITE_ARTICLE
+  UN_FAVORITE_ARTICLE,
+  SET_PAGE
 } from './types';
 
-export const getArticles = () => async dispatch => {
+const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+
+export const getArticles = page => async dispatch => {
   try {
-    const res = await axios.get('/api/v1/articles');
+    const res = await axios.get(`/api/v1/articles?${limit(10, page)}`);
 
     dispatch({
       type: GET_ALL_ARTICLES,
-      payload: res.data
+      payload: res.data,
+      page: page
     });
   } catch (err) {
     dispatch({
@@ -124,7 +128,7 @@ export const addComment = (body, slug) => async dispatch => {
 
 export const deleteComment = (slug, id) => async dispatch => {
   try {
-    const res = await axios.delete(`/api/v1/articles/${slug}/comments/${id}/`);
+    await axios.delete(`/api/v1/articles/${slug}/comments/${id}/`);
 
     dispatch({
       type: DELETE_COMMENT,
@@ -140,9 +144,11 @@ export const deleteComment = (slug, id) => async dispatch => {
   }
 };
 
-export const getFavoritedArticles = username => async dispatch => {
+export const getFavoritedArticles = (username, page) => async dispatch => {
   try {
-    const res = await axios.get(`/api/v1/articles?favorited=${username}`);
+    const res = await axios.get(
+      `/api/v1/articles?favorited=${username}&${limit(10, page)}`
+    );
 
     dispatch({
       type: GET_FAVORITED_ARTICLES,
@@ -158,13 +164,14 @@ export const getFavoritedArticles = username => async dispatch => {
   }
 };
 
-export const getFeed = () => async dispatch => {
+export const getFeed = page => async dispatch => {
   try {
-    const res = await axios.get('/api/v1/articles/feed/');
+    const res = await axios.get(`/api/v1/articles/feed?${limit(10, page)}`);
 
     dispatch({
       type: GET_FEED,
-      payload: res.data
+      payload: res.data,
+      page: page
     });
   } catch (err) {
     dispatch({
@@ -201,9 +208,11 @@ export const getTags = () => async dispatch => {
   }
 };
 
-export const getArticlesByTag = name => async dispatch => {
+export const getArticlesByTag = (name, page) => async dispatch => {
   try {
-    const res = await axios.get(`/api/v1/articles?tag=${name}`);
+    const res = await axios.get(
+      `/api/v1/articles?tag=${name}&${limit(10, page)}`
+    );
 
     dispatch({
       type: GET_ARTICLES_BY_TAG,
@@ -220,13 +229,16 @@ export const getArticlesByTag = name => async dispatch => {
   }
 };
 
-export const getArticlesByAuthor = username => async dispatch => {
+export const getArticlesByAuthor = (username, page) => async dispatch => {
   try {
-    const res = await axios.get(`/api/v1/articles?author=${username}`);
+    const res = await axios.get(
+      `/api/v1/articles?author=${username}&${limit(10, page)}`
+    );
 
     dispatch({
       type: GET_ARTICLES_BY_AUTHOR,
-      payload: res.data
+      payload: res.data,
+      page: page
     });
   } catch (err) {
     dispatch({
@@ -277,6 +289,19 @@ export const unFavoriteArticle = slug => async dispatch => {
       type: UN_FAVORITE_ARTICLE,
       payload: { slug, article: res.data }
     });
+  } catch (err) {
+    dispatch({
+      type: ARTICLE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const onSetPage = view => dispatch => {
+  try {
+    dispatch(view);
   } catch (err) {
     dispatch({
       type: ARTICLE_ERROR,

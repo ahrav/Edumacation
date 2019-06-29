@@ -3,7 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ArticleList from '../article/ArticleList';
-import { getArticles, getFeed, onTabClick } from '../../actions/articles';
+import {
+  getArticles,
+  getFeed,
+  onTabClick,
+  onSetPage
+} from '../../actions/articles';
 import YourFeedTab from './Feed/YourFeedTab';
 import GlobalFeedTab from './Feed/GlobalFeedTab';
 import Spinner from '../layout/Spinner';
@@ -20,16 +25,33 @@ const TagFilterTab = ({ tag }) => {
 };
 
 const MainView = ({
-  articles: { articles, tab, tag, loading },
+  articles: { articles, tab, tag, loading, articleCount, currentPage },
   getFeed,
   getArticles,
   token,
-  onTabClick
+  onTabClick,
+  onSetPage
 }) => {
+  const settingPage = (tab, page) => {
+    let view;
+    tab === 'feed'
+      ? (view = () => getFeed(page))
+      : (view = () => getArticles(page));
+    onSetPage(view);
+  };
+
+  const setPage = page => settingPage(tab, page);
   let view;
   loading
     ? (view = <Spinner />)
-    : (view = <ArticleList articles={articles} />);
+    : (view = (
+        <ArticleList
+          articles={articles}
+          articlesCount={articleCount}
+          currentPage={currentPage}
+          onSetPage={setPage}
+        />
+      ));
   return (
     <div className='col-md-9'>
       <div className='feed-toggle'>
@@ -62,5 +84,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getArticles, getFeed, onTabClick }
+  { getArticles, getFeed, onTabClick, onSetPage }
 )(withRouter(MainView));

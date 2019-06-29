@@ -66,7 +66,7 @@ const ProfileFavorites = ({
   match,
   profile,
   currentUser,
-  articles
+  articles: { articles, articleCount, currentPage }
 }) => {
   useEffect(() => {
     (async () => {
@@ -123,7 +123,11 @@ const ProfileFavorites = ({
           <div className='col-xs-12 col-md-10 offset-md-1'>
             <div className='articles-toggle'>{renderTabs()}</div>
 
-            <ArticleList articles={articles} />
+            <ArticleList
+              articles={articles}
+              currentPage={currentPage}
+              articlesCount={articleCount}
+            />
           </div>
         </div>
       </div>
@@ -134,7 +138,7 @@ const ProfileFavorites = ({
 const mapStateToProps = state => ({
   profile: state.profile.profile,
   currentUser: state.auth.user,
-  articles: state.articles.articles
+  articles: state.articles
 });
 
 export default connect(

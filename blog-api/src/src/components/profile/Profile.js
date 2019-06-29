@@ -8,7 +8,7 @@ import {
   unFollowProfile,
   getCurrentProfile
 } from '../../actions/profile';
-import { getArticlesByAuthor } from '../../actions/articles';
+import { getArticlesByAuthor, onSetPage } from '../../actions/articles';
 
 const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
@@ -58,11 +58,12 @@ const Profile = ({
   followProfile,
   unFollowProfile,
   profile,
-  articles,
+  articles: { articles, articleCount, currentPage },
   currentUser,
   getCurrentProfile,
   getArticlesByAuthor,
-  match
+  match,
+  onSetPage
 }) => {
   useEffect(() => {
     (async () => {
@@ -70,6 +71,11 @@ const Profile = ({
       await getArticlesByAuthor(match.params.username);
     })();
   }, [getCurrentProfile, getArticlesByAuthor, match.params.username]);
+
+  const settingPage = page => {
+    onSetPage(() => getArticlesByAuthor(profile.username, page));
+  };
+
   const renderTabs = () => {
     return (
       <ul className='nav nav-pills outline-active'>
@@ -88,11 +94,14 @@ const Profile = ({
     );
   };
 
+  const setPage = page => settingPage(page);
+
   if (!profile) {
     return null;
   }
 
   const isUser = currentUser && profile.username === currentUser.username;
+
   return (
     <div className='profile-page'>
       <div className='user-info'>
@@ -120,7 +129,12 @@ const Profile = ({
           <div className='col-xs-12 col-md-10 offset-md-1'>
             <div className='articles-toggle'>{renderTabs()}</div>
 
-            <ArticleList articles={articles} />
+            <ArticleList
+              articles={articles}
+              articlesCount={articleCount}
+              currentPage={currentPage}
+              onSetPage={setPage}
+            />
           </div>
         </div>
       </div>
@@ -130,11 +144,17 @@ const Profile = ({
 
 const mapStateToProps = state => ({
   profile: state.profile.profile,
-  articles: state.articles.articles,
+  articles: state.articles,
   currentUser: state.auth.user
 });
 
 export default connect(
   mapStateToProps,
-  { followProfile, unFollowProfile, getCurrentProfile, getArticlesByAuthor }
+  {
+    followProfile,
+    unFollowProfile,
+    getCurrentProfile,
+    getArticlesByAuthor,
+    onSetPage
+  }
 )(Profile);
