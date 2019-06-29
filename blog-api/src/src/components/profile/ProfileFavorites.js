@@ -83,7 +83,7 @@ const ProfileFavorites = ({
     return (
       <ul className='nav nav-pills outline-active'>
         <li className='nav-item'>
-          <Link className='nav-link' to={`/${profile.username}`}>
+          <Link className='nav-link' to={`/@${profile.username}`}>
             My Articles
           </Link>
         </li>
@@ -91,7 +91,7 @@ const ProfileFavorites = ({
         <li className='nav-item'>
           <Link
             className='nav-link active'
-            to={`/${profile.username}/favorites`}
+            to={`/@${profile.username}/favorites`}
           >
             Favorited Articles
           </Link>

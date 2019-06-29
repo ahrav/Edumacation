@@ -1,5 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import store from './store';
@@ -41,12 +46,13 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
 
           <PrivateRoute
             exact
-            path='/:username/favorites'
+            path='/@:username/favorites'
             component={ProfileFavorites}
           />
           <PrivateRoute exact path='/editor/:slug' component={Editor} />
           <PrivateRoute exact path='/editor' component={Editor} />
-          <PrivateRoute exact path='/:username' component={Profile} />
+          <PrivateRoute exact path='/@:username' component={Profile} />
+          <Redirect to='/' />
         </Switch>
       </Fragment>
     </Router>
