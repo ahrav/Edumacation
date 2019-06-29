@@ -20,9 +20,9 @@ const Editor = ({
     title: '',
     description: '',
     body: '',
-    tagList: [],
-    tagListInput: ''
+    tagList: []
   });
+  const [tagListInput, setTagListInput] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -34,14 +34,13 @@ const Editor = ({
             ? ''
             : article.description,
         body: loading || !article || !article.body ? '' : article.body,
-        tagList:
-          loading || !article || !article.tagList ? [] : article.tagList,
-        tagListInput: ''
+        tagList: loading || !article || !article.tagList ? [] : article.tagList
       });
+      await setTagListInput('');
     })();
   }, [getArticle, match.params.slug]);
 
-  const { title, description, body, tagList, tagListInput } = formData;
+  const { title, description, body, tagList } = formData;
 
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,9 +51,9 @@ const Editor = ({
       e.preventDefault();
       setFormData({
         ...formData,
-        tagList: [e.target.value].concat(formData.tagList),
-        tagListInput: ''
+        tagList: [e.target.value].concat(formData.tagList)
       });
+      setTagListInput('');
     }
   };
 
@@ -109,6 +108,7 @@ const Editor = ({
                     rows='8'
                     placeholder='Write your article (in markdown)'
                     name='body'
+                    required
                     value={body}
                     onChange={e => onChange(e)}
                   />
@@ -121,7 +121,7 @@ const Editor = ({
                     placeholder='Enter tags'
                     name='tagListInput'
                     value={tagListInput}
-                    onChange={e => onChange(e)}
+                    onChange={e => setTagListInput(e.target.value)}
                     onKeyUp={e => watchForEnter(e)}
                   />
 
@@ -159,7 +159,7 @@ const Editor = ({
 
 const mapStateToProps = state => ({
   article: state.articles.article,
-  loading: state.articles.loading
+  loading: state.auth.loading
 });
 
 export default connect(

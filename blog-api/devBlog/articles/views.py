@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.db.models import Count
 
 from rest_framework import generics, mixins, status, viewsets
 from rest_framework.exceptions import NotFound
@@ -245,7 +245,11 @@ class CommentsDestroyAPIView(generics.DestroyAPIView):
 class TagListAPIView(generics.ListAPIView):
     """responsible for viewing all tags"""
 
-    queryset = Tag.objects.all()
+    queryset = (
+        Article.objects.values("tags__tag")
+        .annotate(tag_count=Count("tags__tag"))
+        .order_by("-tag_count")[:15]
+    )
     serializer_class = TagSerializer
     permission_classes = (AllowAny,)
     pagination_class = None

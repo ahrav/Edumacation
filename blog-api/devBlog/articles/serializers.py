@@ -10,7 +10,14 @@ class ArticleSerializer(serializers.ModelSerializer):
     """serializer for article model"""
 
     author = ProfileSerializer(read_only=True)
-    description = serializers.CharField(required=False)
+    description = serializers.CharField(required=False, allow_blank=True)
+    title = serializers.CharField(
+        error_messages={
+            "required": "Title is required and can not be left blank",
+            "blank": "Title can not be left blank",
+        }
+    )
+    body = serializers.CharField(required=False, allow_blank=True)
     slug = serializers.SlugField(required=False)
     favorited = serializers.SerializerMethodField()
     favoritesCount = serializers.SerializerMethodField(
@@ -104,4 +111,4 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ("tag",)
 
     def to_representation(self, obj):
-        return obj.tag
+        return obj["tags__tag"]
