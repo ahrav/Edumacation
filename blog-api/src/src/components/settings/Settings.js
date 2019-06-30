@@ -11,20 +11,9 @@ const Settings = ({ logout, errors }) => {
     <div className='settings-page'>
       <div className='container page'>
         <div className='row'>
-          <div className='col-md-6 offset-md-3 col-xs-12'>
-            <ListErrors errors={errors} />
+          <ListErrors errors={errors} />
 
-            <SettingsForm />
-
-            <hr />
-
-            <button
-              className='btn btn-outline-danger'
-              onClick={() => logout()}
-            >
-              Or click here to logout.
-            </button>
-          </div>
+          <SettingsForm logout={() => logout()} />
         </div>
       </div>
     </div>

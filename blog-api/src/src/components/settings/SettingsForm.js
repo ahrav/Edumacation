@@ -6,7 +6,10 @@ import { updateUser } from '../../actions/profile';
 import '../../assets/css/main.css';
 import '../../assets/css/util.css';
 
-const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
+const SettingsForm = (
+  { auth: { user, loading }, history, updateUser },
+  logout
+) => {
   const [formData, setFormData] = useState({
     image: '',
     username: '',
@@ -36,78 +39,12 @@ const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
   };
 
   return (
-    // <form onSubmit={e => onSubmit(e)}>
-    //   <fieldset>
-    //     <fieldset className='form-group'>
-    //       <input
-    //         className='form-control'
-    //         type='text'
-    //         placeholder='URL of profile picture'
-    //         value={image}
-    //         name='image'
-    //         onChange={e => onChange(e)}
-    //       />
-    //     </fieldset>
-
-    //     <fieldset className='form-group'>
-    //       <input
-    //         className='form-control form-control-lg'
-    //         type='text'
-    //         placeholder='Username'
-    //         name='username'
-    //         value={username}
-    //         onChange={e => onChange(e)}
-    //       />
-    //     </fieldset>
-
-    //     <fieldset className='form-group'>
-    //       <textarea
-    //         className='form-control form-control-lg'
-    //         rows='8'
-    //         placeholder='Short bio about you'
-    //         name='bio'
-    //         value={bio}
-    //         onChange={e => onChange(e)}
-    //       />
-    //     </fieldset>
-
-    //     <fieldset className='form-group'>
-    //       <input
-    //         className='form-control form-control-lg'
-    //         type='email'
-    //         placeholder='Email'
-    //         name='email'
-    //         value={email}
-    //         onChange={e => onChange(e)}
-    //       />
-    //     </fieldset>
-
-    //     <fieldset className='form-group'>
-    //       <input
-    //         className='form-control form-control-lg'
-    //         type='password'
-    //         placeholder='New Password'
-    //         name='password'
-    //         value={password || ''}
-    //         onChange={e => onChange(e)}
-    //       />
-    //     </fieldset>
-
-    //     <button
-    //       className='btn btn-lg btn-primary pull-xs-right'
-    //       type='submit'
-    //       disabled={loading}
-    //     >
-    //       Update Settings
-    //     </button>
-    //   </fieldset>
-    // </form>
     <div className='limiter'>
       <div className='container-profile100'>
         <div className='wrap-profile100'>
           <form
             onSubmit={e => onSubmit(e)}
-            className='login100-form validate-form'
+            className='profile100-form validate-form'
           >
             <span className='profile100-form-title'>My Profile</span>
 
@@ -191,6 +128,15 @@ const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
               <button disabled={loading} className='login100-form-btn'>
                 Update Profile
               </button>
+              <div className='container-login100-form-btn'>
+                <button
+                  onClick={logout}
+                  disabled={loading}
+                  className='logout100-form-btn'
+                >
+                  Logout
+                </button>
+              </div>
             </div>
           </form>
         </div>
