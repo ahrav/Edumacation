@@ -83,6 +83,9 @@ class CommentSerializer(serializers.ModelSerializer):
     author = ProfileSerializer(read_only=True, required=False)
     createdAt = serializers.SerializerMethodField(method_name="get_created_at")
     updatedAt = serializers.SerializerMethodField(method_name="get_updated_at")
+    body = serializers.CharField(
+        required=True, error_messages={"blank": "Comment can not be blank."}
+    )
 
     class Meta:
         model = Comment

@@ -18,6 +18,7 @@ const CommentInput = ({ addComment, slug, currentUser }) => {
           className='form-control'
           placeholder='Write a comment...'
           name='body'
+          required
           value={body}
           onChange={e => setBody(e.target.value)}
           rows='3'

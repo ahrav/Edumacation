@@ -119,10 +119,12 @@ export const addComment = (body, slug) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    const error = err.response.data.errors['body'][0];
+    dispatch(setAlert(error, 'danger'));
     dispatch({
       type: COMMENT_ERROR,
       payload: {
-        msg: err.response.errors
+        msg: error
       }
     });
   }
