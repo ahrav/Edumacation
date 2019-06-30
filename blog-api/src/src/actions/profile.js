@@ -9,6 +9,16 @@ import {
 } from './types';
 import { setAlert } from './alert';
 
+const profileError = err => dispatch => {
+  dispatch({
+    type: PROFILE_ERROR,
+    payload: {
+      msg: err.response.statusText,
+      status: err.response.status
+    }
+  });
+};
+
 export const getCurrentProfile = username => async dispatch => {
   try {
     const res = await axios.get(`/api/v1/profiles/${username}`);
@@ -18,13 +28,7 @@ export const getCurrentProfile = username => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.errors,
-        status: err.response.status
-      }
-    });
+    dispatch(profileError(err));
   }
 };
 
@@ -34,7 +38,6 @@ export const updateUser = (formData, history) => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
-  console.log(formData);
   try {
     const res = await axios.put('/api/v1/users/me/', formData, config);
 
@@ -51,7 +54,6 @@ export const updateUser = (formData, history) => async dispatch => {
     dispatch(setAlert('Updated Account', 'success'));
     history.push('/');
   } catch (err) {
-    console.log(err.response.data.errors);
     const errors = err.response.data.errors;
 
     if (errors) {
@@ -59,6 +61,8 @@ export const updateUser = (formData, history) => async dispatch => {
         dispatch(setAlert(errors[key]['image'][0], 'danger'))
       );
     }
+
+    dispatch(profileError(err));
   }
 };
 
