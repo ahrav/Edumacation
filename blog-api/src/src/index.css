@@ -7,7 +7,7 @@
 }
 
 .alert {
-  padding: 0.8rem;
+  padding: 4px;
   margin: 2rem 2rem;
   opacity: 0.9;
   background: var(--light-color);
@@ -32,6 +32,7 @@
 .alert-danger {
   background: var(--danger-color);
   color: #fff;
+  margin-bottom: 8px;
 }
 
 .alert-success {
