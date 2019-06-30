@@ -8,7 +8,7 @@ import '../../assets/css/main.css';
 import '../../assets/css/util.css';
 import Image from '../../assets/images/img-01.png';
 
-const Login = ({ login, isAuthenticated, inProgress, errors }) => {
+const Login = ({ login, isAuthenticated, loading, errors }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -22,6 +22,7 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
   const onSubmit = async e => {
     e.preventDefault();
     login(email, password);
+    setFormData({ email: '', password: '' });
   };
 
   if (isAuthenticated) return <Redirect to='/' />;
@@ -82,7 +83,9 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
             </div>
 
             <div className='container-login100-form-btn'>
-              <button className='login100-form-btn'>Login</button>
+              <button disabled={loading} className='login100-form-btn'>
+                Login
+              </button>
             </div>
 
             <div className='text-center p-t-12'>
@@ -110,7 +113,7 @@ const Login = ({ login, isAuthenticated, inProgress, errors }) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  inProgress: state.auth.inProgress,
+  loading: state.auth.loading,
   errors: state.auth.errors
 });
 

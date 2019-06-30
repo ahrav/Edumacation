@@ -216,6 +216,20 @@ iframe {
   background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
 
+.container-profile100 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  height: 480px;
+}
+
 .wrap-login100 {
   width: 960px;
   background: #fff;
@@ -230,6 +244,23 @@ iframe {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 177px 130px 33px 95px;
+}
+
+.wrap-profile100 {
+  width: 960px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px 55px 33px 55px;
+  margin-bottom: 285px;
 }
 
 /*------------------------------------------------------------------
@@ -260,6 +291,18 @@ iframe {
   padding-bottom: 54px;
 }
 
+.profile100-form-title {
+  font-family: Poppins-Bold;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+
+  width: 100%;
+  display: block;
+  padding-bottom: 10px;
+}
+
 /*---------------------------------------------*/
 .wrap-input100 {
   position: relative;
@@ -282,6 +325,24 @@ iframe {
   padding: 0 30px 0 68px;
 }
 
+.input100-area {
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #666666;
+
+  display: block;
+  width: 100%;
+  background: #e6e6e6;
+  height: 100px;
+  border-radius: 25px;
+  padding: 0 30px 0 68px;
+}
+
+.input100-area::-webkit-input-placeholder {
+  padding-top: 40px;
+}
+
 /*------------------------------------------------------------------
 [ Focus ]*/
 .focus-input100 {
@@ -298,6 +359,11 @@ iframe {
 }
 
 .input100:focus + .focus-input100 {
+  -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+  animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input100-area:focus + .focus-input100 {
   -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
   animation: anim-shadow 0.5s ease-in-out forwards;
 }

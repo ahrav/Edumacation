@@ -85,7 +85,7 @@ export const unFollowProfile = username => async dispatch => {
     const res = await axios.delete(`/api/v1/profiles/${username}/follow/`);
 
     dispatch({
-      type: FOLLOW_PROFILE,
+      type: UN_FOLLOW_PROFILE,
       payload: res.data
     });
   } catch (err) {

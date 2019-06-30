@@ -10,7 +10,7 @@ import Image from '../../assets/images/img-01.png';
 const Register = ({
   register,
   setAlert,
-  auth: { isAuthenticated, errors, inProgress }
+  auth: { isAuthenticated, errors, loading }
 }) => {
   const [formData, setFormData] = useState({
     username: '',
@@ -31,6 +31,7 @@ const Register = ({
     } else {
       register({ username, email, password });
     }
+    setFormData({ username: '', email: '', password: '', password2: '' });
   };
 
   if (isAuthenticated) {
@@ -103,6 +104,7 @@ const Register = ({
                 onChange={e => onChange(e)}
                 value={password}
                 required
+                minLength='8'
               />
               <span className='focus-input100' />
               <span className='symbol-input100'>
@@ -129,7 +131,9 @@ const Register = ({
             </div>
 
             <div className='container-login100-form-btn'>
-              <button className='login100-form-btn'>Login</button>
+              <button disabled={loading} className='login100-form-btn'>
+                Register
+              </button>
             </div>
 
             <div className='text-center p-t-136'>
