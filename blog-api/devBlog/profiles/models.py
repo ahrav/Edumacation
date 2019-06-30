@@ -9,7 +9,7 @@ class Profile(TimestampModel):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    image = models.CharField(blank=True, max_length=400)
+    image = models.URLField(blank=True, null=True)
     follows = models.ManyToManyField(
         "self", related_name="followed_by", symmetrical=False
     )

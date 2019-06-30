@@ -8,7 +8,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     username = serializers.CharField(source="user.username")
     bio = serializers.CharField(allow_blank=True, required=False)
-    image = serializers.URLField(allow_blank=True, required=False)
+    image = serializers.URLField(allow_blank=True, allow_null=True)
     following = serializers.SerializerMethodField()
 
     class Meta:

@@ -34,6 +34,7 @@ export const updateUser = (formData, history) => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
+  console.log(formData);
   try {
     const res = await axios.put('/api/v1/users/me/', formData, config);
 
@@ -50,11 +51,12 @@ export const updateUser = (formData, history) => async dispatch => {
     dispatch(setAlert('Updated Account', 'success'));
     history.push('/');
   } catch (err) {
+    console.log(err.response.data.errors);
     const errors = err.response.data.errors;
 
     if (errors) {
       Object.keys(errors).forEach(key =>
-        dispatch(setAlert(errors[key][0], 'danger'))
+        dispatch(setAlert(errors[key]['image'][0], 'danger'))
       );
     }
   }

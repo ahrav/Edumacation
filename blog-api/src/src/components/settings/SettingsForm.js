@@ -12,7 +12,7 @@ const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
     username: '',
     bio: '',
     email: '',
-    password: null
+    password: ''
   });
 
   useEffect(() => {
@@ -179,7 +179,7 @@ const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
                 name='password'
                 placeholder='Password'
                 onChange={e => onChange(e)}
-                value={password}
+                value={password || ''}
               />
               <span className='focus-input100' />
               <span className='symbol-input100'>
