@@ -6,10 +6,12 @@ import { updateUser } from '../../actions/profile';
 import '../../assets/css/main.css';
 import '../../assets/css/util.css';
 
-const SettingsForm = (
-  { auth: { user, loading }, history, updateUser },
-  logout
-) => {
+const SettingsForm = ({
+  auth: { user, loading },
+  history,
+  updateUser,
+  logOut
+}) => {
   const [formData, setFormData] = useState({
     image: '',
     username: '',
@@ -128,17 +130,17 @@ const SettingsForm = (
               <button disabled={loading} className='login100-form-btn'>
                 Update Profile
               </button>
-              <div className='container-login100-form-btn'>
-                <button
-                  onClick={logout}
-                  disabled={loading}
-                  className='logout100-form-btn'
-                >
-                  Logout
-                </button>
-              </div>
             </div>
           </form>
+          <div className='container-login100-form-btn'>
+            <button
+              onClick={logOut}
+              disabled={loading}
+              className='logout100-form-btn'
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Link, withRouter } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import Tilt from 'react-tilt';
 
 import { login } from '../../actions/auth';
 import '../../assets/css/main.css';
 import '../../assets/css/util.css';
+import '../../index.css';
 import Image from '../../assets/images/img-01.png';
+
+const initialFormValues = {
+  email: '',
+  password: ''
+};
 
 const Login = ({ login, isAuthenticated, loading, errors }) => {
   const [formData, setFormData] = useState({
@@ -37,12 +45,67 @@ const Login = ({ login, isAuthenticated, loading, errors }) => {
           >
             <img src={Image} alt='IMG' />
           </Tilt>
+          <Formik
+            initialValues={initialFormValues}
+            validationSchema={Yup.object({
+              email: Yup.string()
+                .email('Invalid Email')
+                .required('Email is required'),
+              password: Yup.string()
+                .min(8)
+                .required('Password is required')
+            })}
+            onSubmit={({ email, password }) => {
+              console.log(email, password);
+              login(email, password);
+            }}
+          >
+            {({
+              email,
+              password,
+              handleBlur,
+              error,
+              touched,
+              isSubmitting,
+              setFieldValue
+            }) => (
+              <Form className='login100-form validate-form'>
+                <span className='login100-form-title'>Login</span>
+                <Field
+                  name='email'
+                  type='email'
+                  placeholder='Email'
+                  render={({ field, form: { isSubmitting } }) => (
+                    <Fragment>
+                      <div className='wrap-input100 validate-input'>
+                        <input
+                          {...field}
+                          className='input100'
+                          placeholder='Email'
+                          disabled={isSubmitting}
+                        />
 
-          <form
+                        <span className='focus-input100' />
+                        <span className='symbol-input100'>
+                          <i className='fa fa-envelope' aria-hidden='true' />
+                        </span>
+                      </div>
+                      <ErrorMessage name='email'>
+                        {msg => <span className='alert-danger'>{msg}</span>}
+                      </ErrorMessage>
+                    </Fragment>
+                  )}
+                />
+              </Form>
+            )}
+            {/* <form
             onSubmit={e => onSubmit(e)}
             className='login100-form validate-form'
           >
             <span className='login100-form-title'>Login</span>
+            <div
+              className='wrap-input100 validate-input'
+            ></div>
 
             <div
               className='wrap-input100 validate-input'
@@ -104,7 +167,8 @@ const Login = ({ login, isAuthenticated, loading, errors }) => {
                 />
               </Link>
             </div>
-          </form>
+          </form> */}
+          </Formik>
         </div>
       </div>
     </div>
