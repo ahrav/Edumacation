@@ -4,7 +4,8 @@ import {
   PROFILE_ERROR,
   FOLLOW_PROFILE,
   UN_FOLLOW_PROFILE,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  UPDATE_PROFILE
 } from '../actions/types';
 
 const initialState = {
@@ -17,7 +18,7 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case UPDATE_USER:
+    case UPDATE_PROFILE:
     case GET_PROFILE:
     case FOLLOW_PROFILE:
     case UN_FOLLOW_PROFILE:

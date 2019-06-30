@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   UPDATE_USER,
+  UPDATE_PROFILE,
   GET_PROFILE,
   PROFILE_ERROR,
   FOLLOW_PROFILE,
@@ -38,6 +39,11 @@ export const updateUser = (formData, history) => async dispatch => {
 
     dispatch({
       type: UPDATE_USER,
+      payload: res.data
+    });
+
+    dispatch({
+      type: UPDATE_PROFILE,
       payload: res.data
     });
 

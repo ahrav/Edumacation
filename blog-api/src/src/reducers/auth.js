@@ -4,7 +4,8 @@ import {
   LOGIN_FAIL,
   REGISTER_FAIL,
   REGISTER_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  UPDATE_USER
 } from '../actions/types';
 
 const initialState = {
@@ -28,7 +29,7 @@ export default (state = initialState, action) => {
         token: payload.token,
         isAuthenticated: true,
         loading: false,
-        errors: errors ? payload.errors : null
+        errors: payload.errors || null
       };
     case LOGIN_FAIL:
     case REGISTER_FAIL:
@@ -40,6 +41,13 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         loading: false,
         user: null
+      };
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: payload,
+        loading: false,
+        errors: payload.errors || null
       };
     default:
       return state;

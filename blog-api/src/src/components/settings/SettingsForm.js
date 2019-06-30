@@ -12,7 +12,7 @@ const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
     username: '',
     bio: '',
     email: '',
-    password: ''
+    password: null
   });
 
   useEffect(() => {
@@ -20,8 +20,7 @@ const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
       image: loading || !user.image ? '' : user.image,
       username: loading || !user.username ? '' : user.username,
       bio: loading || !user.bio ? '' : user.bio,
-      email: loading || !user.email ? '' : user.email,
-      password: ''
+      email: loading || !user.email ? '' : user.email
     });
   }, [loading, user]);
 
@@ -181,7 +180,6 @@ const SettingsForm = ({ auth: { user, loading }, history, updateUser }) => {
                 placeholder='Password'
                 onChange={e => onChange(e)}
                 value={password}
-                minLength='8'
               />
               <span className='focus-input100' />
               <span className='symbol-input100'>

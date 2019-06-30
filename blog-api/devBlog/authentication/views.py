@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -13,7 +13,7 @@ from .serializers import (
 from .models import User
 
 
-class UserRetrieveUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
+class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     """Allow users to modify their accounts"""
 
     permission_classes = (IsAuthenticated,)
@@ -35,7 +35,7 @@ class UserRetrieveUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
             "password": request.data.get("password", request.user.password),
             "profile": {
                 "bio": request.data.get("bio", request.user.profile.bio),
-                "image": request.data.get("image", request.user.profile.image),
+                "image": request.data.get("image"),
             },
         }
 
