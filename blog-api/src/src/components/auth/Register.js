@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import Tilt from 'react-tilt';
 
-import ListErrors from '../ListErrors';
 import { register } from '../../actions/auth';
 import { setAlert } from '../../actions/alert';
+import Image from '../../assets/images/img-01.png';
 
 const Register = ({
   register,
@@ -36,77 +37,114 @@ const Register = ({
     return <Redirect to='/' />;
   }
   return (
-    <form onSubmit={e => onSubmit(e)}>
-      <div className='overbox'>
-        <div className='material-button alt-2'>
-          <span className='shape' />
-        </div>
+    <div className='limiter'>
+      <div className='container-login100'>
+        <div className='wrap-login100'>
+          <Tilt
+            options={{ max: 55, perspective: 300, scale: 1.1, speed: 500 }}
+            className='login100-pic js-tilt'
+          >
+            <img src={Image} alt='IMG' />
+          </Tilt>
 
-        <div id='register' className='title'>
-          REGISTER
-        </div>
+          <form
+            onSubmit={e => onSubmit(e)}
+            className='login100-form validate-form'
+          >
+            <span className='login100-form-title'>Register</span>
 
-        <div className='input'>
-          <label>
-            <input
-              type='text'
-              name='username'
-              placeholder='Username'
-              value={username}
-              onChange={e => onChange(e)}
-              required
-            />
-            <span className='spin' />
-          </label>
-        </div>
-        <div className='input'>
-          <label>
-            <input
-              type='email'
-              name='email'
-              placeholder='Email'
-              value={email}
-              onChange={e => onChange(e)}
-              required
-            />
-            <span className='spin' />
-          </label>
-        </div>
+            <div
+              className='wrap-input100 validate-input'
+              data-validate='Valid email is required: ex@abc.xyz'
+            >
+              <input
+                className='input100'
+                type='text'
+                required
+                value={username}
+                onChange={e => onChange(e)}
+                name='username'
+                placeholder='Username'
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                <i className='fa fa-envelope' aria-hidden='true' />
+              </span>
+            </div>
 
-        <div className='input'>
-          <label />
-          <input
-            type='password'
-            name='password'
-            placeholder='Password'
-            onChange={e => onChange(e)}
-            value={password}
-            required
-            minLength='8'
-          />
-          <span className='spin' />
-        </div>
+            <div
+              className='wrap-input100 validate-input'
+              data-validate='Valid email is required: ex@abc.xyz'
+            >
+              <input
+                className='input100'
+                type='email'
+                required
+                value={email}
+                onChange={e => onChange(e)}
+                name='email'
+                placeholder='Email'
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                <i className='fa fa-envelope' aria-hidden='true' />
+              </span>
+            </div>
 
-        <div className='input'>
-          <label />
-          <input
-            type='password'
-            placeholder='Re-enter Password'
-            name='password2'
-            required
-            value={password2}
-            onChange={e => onChange(e)}
-          />
-          <span className='spin' />
-        </div>
+            <div
+              className='wrap-input100 validate-input'
+              data-validate='Password is required'
+            >
+              <input
+                className='input100'
+                type='password'
+                name='password'
+                placeholder='Password'
+                onChange={e => onChange(e)}
+                value={password}
+                required
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                <i className='fa fa-lock' aria-hidden='true' />
+              </span>
+            </div>
+            <div
+              className='wrap-input100 validate-input'
+              data-validate='Password is required'
+            >
+              <input
+                className='input100'
+                type='password'
+                name='password2'
+                placeholder='Confirm Password'
+                onChange={e => onChange(e)}
+                value={password2}
+                required
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                <i className='fa fa-lock' aria-hidden='true' />
+              </span>
+            </div>
 
-        <div className='button'>
-          <button>
-            <span>NEXT</span>
-          </button>
+            <div className='container-login100-form-btn'>
+              <button className='login100-form-btn'>Login</button>
+            </div>
+
+            <div className='text-center p-t-136'>
+              <Link className='txt2 create' to='/login'>
+                Already have an account? Login
+                <i
+                  className='fa fa-long-arrow-right m-l-5'
+                  aria-hidden='true'
+                />
+              </Link>
+            </div>
+          </form>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
