@@ -5,7 +5,7 @@ const Banner = ({ appName }) => {
     <div className='banner'>
       <div className='container'>
         <h1 className='logo-font'>{appName}</h1>
-        <p>A place to share your knowledge.</p>
+        <p>Spread the knowledge!</p>
       </div>
     </div>
   );
