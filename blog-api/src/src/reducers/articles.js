@@ -64,6 +64,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         article: payload,
+        tag: null,
         loading: false
       };
     case GET_ARTICLE_COMMENTS:
@@ -113,7 +114,8 @@ export default (state = initialState, action) => {
         tab: 'feed',
         loading: false,
         currentPage: page || 0,
-        article: null
+        article: null,
+        tag: tag || null
       };
     case CHANGE_TAB:
       return {

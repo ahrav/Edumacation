@@ -19,8 +19,7 @@ import {
   FAVORITE_ARTICLE,
   UN_FAVORITE_ARTICLE,
   UPDATE_ARTICLE,
-  CREATE_ARTICLE,
-  ADD_TAG
+  CREATE_ARTICLE
 } from './types';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
