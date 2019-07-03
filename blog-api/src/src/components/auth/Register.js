@@ -59,7 +59,6 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
 
           <Formik
             initialValues={initialFormValues}
-            isSubmitting={true}
             validationSchema={Yup.object({
               username: Yup.string()
                 .isAvailable('username', 'Username already in use')
@@ -75,8 +74,7 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
                 .equalTo(Yup.ref('password'), 'Passwords must match')
                 .required()
             })}
-            onSubmit={({ username, email, password, actions }) => {
-              console.log(email, password);
+            onSubmit={({ username, email, password }, actions) => {
               register(username, email, password);
               actions.setSubmitting(false);
             }}
@@ -184,7 +182,6 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
                   )}
                 />
                 <div className='container-login100-form-btn'>
-                  {console.log(isSubmitting)}
                   <button
                     disabled={isSubmitting}
                     className='login100-form-btn'

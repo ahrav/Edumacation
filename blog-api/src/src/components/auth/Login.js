@@ -42,13 +42,16 @@ const Login = ({ login, isAuthenticated }) => {
                 .min(8, 'Password must be at least 8 characters long')
                 .required('Password is required')
             })}
-            onSubmit={({ email, password }) => {
-              console.log(email, password);
+            onSubmit={({ email, password }, actions) => {
               login(email, password);
+              actions.setSubmitting(false);
             }}
           >
-            {({ isSubmitting }) => (
-              <Form className='login100-form validate-form'>
+            {({ isSubmitting, handleSubmit }) => (
+              <Form
+                onSubmit={handleSubmit}
+                className='login100-form validate-form'
+              >
                 <span className='login100-form-title'>Login</span>
                 <Field
                   name='email'
@@ -101,6 +104,7 @@ const Login = ({ login, isAuthenticated }) => {
                 <div className='container-login100-form-btn'>
                   <button
                     disabled={isSubmitting}
+                    type='submit'
                     className='login100-form-btn'
                   >
                     Login
