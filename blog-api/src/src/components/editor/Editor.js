@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import Spinner from '../layout/Spinner';
 import {
   getArticle,
   updateArticle,
   createArticle
 } from '../../actions/articles';
+import '../../assets/css/main.css';
+import '../../assets/css/util.css';
+
 const Editor = ({
   match,
   article,
@@ -38,7 +42,7 @@ const Editor = ({
       });
       await setTagListInput('');
     })();
-  }, [getArticle, match.params.slug]);
+  }, [match.params.slug, setFormData]);
 
   const { title, description, body, tagList } = formData;
 
@@ -70,87 +74,104 @@ const Editor = ({
       ? updateArticle(article.slug, { article: formData }, history)
       : createArticle({ article: formData }, history);
   };
-
+  if (loading) return <Spinner />;
   return (
-    <div className='editor-page'>
-      <div className='container page'>
-        <div className='row'>
-          <div className='col-md-10 offset-md-1 col-xs-12'>
-            {/* <ListErrors errors={this.props.errors}></ListErrors> */}
+    <div className='limiter'>
+      <div className='container-profile100'>
+        <div className='wrap-profile100'>
+          <form className='profile100-form validate-form'>
+            <span className='profile100-form-title'>
+              {title || 'New Article'}
+            </span>
 
-            <form>
-              <fieldset>
-                <fieldset className='form-group'>
-                  <input
-                    className='form-control form-control-lg'
-                    type='text'
-                    placeholder='Article Title'
-                    value={title}
-                    name='title'
-                    onChange={e => onChange(e)}
-                  />
-                </fieldset>
+            <div className='wrap-input100 validate-input'>
+              <input
+                className='input100'
+                minLength='1'
+                type='text'
+                value={title}
+                onChange={e => onChange(e)}
+                name='title'
+                placeholder='Article title'
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                {/* <i className='fa fa-user' aria-hidden='true' /> */}
+              </span>
+            </div>
 
-                <fieldset className='form-group'>
-                  <input
-                    className='form-control'
-                    type='text'
-                    placeholder="What's this article about?"
-                    name='description'
-                    value={description}
-                    onChange={e => onChange(e)}
-                  />
-                </fieldset>
+            <div className='wrap-input100 validate-input'>
+              <input
+                className='input100'
+                type='text'
+                name='description'
+                placeholder='What is this article about?'
+                onChange={e => onChange(e)}
+                value={description}
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                {/* <i className='fa fa-id-card' aria-hidden='true' /> */}
+              </span>
+            </div>
 
-                <fieldset className='form-group'>
-                  <textarea
-                    className='form-control'
-                    rows='8'
-                    placeholder='Write your article (in markdown)'
-                    name='body'
-                    required
-                    value={body}
-                    onChange={e => onChange(e)}
-                  />
-                </fieldset>
+            <div className='wrap-input100 validate-input'>
+              <textarea
+                className='input100-area'
+                type='text'
+                name='body'
+                rows='8'
+                placeholder='Write your article in markdown'
+                onChange={e => onChange(e)}
+                value={body}
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                {/* <i className='fa fa-trophy' aria-hidden='true' /> */}
+              </span>
+            </div>
 
-                <fieldset className='form-group'>
-                  <input
-                    className='form-control'
-                    type='text'
-                    placeholder='Enter tags'
-                    name='tagListInput'
-                    value={tagListInput}
-                    onChange={e => setTagListInput(e.target.value)}
-                    onKeyUp={e => watchForEnter(e)}
-                  />
+            <div className='wrap-input100 validate-input'>
+              <input
+                className='input100'
+                type='text'
+                name='tagListInput'
+                placeholder='Enter Tags'
+                onChange={e => setTagListInput(e.target.value)}
+                onKeyUp={e => watchForEnter(e)}
+                value={tagListInput}
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                {/* <i className='fa fa-envelope' aria-hidden='true' /> */}
+              </span>
+              <div className='tag-list'>
+                {(tagList || []).map(tag => {
+                  return (
+                    <span className='tag-default tag-pill' key={tag}>
+                      <i
+                        className='fa fa-close'
+                        style={{ paddingRight: '2px' }}
+                        onClick={() => removeTagHandler(tag)}
+                      />
+                      {tag}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
 
-                  <div className='tag-list'>
-                    {(tagList || []).map(tag => {
-                      return (
-                        <span className='tag-default tag-pill' key={tag}>
-                          <i
-                            className='ion-close-round'
-                            onClick={() => removeTagHandler(tag)}
-                          />
-                          {tag}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </fieldset>
-
-                <button
-                  className='btn btn-lg pull-xs-right btn-primary'
-                  type='button'
-                  disabled={loading}
-                  onClick={e => onSubmit(e)}
-                >
-                  Publish Article
-                </button>
-              </fieldset>
-            </form>
-          </div>
+            <div className='container-login100-form-btn'>
+              <button
+                type='button'
+                onClick={e => onSubmit(e)}
+                disabled={loading}
+                className='login100-form-btn'
+              >
+                Publish Article
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
