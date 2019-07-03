@@ -39,7 +39,7 @@ const Login = ({ login, isAuthenticated }) => {
                 .email('Invalid Email')
                 .required('Email is required'),
               password: Yup.string()
-                .min(8)
+                .min(8, 'Password must be at least 8 characters long')
                 .required('Password is required')
             })}
             onSubmit={({ email, password }) => {

@@ -1,38 +1,47 @@
-import React, { useState } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import axios from 'axios';
+import * as Yup from 'yup';
 import Tilt from 'react-tilt';
 
 import { register } from '../../actions/auth';
-import { setAlert } from '../../actions/alert';
 import Image from '../../assets/images/img-01.png';
 
-const Register = ({
-  register,
-  setAlert,
-  auth: { isAuthenticated, errors, loading }
-}) => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    password2: ''
+const initialFormValues = {
+  username: '',
+  email: '',
+  password: '',
+  password2: ''
+};
+
+const Register = ({ register, auth: { isAuthenticated } }) => {
+  Yup.addMethod(Yup.mixed, 'isAvailable', function(param) {
+    return this.test('isAvailable', `${param} already in use`, async function(
+      value
+    ) {
+      const res = await axios.get(
+        `/api/v1/users/check_user?${param}=${value}`
+      );
+      return !res.data.message;
+    });
   });
 
-  const { username, email, password, password2 } = formData;
-
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = async e => {
-    e.preventDefault();
-    if (password !== password2) {
-      setAlert('Passwords do no match', 'danger');
-    } else {
-      register({ username, email, password });
-    }
-    setFormData({ username: '', email: '', password: '', password2: '' });
-  };
+  function equalTo(ref, msg) {
+    return Yup.mixed().test({
+      name: 'equalTo',
+      exclusive: false,
+      message: msg || '${path} must be the same as ${reference}',
+      params: {
+        reference: ref.path
+      },
+      test: function(value) {
+        return value === this.resolve(ref);
+      }
+    });
+  }
+  Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
   if (isAuthenticated) {
     return <Redirect to='/' />;
@@ -48,104 +57,148 @@ const Register = ({
             <img src={Image} alt='IMG' />
           </Tilt>
 
-          <form
-            onSubmit={e => onSubmit(e)}
-            className='login100-form validate-form'
+          <Formik
+            initialValues={initialFormValues}
+            validationSchema={Yup.object({
+              username: Yup.string()
+                .isAvailable('username', 'Username already in use')
+                .required('Username is required'),
+              email: Yup.string()
+                .email('Invalid Email')
+                .required('Email is required')
+                .isAvailable('email'),
+              password: Yup.string()
+                .min(8, 'Password must be at least 8 characters long')
+                .required('Password is required'),
+              password2: Yup.string()
+                .equalTo(Yup.ref('password'), 'Passwords must match')
+                .required()
+            })}
+            onSubmit={({ username, email, password }) => {
+              console.log(email, password);
+              register(username, email, password);
+            }}
           >
-            <span className='login100-form-title'>Register</span>
+            {({ isSubmitting }) => (
+              <Form className='login100-form validate-form'>
+                <span className='login100-form-title'>Register</span>
+                <Field
+                  name='username'
+                  render={({ field, form }) => (
+                    <Fragment>
+                      <div className='wrap-input100 validate-input'>
+                        <input
+                          {...field}
+                          className='input100'
+                          type='username'
+                          placeholder='Username'
+                          disabled={form.isSubmitting}
+                        />
 
-            <div
-              className='wrap-input100 validate-input'
-              data-validate='Valid email is required: ex@abc.xyz'
-            >
-              <input
-                className='input100'
-                type='text'
-                required
-                value={username}
-                onChange={e => onChange(e)}
-                name='username'
-                placeholder='Username'
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-envelope' aria-hidden='true' />
-              </span>
-            </div>
-
-            <div
-              className='wrap-input100 validate-input'
-              data-validate='Valid email is required: ex@abc.xyz'
-            >
-              <input
-                className='input100'
-                type='email'
-                required
-                value={email}
-                onChange={e => onChange(e)}
-                name='email'
-                placeholder='Email'
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-envelope' aria-hidden='true' />
-              </span>
-            </div>
-
-            <div
-              className='wrap-input100 validate-input'
-              data-validate='Password is required'
-            >
-              <input
-                className='input100'
-                type='password'
-                name='password'
-                placeholder='Password'
-                onChange={e => onChange(e)}
-                value={password}
-                required
-                minLength='8'
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-lock' aria-hidden='true' />
-              </span>
-            </div>
-            <div
-              className='wrap-input100 validate-input'
-              data-validate='Password is required'
-            >
-              <input
-                className='input100'
-                type='password'
-                name='password2'
-                placeholder='Confirm Password'
-                onChange={e => onChange(e)}
-                value={password2}
-                required
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-lock' aria-hidden='true' />
-              </span>
-            </div>
-
-            <div className='container-login100-form-btn'>
-              <button disabled={loading} className='login100-form-btn'>
-                Register
-              </button>
-            </div>
-
-            <div className='text-center p-t-136'>
-              <Link className='txt2 create' to='/login'>
-                Already have an account? Login
-                <i
-                  className='fa fa-long-arrow-right m-l-5'
-                  aria-hidden='true'
+                        <span className='focus-input100' />
+                        <span className='symbol-input100'>
+                          <i className='fa fa-user' aria-hidden='true' />
+                        </span>
+                      </div>
+                      <ErrorMessage name='username'>
+                        {msg => <div className='alert-danger'>{msg}</div>}
+                      </ErrorMessage>
+                    </Fragment>
+                  )}
                 />
-              </Link>
-            </div>
-          </form>
+                <Field
+                  name='email'
+                  render={({ field, form }) => (
+                    <Fragment>
+                      <div className='wrap-input100 validate-input'>
+                        <input
+                          {...field}
+                          className='input100'
+                          placeholder='Email'
+                          type='email'
+                          disabled={form.isSubmitting}
+                        />
+
+                        <span className='focus-input100' />
+                        <span className='symbol-input100'>
+                          <i className='fa fa-envelope' aria-hidden='true' />
+                        </span>
+                      </div>
+                      <ErrorMessage name='email'>
+                        {msg => <div className='alert-danger'>{msg}</div>}
+                      </ErrorMessage>
+                    </Fragment>
+                  )}
+                />
+                <Field
+                  name='password'
+                  render={({ field, form: { isSubmitting } }) => (
+                    <Fragment>
+                      <div className='wrap-input100 validate-input'>
+                        <input
+                          {...field}
+                          className='input100'
+                          placeholder='Password'
+                          type='password'
+                          disabled={isSubmitting}
+                        />
+
+                        <span className='focus-input100' />
+                        <span className='symbol-input100'>
+                          <i className='fa fa-lock' aria-hidden='true' />
+                        </span>
+                      </div>
+                      <ErrorMessage name='password'>
+                        {msg => <div className='alert-danger'>{msg}</div>}
+                      </ErrorMessage>
+                    </Fragment>
+                  )}
+                />
+                <Field
+                  name='password2'
+                  render={({ field, form: { isSubmitting } }) => (
+                    <Fragment>
+                      <div className='wrap-input100 validate-input'>
+                        <input
+                          {...field}
+                          className='input100'
+                          placeholder='Confirm Password'
+                          type='password'
+                          disabled={isSubmitting}
+                        />
+
+                        <span className='focus-input100' />
+                        <span className='symbol-input100'>
+                          <i className='fa fa-lock' aria-hidden='true' />
+                        </span>
+                      </div>
+                      <ErrorMessage name='password2'>
+                        {msg => <div className='alert-danger'>{msg}</div>}
+                      </ErrorMessage>
+                    </Fragment>
+                  )}
+                />
+                <div className='container-login100-form-btn'>
+                  <button
+                    disabled={isSubmitting}
+                    className='login100-form-btn'
+                  >
+                    Register
+                  </button>
+                </div>
+
+                <div className='text-center p-t-136'>
+                  <Link className='txt2 create' to='/login'>
+                    Already have an account? Login
+                    <i
+                      className='fa fa-long-arrow-right m-l-5'
+                      aria-hidden='true'
+                    />
+                  </Link>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
     </div>
@@ -158,5 +211,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { register, setAlert }
+  { register }
 )(Register);

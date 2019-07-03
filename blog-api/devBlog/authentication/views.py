@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -54,6 +56,22 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         user.delete()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+class UserExistsAPIView(APIView):
+    """Check to see if user email exists"""
+
+    permission_class = (AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        email = self.request.query_params.get("email", "")
+        username = self.request.query_params.get("username", "")
+
+        try:
+            User.objects.get(Q(email=email) | Q(username=username))
+        except User.DoesNotExist:
+            return Response(data={"message": False})
+        return Response(data={"message": True})
 
 
 class RegistrationAPIView(APIView):
