@@ -35,3 +35,5 @@ export const UPDATE_ARTICLE = 'UPDATE_ARTICLE';
 export const CREATE_ARTICLE = 'CREATE_ARTICLE';
 export const ADD_TAG = 'ADD_TAG';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';

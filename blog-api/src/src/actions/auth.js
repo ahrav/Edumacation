@@ -10,7 +10,7 @@ import {
   APP_LOAD
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
-import { setAlert } from './alert';
+import { setAlert, showModal, hideModal } from './alert';
 
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
@@ -56,7 +56,13 @@ export const login = (email, password) => async dispatch => {
     const errors = err.response.data.errors.error;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error, 'danger')));
+      // errors.forEach(error => dispatch(setAlert(error, 'danger')));
+      dispatch(
+        showModal(
+          { open: true, toggle: hideModal, context: errors[0] },
+          'alert'
+        )
+      );
     }
 
     dispatch({

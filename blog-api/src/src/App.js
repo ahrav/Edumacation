@@ -22,6 +22,8 @@ import Profile from './components/profile/Profile';
 import ProfileFavorites from './components/profile/ProfileFavorites';
 import Editor from './components/editor/Editor';
 import PrivateRoute from './components/routing/PrivateRoute';
+import Modal from './components/layout/modal/index';
+import useToggle from './utils/useToggle';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -32,10 +34,12 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
     store.dispatch(loadUser());
   }, []);
 
+  const [open, setOpen] = useToggle(false);
+
   return (
     <Router>
       <Fragment>
-        <Alert />
+        <Modal />
         <Header appName={appName} currentUser={currentUser} />
         <Route exact path='/' component={Home} />
         <Switch>
