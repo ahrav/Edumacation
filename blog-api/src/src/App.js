@@ -22,7 +22,7 @@ import Profile from './components/profile/Profile';
 import ProfileFavorites from './components/profile/ProfileFavorites';
 import Editor from './components/editor/Editor';
 import PrivateRoute from './components/routing/PrivateRoute';
-import Modal from './components/layout/modal/index';
+import MainModal from './components/layout/modal/index';
 import useToggle from './utils/useToggle';
 
 if (localStorage.token) {
@@ -39,7 +39,7 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
   return (
     <Router>
       <Fragment>
-        <Modal />
+        <MainModal />
         <Header appName={appName} currentUser={currentUser} />
         <Route exact path='/' component={Home} />
         <Switch>
