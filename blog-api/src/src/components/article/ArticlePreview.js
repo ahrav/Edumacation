@@ -101,8 +101,9 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
             );
           })}
 
-          <li>
-            <a className='icon solid fa-heart'>{article.favoritesCount}</a>
+          <li onClick={e => handleClick(e)} className={favoriteButtonClass}>
+            <i className='icon solid fa-heart' />
+            {article.favoritesCount}
           </li>
         </ul>
       </footer>

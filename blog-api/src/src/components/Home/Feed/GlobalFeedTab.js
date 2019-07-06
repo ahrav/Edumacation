@@ -8,10 +8,11 @@ const GlobalFeedTab = ({ getArticles, onTabClick, tab, loading }) => {
   };
 
   return (
-    <li className='nav-item'>
+    <li>
       <a
         href=''
-        className={tab === 'all' ? 'nav-link active' : 'nav-link'}
+        // className={tab === 'all' ? 'nav-link active' : 'nav-link'}
+        className={tab === 'all' ? 'nav-active' : ''}
         onClick={e => clickHandler(e)}
       >
         Global Feed

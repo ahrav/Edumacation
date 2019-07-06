@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -52,7 +52,32 @@ const MainView = ({
           onSetPage={setPage}
         />
       ));
-  return view;
+  return (
+    <Fragment>
+      <header id='header2'>
+        {/* <h2>
+          <a>Feed</a>
+        </h2> */}
+        <nav className='links'>
+          <ul>
+            <YourFeedTab
+              getFeed={getFeed}
+              token={token}
+              tab={tab}
+              onTabClick={onTabClick}
+            />
+
+            <GlobalFeedTab
+              getArticles={getArticles}
+              tab={tab}
+              onTabClick={onTabClick}
+            />
+          </ul>
+        </nav>
+      </header>
+      {view}
+    </Fragment>
+  );
   // <div className='col-md-9'>
   {
     /* <div className='feed-toggle'>

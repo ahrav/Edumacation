@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import Banner from './Banner';
 import MainView from './MainView';
+import Sidebar from '../layout/Sidebar';
 import Tags from './Tags';
 import {
   getTags,
@@ -32,21 +32,24 @@ const Home = ({
   };
 
   return (
-    <div id='main'>
-      <MainView />
-      <ul className='actions pagination'>
-        <li>
-          <a href='' className='disabled button large previous'>
-            Previous Page
-          </a>
-        </li>
-        <li>
-          <a href='#' className='button large next'>
-            Next Page
-          </a>
-        </li>
-      </ul>
-    </div>
+    <Fragment>
+      <div id='main'>
+        <MainView />
+        <ul className='actions pagination'>
+          <li>
+            <a href='' className='disabled button large previous'>
+              Previous Page
+            </a>
+          </li>
+          <li>
+            <a href='#' className='button large next'>
+              Next Page
+            </a>
+          </li>
+        </ul>
+      </div>
+      <Sidebar appName={appName} />
+    </Fragment>
     // <div className='home-page'>
     //   <Banner appName={appName} />
 
