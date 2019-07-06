@@ -248,7 +248,7 @@ class TagListAPIView(generics.ListAPIView):
     queryset = (
         Article.objects.values("tags__tag")
         .annotate(tag_count=Count("tags__tag"))
-        .order_by("-tag_count")[:15]
+        .order_by("-tag_count")[:12]
     )
     serializer_class = TagSerializer
     permission_classes = (AllowAny,)
