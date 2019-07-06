@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import Spinner from '../layout/Spinner';
 
-const Tags = ({ tags, onClickTag }) => {
+const Tags = ({ tags, onClickTag, activeTag }) => {
   if (tags) {
     return (
       //     <div className='tag-list'>
@@ -62,7 +62,9 @@ const Tags = ({ tags, onClickTag }) => {
               // </a>
               <li onClick={ev => handleClick(ev, tag)} key={tag}>
                 <i className='icon solid fa-hashtag' />
-                {tag}
+                <span className={tag === activeTag ? 'active' : null}>
+                  {tag}
+                </span>
               </li>
             );
           })}

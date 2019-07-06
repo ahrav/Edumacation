@@ -18,7 +18,8 @@ const Home = ({
   tags,
   getArticlesByTag,
   getArticles,
-  getFeed
+  getFeed,
+  activeTag
 }) => {
   useEffect(() => {
     (async () => {
@@ -48,7 +49,12 @@ const Home = ({
           </li>
         </ul>
       </div>
-      <Sidebar appName={appName} tags={tags} onClickTag={onClickTag} />
+      <Sidebar
+        activeTag={activeTag}
+        appName={appName}
+        tags={tags}
+        onClickTag={onClickTag}
+      />
     </Fragment>
     // <div className='home-page'>
     //   <Banner appName={appName} />
@@ -72,7 +78,8 @@ const Home = ({
 const mapStateToProps = state => ({
   common: state.common,
   token: state.auth.token,
-  tags: state.articles.tags
+  tags: state.articles.tags,
+  activeTag: state.articles.tag
 });
 
 export default connect(

@@ -2872,7 +2872,11 @@ input, select, textarea {
 					text-transform: uppercase;
 				}
 
-				.mini-post .stats li:hover {
+				.mini-post .stats li:hover, li:focus {
+					color: darkred
+				}
+
+				.mini-post .stats li .active {
 					color: darkred
 				}
 

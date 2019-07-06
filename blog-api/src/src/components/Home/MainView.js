@@ -16,9 +16,9 @@ import Spinner from '../layout/Spinner';
 const TagFilterTab = ({ tag }) => {
   if (!tag) return null;
   return (
-    <li className='nav-item'>
-      <a href='' className='nav-link active'>
-        <i className='ion-pound' /> {tag}
+    <li>
+      <a className='nav-active'>
+        <i className='icon solid fa-hashtag' /> {tag}
       </a>
     </li>
   );
@@ -69,6 +69,7 @@ const MainView = ({
               tab={tab}
               onTabClick={onTabClick}
             />
+            <TagFilterTab tag={tag} />
           </ul>
         </nav>
       </header>
