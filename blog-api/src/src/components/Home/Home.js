@@ -36,7 +36,7 @@ const Home = ({
     <Fragment>
       <div id='main'>
         <MainView />
-        <ul className='actions pagination'>
+        {/* <ul className='actions pagination'>
           <li>
             <a href='' className='disabled button large previous'>
               Previous Page
@@ -47,7 +47,7 @@ const Home = ({
               Next Page
             </a>
           </li>
-        </ul>
+        </ul> */}
       </div>
       <Sidebar
         activeTag={activeTag}

@@ -17,7 +17,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
               <h3>
                 <a href='single.html'>Rutrum neque accumsan</a>
               </h3>
-              <time className='published' datetime='2015-10-19'>
+              <time className='published' dateTime='2015-10-19'>
                 October 19, 2015
               </time>
               <a href='#' className='author'>
@@ -34,7 +34,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
               <h3>
                 <a href='single.html'>Odio congue mattis</a>
               </h3>
-              <time className='published' datetime='2015-10-18'>
+              <time className='published' dateTime='2015-10-18'>
                 October 18, 2015
               </time>
               <a href='#' className='author'>
@@ -51,7 +51,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
               <h3>
                 <a href='single.html'>Enim nisl veroeros</a>
               </h3>
-              <time className='published' datetime='2015-10-17'>
+              <time className='published' dateTime='2015-10-17'>
                 October 17, 2015
               </time>
               <a href='#' className='author'>
@@ -73,7 +73,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
                 <h3>
                   <a href='single.html'>Lorem ipsum fermentum ut nisl vitae</a>
                 </h3>
-                <time className='published' datetime='2015-10-20'>
+                <time className='published' dateTime='2015-10-20'>
                   October 20, 2015
                 </time>
               </header>
@@ -90,7 +90,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
                     Convallis maximus nisl mattis nunc id lorem
                   </a>
                 </h3>
-                <time className='published' datetime='2015-10-15'>
+                <time className='published' dateTime='2015-10-15'>
                   October 15, 2015
                 </time>
               </header>
@@ -107,7 +107,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
                     Euismod amet placerat vivamus porttitor
                   </a>
                 </h3>
-                <time className='published' datetime='2015-10-10'>
+                <time className='published' dateTime='2015-10-10'>
                   October 10, 2015
                 </time>
               </header>
@@ -124,7 +124,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
                     Magna enim accumsan tortor cursus ultricies
                   </a>
                 </h3>
-                <time className='published' datetime='2015-10-08'>
+                <time className='published' dateTime='2015-10-08'>
                   October 8, 2015
                 </time>
               </header>
@@ -141,7 +141,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
                     Congue ullam corper lorem ipsum dolor
                   </a>
                 </h3>
-                <time className='published' datetime='2015-10-06'>
+                <time className='published' dateTime='2015-10-06'>
                   October 7, 2015
                 </time>
               </header>

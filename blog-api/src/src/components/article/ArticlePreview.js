@@ -86,9 +86,9 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
       <footer>
         <ul className='actions'>
           <li>
-            <a href='single.html' className='button large'>
+            <Link to={`/article/${article.slug}`} className='button large'>
               Continue Reading
-            </a>
+            </Link>
           </li>
         </ul>
         <ul className='stats'>

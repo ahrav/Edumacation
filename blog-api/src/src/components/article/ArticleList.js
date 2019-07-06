@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -13,18 +13,19 @@ const ArticleList = ({
     return <div className='article-preview'>No articles are here... yet.</div>;
   }
 
-  return articles.map(article => {
+  const allArticles = articles.map(article => {
     return <ArticlePreview article={article} key={article.slug} />;
   });
-  {
-    /* <div>
+  return (
+    <Fragment>
+      {allArticles}
       <ListPagination
         articlesCount={articleCount}
         currentPage={currentPage}
         onSetPage={onSetPage}
       />
-    </div> */
-  }
+    </Fragment>
+  );
 };
 
 const mapStateToProps = state => ({

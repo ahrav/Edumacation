@@ -2421,6 +2421,17 @@ input, select, textarea {
 			vertical-align: middle;
 		}
 
+		ul.actions li a{
+			border-bottom: none
+		}
+
+		.active-pagination {
+			padding: 0 0 0 1em;
+			vertical-align: middle;
+			color: darkred;
+			text-decoration-line: underline;
+		}
+
 		ul.actions.special {
 			-moz-justify-content: center;
 			-webkit-justify-content: center;
@@ -2900,7 +2911,7 @@ input, select, textarea {
 					}
 
 						.post > footer .stats li .icon:before {
-							color: rgba(160, 160, 160, 0.3);
+							color: rgba(24, 23, 23, 0.74);
 							margin-right: 0.75em;
 						}
 
