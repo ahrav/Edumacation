@@ -55,9 +55,6 @@ const MainView = ({
   return (
     <Fragment>
       <header id='header2'>
-        {/* <h2>
-          <a>Feed</a>
-        </h2> */}
         <nav className='links'>
           <ul>
             <YourFeedTab

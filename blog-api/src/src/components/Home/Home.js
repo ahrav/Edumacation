@@ -48,7 +48,7 @@ const Home = ({
           </li>
         </ul>
       </div>
-      <Sidebar appName={appName} />
+      <Sidebar appName={appName} tags={tags} onClickTag={onClickTag} />
     </Fragment>
     // <div className='home-page'>
     //   <Banner appName={appName} />

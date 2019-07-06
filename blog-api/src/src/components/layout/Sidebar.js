@@ -1,30 +1,16 @@
 import React from 'react';
 
 import Banner from '../home/Banner';
+import Tags from '../home/Tags';
 
-const Sidebar = ({ appName }) => {
+const Sidebar = ({ appName, tags, onClickTag }) => {
   return (
     <section id='sidebar'>
       <Banner appName={appName} />
 
       <section>
         <div className='mini-posts'>
-          <article className='mini-post'>
-            <header>
-              <h3>
-                <a href='single.html'>Vitae sed condimentum</a>
-              </h3>
-              <time className='published' datetime='2015-10-20'>
-                October 20, 2015
-              </time>
-              <a href='#' className='author'>
-                <img src='images/avatar.jpg' alt='' />
-              </a>
-            </header>
-            <a href='single.html' className='image'>
-              <img src='images/pic04.jpg' alt='' />
-            </a>
-          </article>
+          <Tags tags={tags} onClickTag={onClickTag} />
 
           <article className='mini-post'>
             <header>

@@ -5,34 +5,72 @@ import Spinner from '../layout/Spinner';
 const Tags = ({ tags, onClickTag }) => {
   if (tags) {
     return (
-      <div className='tag-list'>
-        {tags.map(tag => {
-          const handleClick = (ev, tag) => {
-            ev.preventDefault();
-            onClickTag(tag);
-          };
+      //     <div className='tag-list'>
+      //       {tags.map(tag => {
+      //         const handleClick = (ev, tag) => {
+      //           ev.preventDefault();
+      //           onClickTag(tag);
+      //         };
 
-          return (
-            <a
-              href=''
-              className='tag-default tag-pill'
-              key={tag}
-              onClick={ev => handleClick(ev, tag)}
-            >
-              {tag}
-            </a>
-          );
-        })}
-      </div>
+      //         return (
+      //           <a
+      //             href=''
+      //             className='tag-default tag-pill'
+      //             key={tag}
+      //             onClick={ev => handleClick(ev, tag)}
+      //           >
+      //             {tag}
+      //           </a>
+      //         );
+      //       })}
+      //     </div>
+      //   );
+      // } else {
+      //   return (
+      //     <Fragment>
+      //       <div>Loading Tags...</div>
+      //       <Spinner />
+      //     </Fragment>
+      //   );
+      <article className='mini-post'>
+        <header>
+          <h3>
+            <a href=''>Popular Tags</a>
+          </h3>
+          <a href='#' className='author'>
+            <img src='images/avatar.jpg' alt='' />
+          </a>
+        </header>
+        {/* <a href='single.html' className='image'>
+        <img src='images/pic04.jpg' alt='' />
+      </a> */}
+        <ul className='stats'>
+          {tags.map(tag => {
+            const handleClick = (ev, tag) => {
+              ev.preventDefault();
+              onClickTag(tag);
+            };
+
+            return (
+              // <a
+              //   href=''
+              //   className='tag-default tag-pill'
+              //   key={tag}
+              //   onClick={ev => handleClick(ev, tag)}
+              // >
+              //   {tag}
+              // </a>
+              <li onClick={ev => handleClick(ev, tag)} key={tag}>
+                <i className='icon solid fa-hashtag' />
+                {tag}
+              </li>
+            );
+          })}
+        </ul>
+      </article>
     );
-  } else {
-    return (
-      <Fragment>
-        <div>Loading Tags...</div>
-        <Spinner />
-      </Fragment>
-    );
-  }
+  } else if (!tags) return <h3>No Tags</h3>;
+  else return <Spinner />;
 };
 
 export default Tags;
