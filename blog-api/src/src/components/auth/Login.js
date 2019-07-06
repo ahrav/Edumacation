@@ -18,7 +18,7 @@ const Login = ({ login, isAuthenticated }) => {
     <section id='main' className='container medium'>
       <header>
         <h2>Login</h2>
-        <p>Login and spread the word!</p>
+        <p>Enter and spread the word!</p>
       </header>
       <div className='box'>
         <Formik
@@ -44,14 +44,17 @@ const Login = ({ login, isAuthenticated }) => {
                     name='email'
                     render={({ field, form: { isSubmitting } }) => (
                       <Fragment>
-                        <input
-                          {...field}
-                          type='email'
-                          placeholder='Email'
-                          disabled={isSubmitting}
-                        />
+                        <div className='wrap-input100'>
+                          <input
+                            {...field}
+                            type='email'
+                            className='input100'
+                            placeholder='Email'
+                            disabled={isSubmitting}
+                          />
 
-                        <span className='focus-input100' />
+                          <span className='focus-input100' />
+                        </div>
                         <ErrorMessage name='email'>
                           {msg => (
                             <div
@@ -71,14 +74,17 @@ const Login = ({ login, isAuthenticated }) => {
                     name='password'
                     render={({ field, form: { isSubmitting } }) => (
                       <Fragment>
-                        <input
-                          {...field}
-                          type='password'
-                          placeholder='Password'
-                          disabled={isSubmitting}
-                        />
+                        <div className='wrap-input100'>
+                          <input
+                            {...field}
+                            type='password'
+                            placeholder='Password'
+                            className='input100'
+                            disabled={isSubmitting}
+                          />
 
-                        <span className='focus-input100' />
+                          <span className='focus-input100' />
+                        </div>
                         <ErrorMessage name='password'>
                           {msg => (
                             <div
