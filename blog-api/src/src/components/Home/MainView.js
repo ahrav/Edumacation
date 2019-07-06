@@ -52,9 +52,10 @@ const MainView = ({
           onSetPage={setPage}
         />
       ));
-  return (
-    <div className='col-md-9'>
-      <div className='feed-toggle'>
+  return view;
+  // <div className='col-md-9'>
+  {
+    /* <div className='feed-toggle'>
         <ul className='nav nav-pills outline-active'>
           <YourFeedTab
             getFeed={getFeed}
@@ -71,10 +72,12 @@ const MainView = ({
 
           <TagFilterTab tag={tag} />
         </ul>
-      </div>
-      {view}
-    </div>
-  );
+      </div> */
+  }
+
+  {
+    /* </div> */
+  }
 };
 
 const mapStateToProps = state => ({

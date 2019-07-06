@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { StyledModal } from './style';
 import { connect } from 'react-redux';
 import { Button, Modal } from 'semantic-ui-react';
 

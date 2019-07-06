@@ -13,19 +13,18 @@ const ArticleList = ({
     return <div className='article-preview'>No articles are here... yet.</div>;
   }
 
-  return (
-    <div>
-      {articles.map(article => {
-        return <ArticlePreview article={article} key={article.slug} />;
-      })}
-
+  return articles.map(article => {
+    return <ArticlePreview article={article} key={article.slug} />;
+  });
+  {
+    /* <div>
       <ListPagination
         articlesCount={articleCount}
         currentPage={currentPage}
         onSetPage={onSetPage}
       />
-    </div>
-  );
+    </div> */
+  }
 };
 
 const mapStateToProps = state => ({

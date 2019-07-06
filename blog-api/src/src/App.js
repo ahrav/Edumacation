@@ -41,8 +41,10 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
       <Fragment>
         <MainModal />
         <Header appName={appName} currentUser={currentUser} />
-        <Route exact path='/' component={Home} />
         <Switch>
+          <Route exact path='/' component={Home} />
+          {/*
+        
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
           <PrivateRoute exact path='/settings' component={Settings} />
@@ -57,6 +59,7 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
           <PrivateRoute exact path='/editor' component={Editor} />
           <PrivateRoute exact path='/@:username' component={Profile} />
           <Redirect to='/' />
+          */}
         </Switch>
       </Fragment>
     </Router>

@@ -2,12 +2,15 @@ import React from 'react';
 
 const Banner = ({ appName }) => {
   return (
-    <div className='banner'>
-      <div className='container'>
-        <h1 className='logo-font'>{appName}</h1>
-        <p>Spread the knowledge!</p>
-      </div>
-    </div>
+    <section id='intro'>
+      <a href='#' className='logo'>
+        <img src='images/logo.jpg' alt='' />
+      </a>
+      <header>
+        <h2>{appName}</h2>
+        <p>Spread the knowledge></p>
+      </header>
+    </section>
   );
 };
 
