@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import MainView from './MainView';
 import Sidebar from '../layout/Sidebar';
-import Tags from './Tags';
 import {
   getTags,
   getArticlesByTag,
@@ -36,18 +35,6 @@ const Home = ({
     <Fragment>
       <div id='main'>
         <MainView />
-        {/* <ul className='actions pagination'>
-          <li>
-            <a href='' className='disabled button large previous'>
-              Previous Page
-            </a>
-          </li>
-          <li>
-            <a href='#' className='button large next'>
-              Next Page
-            </a>
-          </li>
-        </ul> */}
       </div>
       <Sidebar
         activeTag={activeTag}
@@ -56,22 +43,6 @@ const Home = ({
         onClickTag={onClickTag}
       />
     </Fragment>
-    // <div className='home-page'>
-    //   <Banner appName={appName} />
-
-    //   <div className='container page'>
-    //     <div className='row'>
-    //       <MainView />
-
-    //       <div className='col-md-3'>
-    //         <div className='sidebar'>
-    //           <p>Popular Tags</p>
-    //           <Tags tags={tags} onClickTag={onClickTag} />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal, Icon } from 'semantic-ui-react';
+import './index.css';
 
 // Creates a portal outside the DOM hierarchy
 function Portal({ children }) {
@@ -21,20 +22,30 @@ function MainModal({ modal: { modalProps, modalType } }) {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const cancel = <Icon id='modalIcon' name='cancel' />;
   return (
     <Portal>
       {isOpen && (
         <Modal size='tiny' open={isOpen} onClose={() => closeModal()}>
           <Modal.Header>{modalProps.context}</Modal.Header>
           <Modal.Content>
-            <p>Please re-enter login credentials.</p>
+            <p>Please re-enter credentials.</p>
           </Modal.Content>
-          <Modal.Actions>
-            <Button
-              negative
-              icon='cancel'
+          <Modal.Actions style={{ height: '70px' }}>
+            {/* <Button
+              color='red'
               labelPosition='right'
-              content='Ok'
+              onClick={() => closeModal()}
+            >
+              <Icon name='cancel' />
+              Ok
+            </Button> */}
+            <Button
+              id='modalButton'
+              negative
+              icon={cancel}
+              labelPosition='right'
+              content='OK'
               onClick={() => closeModal()}
             />
           </Modal.Actions>

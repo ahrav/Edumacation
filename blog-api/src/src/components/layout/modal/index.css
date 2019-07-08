@@ -1,0 +1,12 @@
+#modalButton {
+  height: 41px !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-family: Lato, Arial, Helvetica, sans-serif !important;
+  font-style: normal;
+  letter-spacing: 0.1em;
+}
+
+#modalIcon {
+  font-family: Icons !important;
+}
