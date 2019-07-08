@@ -115,11 +115,11 @@ const SettingsForm = ({
                 Update Profile
               </button>
             </li>
-            <li>
+            {/* <li>
               <button type='button' onClick={logOut} disabled={loading}>
                 Logout
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
