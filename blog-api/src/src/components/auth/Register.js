@@ -47,12 +47,12 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
     return <Redirect to='/' />;
   }
   return (
-    <section id='main' className='container medium'>
+    <section id='mainForm' className='containerForm medium'>
       <header>
         <h2>Register</h2>
         <p>Go on, create that account. You know you want to.</p>
       </header>
-      <div className='box'>
+      <div className='boxForm'>
         <Formik
           initialValues={initialFormValues}
           validationSchema={Yup.object({
@@ -77,8 +77,8 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
         >
           {({ isSubmitting, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
-              <div className='row gtr-50 gtr-uniform'>
-                <div className='col-6 col-12-mobilep'>
+              <div className='rowForm gtr-50 gtr-uniform'>
+                <div className='col-6Form col-12-mobilep'>
                   <Field
                     name='username'
                     render={({ field, form: { isSubmitting } }) => (
@@ -108,7 +108,7 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
                     )}
                   />
                 </div>
-                <div className='col-6 col-12-mobilep'>
+                <div className='col-6Form col-12-mobilep'>
                   <Field
                     name='email'
                     render={({ field, form: { isSubmitting } }) => (
@@ -138,7 +138,7 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
                     )}
                   />
                 </div>
-                <div className='col-6 col-12-mobilep'>
+                <div className='col-6Form col-12-mobilep'>
                   <Field
                     name='password'
                     render={({ field, form: { isSubmitting } }) => (
@@ -168,7 +168,7 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
                     )}
                   />
                 </div>
-                <div className='col-6 col-12-mobilep'>
+                <div className='col-6Form col-12-mobilep'>
                   <Field
                     name='password2'
                     render={({ field, form: { isSubmitting } }) => (
@@ -198,7 +198,7 @@ const Register = ({ register, auth: { isAuthenticated } }) => {
                     )}
                   />
                 </div>
-                <div className='col-12'>
+                <div className='col-12Form'>
                   <ul className='actions special'>
                     <li>
                       <input type='submit' value='Register' />

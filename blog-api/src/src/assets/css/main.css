@@ -98,7 +98,7 @@
 			margin-left: 41.66667%;
 		}
 
-		.rowForm > .col-6 {
+		.rowForm > .col-6Form {
 			width: 50%;
 		}
 
@@ -2403,12 +2403,6 @@
 
 		}
 
-/* Table */
-
-	.table-wrapper {
-		-webkit-overflow-scrolling: touch;
-		overflow-x: auto;
-	}
 
 	table {
 		margin: 0 0 2em 0;
@@ -2487,7 +2481,7 @@
 		background-color: #666;
 		border-radius: 6px;
 		border: 0;
-		color: #ffffff;
+		color: #ffffff !important;
 		cursor: pointer;
 		display: inline-block;
 		font-weight: 400;
@@ -2666,6 +2660,7 @@
 			#mainForm > header h2 {
 				font-size: 2.75em;
 				margin: 0;
+				font-family: 'Font Awesome 5 Free';
 			}
 
 			#mainForm > header p {
@@ -2931,6 +2926,7 @@
 
 					#mainForm > header h2 {
 						font-size: 2em;
+						font-family: 'Font Awesome 5 Free';
 					}
 
 					#mainForm > header p {

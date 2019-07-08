@@ -15,12 +15,12 @@ const Login = ({ login, isAuthenticated }) => {
   if (isAuthenticated) return <Redirect to='/' />;
 
   return (
-    <section id='main' className='container medium'>
+    <section id='mainForm' className='containerForm medium'>
       <header>
         <h2>Login</h2>
         <p>Enter and spread the word!</p>
       </header>
-      <div className='box'>
+      <div className='boxForm'>
         <Formik
           initialValues={initialFormValues}
           validationSchema={Yup.object({
@@ -38,23 +38,21 @@ const Login = ({ login, isAuthenticated }) => {
         >
           {({ isSubmitting, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
-              <div className='row gtr-50 gtr-uniform'>
-                <div className='col-6 col-12-mobilep'>
+              <div className='rowForm gtr-50 gtr-uniform'>
+                <div className='col-6Form col-12-mobilep'>
                   <Field
                     name='email'
                     render={({ field, form: { isSubmitting } }) => (
                       <Fragment>
-                        <div className='wrap-input100'>
-                          <input
-                            {...field}
-                            type='email'
-                            className='input100'
-                            placeholder='Email'
-                            disabled={isSubmitting}
-                          />
+                        <input
+                          {...field}
+                          type='email'
+                          className='input100'
+                          placeholder='Email'
+                          disabled={isSubmitting}
+                        />
 
-                          <span className='focus-input100' />
-                        </div>
+                        <span className='focus-input100' />
                         <ErrorMessage name='email'>
                           {msg => (
                             <div
@@ -69,22 +67,20 @@ const Login = ({ login, isAuthenticated }) => {
                     )}
                   />
                 </div>
-                <div className='col-6 col-12-mobilep'>
+                <div className='col-6Form col-12-mobilep'>
                   <Field
                     name='password'
                     render={({ field, form: { isSubmitting } }) => (
                       <Fragment>
-                        <div className='wrap-input100'>
-                          <input
-                            {...field}
-                            type='password'
-                            placeholder='Password'
-                            className='input100'
-                            disabled={isSubmitting}
-                          />
+                        <input
+                          {...field}
+                          type='password'
+                          placeholder='Password'
+                          className='input100'
+                          disabled={isSubmitting}
+                        />
 
-                          <span className='focus-input100' />
-                        </div>
+                        <span className='focus-input100' />
                         <ErrorMessage name='password'>
                           {msg => (
                             <div
@@ -99,7 +95,7 @@ const Login = ({ login, isAuthenticated }) => {
                     )}
                   />
                 </div>
-                <div className='col-12'>
+                <div className='col-12Form'>
                   <ul className='actions special'>
                     <li>
                       <input type='submit' value='Login' />
