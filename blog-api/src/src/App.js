@@ -56,11 +56,11 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
             path='/@:username/favorites'
             component={ProfileFavorites}
           />
+          */}
           <PrivateRoute exact path='/editor/:slug' component={Editor} />
           <PrivateRoute exact path='/editor' component={Editor} />
           <PrivateRoute exact path='/@:username' component={Profile} />
           <Redirect to='/' />
-          */}
         </Switch>
       </Fragment>
     </Router>
