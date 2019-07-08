@@ -11,7 +11,7 @@ import {
   CLEAR_ARTICLE
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
-import { setAlert, showModal, hideModal } from './alert';
+import { showModal, hideModal } from './alert';
 import { getArticles } from './articles';
 
 export const loadUser = () => async dispatch => {

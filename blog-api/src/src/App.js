@@ -29,22 +29,20 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-const App = ({ common: { appName, appLoaded }, currentUser }) => {
+const App = ({ common: { appName, appLoaded }, auth: { user, view } }) => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
-
-  const [open, setOpen] = useToggle(false);
 
   return (
     <Router>
       <Fragment>
         <MainModal />
-        <Header appName={appName} currentUser={currentUser} />
+        <Header appName={appName} currentUser={user} view={view} />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/login' component={Login} />
-          <Route path='/register' component={Register} />
+          <Route exact path='/register' component={Register} />
           <PrivateRoute exact path='/settings' component={Settings} />
           {/*
           <PrivateRoute exact path='/article/:id' component={Article} />
@@ -67,7 +65,7 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
 
 const mapStateToProps = state => ({
   common: state.common,
-  currentUser: state.auth.user
+  auth: state.auth
 });
 
 export default connect(

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Menu from './Menu';
@@ -10,13 +10,19 @@ const LoggedOutView = ({ currentUser, appName }) => {
     return (
       <ul>
         <li>
-          <Link to='/'>Home</Link>
+          <NavLink exact activeClassName='activeLink' to='/'>
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to='/login'>Sign In</Link>
+          <NavLink exact activeClassName='activeLink' to='/login'>
+            Sign In
+          </NavLink>
         </li>
         <li>
-          <Link to='/register'>Sign Up</Link>
+          <NavLink exact activeClassName='activeLink' to='/register'>
+            Sign Up
+          </NavLink>
         </li>
         {/* <li>
           <a href='#'>Tempus</a>
@@ -35,16 +41,28 @@ const LoggedInView = ({ currentUser }) => {
     return (
       <ul>
         <li>
-          <Link to='/'>Home</Link>
+          <NavLink exact to='/' activeClassName='activeLink'>
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to='/editor'>New Post</Link>
+          <NavLink exact to='/editor' activeClassName='activeLink'>
+            New Post
+          </NavLink>
         </li>
         <li>
-          <Link to='/settings'>Profile</Link>
+          <NavLink exact activeClassName='activeLink' to='/settings'>
+            Profile
+          </NavLink>
         </li>
         <li>
-          <Link to={`/@${currentUser.username}`}>{currentUser.username}</Link>
+          <NavLink
+            exact
+            activeClassName='activeLink'
+            to={`/@${currentUser.username}`}
+          >
+            {currentUser.username}
+          </NavLink>
         </li>
       </ul>
     );
@@ -63,7 +81,7 @@ const Header = ({ appName, currentUser, logout, history }) => {
     <Fragment>
       <header id='header'>
         <h1>
-          <Link to='/'>{appName}</Link>
+          <NavLink to='/'>{appName}</NavLink>
         </h1>
         <nav className='links'>
           <LoggedOutView currentUser={currentUser} />
@@ -101,4 +119,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logout }
-)(withRouter(Header));
+)(Header);
