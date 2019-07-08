@@ -10,3 +10,7 @@
 #modalIcon {
   font-family: Icons !important;
 }
+
+#modalIcon:before {
+  font-family: Icons !important;
+}
