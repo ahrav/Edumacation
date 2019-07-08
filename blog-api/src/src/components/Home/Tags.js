@@ -61,7 +61,10 @@ const Tags = ({ tags, onClickTag, activeTag }) => {
               //   {tag}
               // </a>
               <li onClick={ev => handleClick(ev, tag)} key={tag}>
-                <i className='icon solid fa-hashtag' />
+                <i
+                  style={{ margin: '.05rem 0 0' }}
+                  className='icon solid fa-hashtag'
+                />
                 <span className={tag === activeTag ? 'active' : null}>
                   {tag}
                 </span>
