@@ -41,109 +41,89 @@ const SettingsForm = ({
   };
 
   return (
-    <div className='limiter'>
-      <div className='container-profile100'>
-        <div className='wrap-profile100'>
-          <form
-            onSubmit={e => onSubmit(e)}
-            className='profile100-form validate-form'
-          >
-            <span className='profile100-form-title'>My Profile</span>
+    <form onSubmit={e => onSubmit(e)}>
+      <div className='rowForm gtr-50 gtr-uniform'>
+        <div className='col-6Form col-12-mobilep'>
+          <input
+            className='input100'
+            type='text'
+            value={image}
+            onChange={e => onChange(e)}
+            name='image'
+            placeholder='Url of profile picture'
+          />
+          <span className='focus-input100' />
+        </div>
 
-            <div className='wrap-input100 validate-input'>
-              <input
-                className='input100'
-                type='text'
-                value={image}
-                onChange={e => onChange(e)}
-                name='image'
-                placeholder='Url of profile picture'
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-user' aria-hidden='true' />
-              </span>
-            </div>
+        <div className='col-6Form col-12-mobilep'>
+          <input
+            className='input100'
+            type='text'
+            name='username'
+            placeholder='Username'
+            onChange={e => onChange(e)}
+            value={username}
+            required
+          />
+          <span className='focus-input100' />
+        </div>
 
-            <div className='wrap-input100 validate-input'>
-              <input
-                className='input100'
-                type='text'
-                name='username'
-                placeholder='Username'
-                onChange={e => onChange(e)}
-                value={username}
-                required
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-id-card' aria-hidden='true' />
-              </span>
-            </div>
+        <div className='col-6Form col-12-mobilep'>
+          <input
+            className='input100'
+            type='email'
+            name='email'
+            placeholder='Email'
+            onChange={e => onChange(e)}
+            value={email}
+          />
+          <span className='focus-input100' />
+        </div>
 
-            <div className='wrap-input100 validate-input'>
-              <textarea
-                className='input100-area'
-                type='text'
-                name='bio'
-                placeholder='Short bio'
-                onChange={e => onChange(e)}
-                value={bio}
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-trophy' aria-hidden='true' />
-              </span>
-            </div>
+        <div className='col-6Form col-12-mobilep'>
+          <input
+            className='input100'
+            type='password'
+            name='password'
+            placeholder='Password'
+            onChange={e => onChange(e)}
+            value={password || ''}
+          />
+          <span className='focus-input100' />
+        </div>
 
-            <div className='wrap-input100 validate-input'>
-              <input
-                className='input100'
-                type='email'
-                name='email'
-                placeholder='Email'
-                onChange={e => onChange(e)}
-                value={email}
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-envelope' aria-hidden='true' />
-              </span>
-            </div>
+        <div className='col-12Form'>
+          <textarea
+            className='input100-area'
+            type='text'
+            name='bio'
+            placeholder='Short bio'
+            onChange={e => onChange(e)}
+            value={bio}
+          />
+          <span className='focus-input100' />
+        </div>
 
-            <div className='wrap-input100 validate-input'>
-              <input
-                className='input100'
-                type='password'
-                name='password'
-                placeholder='Password'
-                onChange={e => onChange(e)}
-                value={password || ''}
-              />
-              <span className='focus-input100' />
-              <span className='symbol-input100'>
-                <i className='fa fa-lock' aria-hidden='true' />
-              </span>
-            </div>
-
-            <div className='container-login100-form-btn'>
-              <button disabled={loading} className='login100-form-btn'>
+        <div className='col-12Form'>
+          <ul className='actions special'>
+            <li>
+              <button
+                type='button'
+                onClick={e => onSubmit(e)}
+                disabled={loading}
+              >
                 Update Profile
               </button>
-            </div>
-          </form>
-          <div className='container-login100-form-btn'>
-            <button
-              onClick={logOut}
-              disabled={loading}
-              className='logout100-form-btn'
-            >
-              Logout
-            </button>
-          </div>
+            </li>
+            <li>
+              <button type='button' onClick={logOut} disabled={loading}>
+                Logout
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

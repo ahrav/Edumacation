@@ -43,12 +43,10 @@ const App = ({ common: { appName, appLoaded }, currentUser }) => {
         <Header appName={appName} currentUser={currentUser} />
         <Switch>
           <Route exact path='/' component={Home} />
-
           <Route exact path='/login' component={Login} />
-
           <Route path='/register' component={Register} />
-          {/*
           <PrivateRoute exact path='/settings' component={Settings} />
+          {/*
           <PrivateRoute exact path='/article/:id' component={Article} />
 
           <PrivateRoute

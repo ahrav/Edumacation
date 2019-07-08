@@ -7,13 +7,15 @@ import SettingsForm from './SettingsForm';
 
 const Settings = ({ logout }) => {
   return (
-    <div className='settings-page'>
-      <div className='container page'>
-        <div className='row'>
-          <SettingsForm logOut={() => logout()} />
-        </div>
+    <section id='mainForm'>
+      <header>
+        <h2>My Profile</h2>
+        <p>Update profile settings.</p>
+      </header>
+      <div className='boxForm'>
+        <SettingsForm logOut={() => logout()} />
       </div>
-    </div>
+    </section>
   );
 };
 
