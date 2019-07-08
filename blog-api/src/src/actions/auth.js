@@ -12,6 +12,7 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert, showModal, hideModal } from './alert';
+import { getArticles } from './articles';
 
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
@@ -47,13 +48,13 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post('/api/v1/users/login/', body, config);
-    dispatch(loadUser());
 
     dispatch({
       type: LOGIN_USER,
       payload: res.data,
       error: res.data.errors
     });
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors.error;
 
@@ -120,5 +121,5 @@ export const logout = history => dispatch => {
     type: LOGOUT_USER
   });
 
-  history.push('/');
+  dispatch(getArticles());
 };
