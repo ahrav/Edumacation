@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Menu from './Menu';
+import { logout } from '../../actions/auth';
 
 const LoggedOutView = ({ currentUser, appName }) => {
   if (!currentUser) {
@@ -52,7 +53,12 @@ const LoggedInView = ({ currentUser }) => {
   return null;
 };
 
-const Header = ({ appName, currentUser }) => {
+const Header = ({ appName, currentUser, logout, history }) => {
+  const onLogout = e => {
+    e.preventDefault();
+    logout(history);
+  };
+
   return (
     <Fragment>
       <header id='header'>
@@ -82,7 +88,7 @@ const Header = ({ appName, currentUser }) => {
           </ul>
         </nav>
       </header>
-      <Menu currentUser={currentUser} />
+      <Menu currentUser={currentUser} logout={e => onLogout(e)} />
     </Fragment>
   );
 };
@@ -94,5 +100,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  null
-)(Header);
+  { logout }
+)(withRouter(Header));

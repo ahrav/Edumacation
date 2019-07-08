@@ -10,7 +10,16 @@ const ArticleList = ({
   onSetPage
 }) => {
   if (articles.length === 0) {
-    return <div className='article-preview'>No articles are here... yet.</div>;
+    return (
+      <article className='post'>
+        <header>
+          <div className='title'>
+            <h2>No Articles</h2>
+            <p>Please follow a user to fill up feed</p>
+          </div>
+        </header>
+      </article>
+    );
   }
 
   const allArticles = articles.map(article => {

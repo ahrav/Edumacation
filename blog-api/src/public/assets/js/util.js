@@ -227,8 +227,8 @@
 
     // Event: Hide panel if a child anchor tag pointing to its ID is clicked.
     $this.on('click', 'a[href="#' + id + '"]', function(event) {
-      // event.preventDefault();
-      // event.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
 
       config.target.removeClass(config.visibleClass);
     });

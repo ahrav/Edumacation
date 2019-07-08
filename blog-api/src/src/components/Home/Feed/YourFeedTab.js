@@ -1,7 +1,7 @@
 import React from 'react';
 
 const YourFeedTab = ({ token, getFeed, tab, onTabClick }) => {
-  if (!token) {
+  if (token) {
     const clickHandler = async e => {
       e.preventDefault();
       await getFeed();

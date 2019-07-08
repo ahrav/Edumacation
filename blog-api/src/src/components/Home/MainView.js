@@ -33,10 +33,10 @@ const MainView = ({
   onSetPage
 }) => {
   const settingPage = (tab, page) => {
-    let view;
+    let feedType;
     tab === 'feed'
-      ? (view = () => getFeed(page))
-      : (view = () => getArticles(page));
+      ? (feedType = () => getFeed(page))
+      : (feedType = () => getArticles(page));
     onSetPage(view);
   };
 
@@ -63,7 +63,6 @@ const MainView = ({
               tab={tab}
               onTabClick={onTabClick}
             />
-
             <GlobalFeedTab
               getArticles={getArticles}
               tab={tab}

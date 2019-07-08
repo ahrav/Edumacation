@@ -7,7 +7,8 @@ import {
   REGISTER_USER,
   LOGOUT_USER,
   CLEAR_PROFILE,
-  APP_LOAD
+  APP_LOAD,
+  CLEAR_ARTICLE
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert, showModal, hideModal } from './alert';
@@ -46,6 +47,7 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post('/api/v1/users/login/', body, config);
+    dispatch(loadUser());
 
     dispatch({
       type: LOGIN_USER,
@@ -105,12 +107,18 @@ export const register = ({ username, email, password }) => async dispatch => {
   }
 };
 
-export const logout = () => dispatch => {
+export const logout = history => dispatch => {
   dispatch({
     type: CLEAR_PROFILE
   });
 
   dispatch({
+    type: CLEAR_ARTICLE
+  });
+
+  dispatch({
     type: LOGOUT_USER
   });
+
+  history.push('/');
 };

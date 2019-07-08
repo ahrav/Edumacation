@@ -17,7 +17,8 @@ import {
   FAVORITE_ARTICLE,
   UN_FAVORITE_ARTICLE,
   CREATE_ARTICLE,
-  UPDATE_ARTICLE
+  UPDATE_ARTICLE,
+  CLEAR_ARTICLE
 } from '../actions/types';
 
 const initialState = {
@@ -25,7 +26,7 @@ const initialState = {
   article: null,
   articleCount: null,
   loading: true,
-  tab: 'feed',
+  tab: 'all',
   error: {},
   tags: null,
   tag: null,
@@ -144,6 +145,12 @@ export default (state = initialState, action) => {
             : article
         ),
         article: payload.article,
+        loading: false
+      };
+    case CLEAR_ARTICLE:
+      return {
+        ...state,
+        tab: 'all',
         loading: false
       };
     default:

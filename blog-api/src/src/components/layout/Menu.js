@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-const Menu = ({ currentUser }) => {
+const Menu = ({ currentUser, logout }) => {
   let user;
   if (currentUser)
     user = (
@@ -53,7 +53,7 @@ const Menu = ({ currentUser }) => {
       <section>
         <ul className='links'>{user}</ul>
       </section>
-      {user ? (
+      {!currentUser ? (
         <section>
           <ul className='actions stacked'>
             <li>
@@ -68,7 +68,17 @@ const Menu = ({ currentUser }) => {
             </li>
           </ul>
         </section>
-      ) : null}
+      ) : (
+        <section>
+          <ul className='actions stacked'>
+            <li>
+              <a onClick={logout} className='button large fit'>
+                Log Out
+              </a>
+            </li>
+          </ul>
+        </section>
+      )}
     </section>
   );
 };
