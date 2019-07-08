@@ -12,7 +12,6 @@ import {
 import YourFeedTab from './Feed/YourFeedTab';
 import GlobalFeedTab from './Feed/GlobalFeedTab';
 import Spinner from '../layout/Spinner';
-import Banner from './Banner';
 
 const TagFilterTab = ({ tag }) => {
   if (!tag) return null;
@@ -31,8 +30,7 @@ const MainView = ({
   getArticles,
   token,
   onTabClick,
-  onSetPage,
-  appName
+  onSetPage
 }) => {
   const settingPage = (tab, page) => {
     let feedType;
@@ -56,7 +54,6 @@ const MainView = ({
       ));
   return (
     <Fragment>
-      <Banner appName={appName} />
       <header id='header2'>
         <nav className='links'>
           <ul>
@@ -107,8 +104,7 @@ const MainView = ({
 
 const mapStateToProps = state => ({
   articles: state.articles,
-  token: state.auth.token,
-  appName: state.common.appName
+  token: state.auth.token
 });
 
 export default connect(

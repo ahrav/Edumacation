@@ -1,12 +1,12 @@
 import React from 'react';
 
-// import Banner from '../home/Banner';
+import Banner from '../home/Banner';
 import Tags from '../home/Tags';
 
 const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
   return (
     <section id='sidebar'>
-      {/* <Banner appName={appName} /> */}
+      <Banner appName={appName} />
 
       <section>
         <div className='mini-posts'>
