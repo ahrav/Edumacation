@@ -73,7 +73,7 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
           <time className='published'>
             {new Date(article.createdAt).toDateString()}
           </time>
-          <Link to={`${article.author.username}`} className='author'>
+          <Link to={`/@${article.author.username}`} className='author'>
             <span className='name'>{article.author.username}</span>
             <img src='/images/oof.jpg' alt='' />
           </Link>

@@ -2837,6 +2837,55 @@ input, select, textarea {
 		white-space: nowrap;
 		}
 
+		.post > header .meta #profileFollowButtonFollow {
+			-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		background-color: #666 !important;
+		border-radius: 6px;
+		border: 0;
+		color: white !important;
+		cursor: pointer;
+		display: inline-block;
+		font-weight: 500;
+		height: 3.2em;
+		line-height: 3.2em;
+		padding: 0 1em;
+		text-align: center;
+		text-decoration: none;
+		white-space: nowrap;
+		}
+
+		.post > header .meta #profileFollowButtonUnfollow {
+			-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		background-color: white !important;
+		border-radius: 6px;
+		border: #666 2px solid;
+		color: #666 !important;
+		cursor: pointer;
+		display: inline-block;
+		font-weight: 600;
+		height: 3.2em;
+		line-height: 3.2em;
+		padding: 0 1em;
+		text-align: center;
+		text-decoration: none;
+		white-space: nowrap;
+		letter-spacing: .25em
+		}
+
 		.post > a.image.featured {
 			overflow: hidden;
 		}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
@@ -14,12 +14,10 @@ import { getArticlesByAuthor, onSetPage } from '../../actions/articles';
 const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
     return (
-      <Link
-        to='/settings'
-        className='btn btn-sm btn-outline-secondary action-btn'
-      >
-        <i className='fa fa-gear' /> Edit Profile Settings
-      </Link>
+      <Fragment>
+        <Link to='/settings'>Edit Profile Settings</Link>
+        <Icon style={{ marginLeft: '.40em' }} name='settings' />
+      </Fragment>
     );
   }
   return null;
@@ -30,11 +28,14 @@ const FollowUserButton = ({ isUser, user, unfollow, follow }) => {
     return null;
   }
 
-  let classes = 'btn btn-sm action-btn';
+  let id;
+  let sign;
   if (user.following) {
-    classes += ' btn-secondary';
+    id = 'profileFollowButtonUnfollow';
+    sign = 'minus';
   } else {
-    classes += ' btn-outline-secondary';
+    sign = 'plus';
+    id = 'profileFollowButtonFollow';
   }
 
   const handleClick = e => {
@@ -47,8 +48,8 @@ const FollowUserButton = ({ isUser, user, unfollow, follow }) => {
   };
 
   return (
-    <button className={classes} onClick={e => handleClick(e)}>
-      <i className='ion-plus-round' />
+    <button id={id} onClick={e => handleClick(e)}>
+      <Icon name={sign} />
       &nbsp;
       {user.following ? 'Unfollow' : 'Follow'} {user.username}
     </button>
@@ -119,10 +120,13 @@ const Profile = ({
               {/* <span className='name'>{article.author.username}</span> */}
               <img src={profile.image} alt='' />
             </a>
-            <span id='profileSettingsButton'>
-              <EditProfileSettings isUser={isUser} />
-              <Icon style={{ marginLeft: '.40em' }} name='settings' />
-            </span>
+            <EditProfileSettings id='profileSettingsButton' isUser={isUser} />
+            <FollowUserButton
+              isUser={isUser}
+              user={profile}
+              follow={followProfile}
+              unfollow={unFollowProfile}
+            />
           </div>
         </header>
       </article>
