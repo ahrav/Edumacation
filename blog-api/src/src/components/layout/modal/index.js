@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
 import { Button, Modal, Icon } from 'semantic-ui-react';
@@ -23,23 +23,36 @@ function MainModal({ modal: { modalProps, modalType } }) {
     setIsOpen(false);
   };
   const cancel = <Icon id='modalIcon' name='cancel' />;
+  const errors = modalProps.context;
+
+  const list = [];
+
+  const errorList = errors
+    ? errors.forEach(key => {
+        if (Array.isArray(key)) {
+          list.push(key[0]);
+          return key[0];
+        } else {
+          Object.keys(key).forEach(val => {
+            list.push(key[val][0]);
+            return key[val][0];
+          });
+        }
+      })
+    : null;
+
   return (
     <Portal>
+      {console.log(list)}
       {isOpen && (
         <Modal size='tiny' open={isOpen} onClose={() => closeModal()}>
           <Modal.Header>{modalProps.error}</Modal.Header>
           <Modal.Content>
-            <p>{modalProps.context}</p>
+            <p>{list[0]}</p>
+            <p>{list[1]}</p>
+            <p>{list[2]}</p>
           </Modal.Content>
           <Modal.Actions style={{ height: '70px' }}>
-            {/* <Button
-              color='red'
-              labelPosition='right'
-              onClick={() => closeModal()}
-            >
-              <Icon name='cancel' />
-              Ok
-            </Button> */}
             <Button
               id='modalButton'
               negative

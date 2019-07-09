@@ -64,18 +64,19 @@ export const updateUser = (formData, history) => async dispatch => {
     history.push('/');
   } catch (err) {
     const errors = err.response.data.errors;
-    console.log(err.response.data);
+    const profileErrors = [];
 
     if (errors) {
-      // Object.keys(errors).forEach(key =>
-      //   dispatch(setAlert(errors[key]['image'][0], 'danger'))
-      // );
+      Object.keys(errors).forEach(key =>
+        // dispatch(setAlert(errors[key]['image'][0], 'danger'))
+        profileErrors.push(errors[key])
+      );
       dispatch(
         showModal(
           {
             open: true,
             toggle: hideModal,
-            context: errors['profile']['image'][0],
+            context: profileErrors,
             error: 'Profile Update Error'
           },
           'alert'
