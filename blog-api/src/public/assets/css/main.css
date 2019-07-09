@@ -2990,6 +2990,20 @@ input, select, textarea {
 							margin-right: 0.75em;
 						}
 
+		#iconStyle {
+			color:darkred;
+			text-shadow: 0 0 5px darkred;
+		}
+
+		#iconNoStyle {
+			color: darkred;
+		}
+
+		#likeIcon:hover {
+			color: darkred;
+			text-shadow: 0 0 4px darkred
+		}
+
 		@media screen and (max-width: 980px) {
 
 			.post {
@@ -3841,6 +3855,7 @@ input, select, textarea {
 			transform: translateX(0);
 			visibility: visible;
 		}
+		
 
 		@media screen and (max-width: 736px) {
 

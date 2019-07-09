@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Icon, Button, Label } from 'semantic-ui-react';
 
 import { favoriteArticle, unFavoriteArticle } from '../../actions/articles';
 
-const FAVORITED_CLASS = 'btn btn-sm btn-primary';
-const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
+const FAVORITED_ID = 'iconStyle';
+const NOT_FAVORITED_ID = 'iconNoStyle';
 
 const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
-  const favoriteButtonClass = article.favorited
-    ? FAVORITED_CLASS
-    : NOT_FAVORITED_CLASS;
+  const favoriteButtonID = article.favorited ? FAVORITED_ID : NOT_FAVORITED_ID;
 
   const handleClick = e => {
     e.preventDefault();
@@ -101,8 +100,18 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
             );
           })}
 
-          <li onClick={e => handleClick(e)} className={favoriteButtonClass}>
-            <i className='icon solid fa-heart' />
+          <li
+            id='likeIcon'
+            // id='likeIcon'
+            onClick={e => handleClick(e)}
+            // className={favoriteButtonClass}
+          >
+            <Icon
+              id={favoriteButtonID}
+              color='darkred'
+              name='heart'
+              size='large'
+            />
             {article.favoritesCount}
           </li>
         </ul>
