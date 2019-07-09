@@ -79,7 +79,7 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
         </div>
       </header>
       <Link to={`/article/${article.slug}`} className='image featured'>
-        <img src='/images/skye.jpg' alt='' />
+        <img src={article.image} alt='' />
       </Link>
       <p>{article.body}</p>
       <footer>

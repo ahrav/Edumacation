@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
@@ -115,45 +115,43 @@ const Profile = ({
   const isUser = currentUser && profile.username === currentUser.username;
 
   return (
-    <Fragment>
-      <div id='main'>
-        <article style={{ marginBottom: '1em' }} className='post'>
-          <header>
-            <div className='title'>
-              <h2>{profile.username}</h2>
-              <p>{profile.bio}</p>
-            </div>
-            <div className='meta'>
-              <time className='published'>
-                followers: {profile.followerCount}
-              </time>
-              <a href='' className='author'>
-                {/* <span className='name'>{article.author.username}</span> */}
-                <img src={profile.image} alt='' />
-              </a>
-              <EditProfileSettings isUser={isUser} />
-              <FollowUserButton
-                isUser={isUser}
-                user={profile}
-                follow={followProfile}
-                unfollow={unFollowProfile}
-              />
-            </div>
-          </header>
-        </article>
-        <div id='main2'>
-          <header id='header2'>{renderTabs()}</header>
-          <div className="profileArticle">
+    <div id='main'>
+      <article style={{ marginBottom: '1em' }} className='post'>
+        <header>
+          <div className='title'>
+            <h2>{profile.username}</h2>
+            <p>{profile.bio}</p>
+          </div>
+          <div className='meta'>
+            <time className='published'>
+              followers: {profile.followerCount}
+            </time>
+            <a href='' className='author'>
+              {/* <span className='name'>{article.author.username}</span> */}
+              <img src={profile.image} alt='' />
+            </a>
+            <EditProfileSettings isUser={isUser} />
+            <FollowUserButton
+              isUser={isUser}
+              user={profile}
+              follow={followProfile}
+              unfollow={unFollowProfile}
+            />
+          </div>
+        </header>
+      </article>
+      <div id='main2'>
+        <header id='header2'>{renderTabs()}</header>
+        <div className='profileArticle'>
           <ArticleList
             articles={articles}
             articlesCount={articleCount}
             currentPage={currentPage}
             onSetPage={setPage}
           />
-          </div>
         </div>
       </div>
-    </Fragment>
+    </div>
     // <div className='profile-page'>
     //   <div className='user-info'>
     //     <div className='container'>
