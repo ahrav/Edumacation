@@ -7,7 +7,7 @@ import {
   FOLLOW_PROFILE,
   UN_FOLLOW_PROFILE
 } from './types';
-import { setAlert } from './alert';
+import { showModal, hideModal } from './alert';
 
 const profileError = err => dispatch => {
   dispatch({
@@ -50,15 +50,36 @@ export const updateUser = (formData, history) => async dispatch => {
       type: UPDATE_PROFILE,
       payload: res.data
     });
-
-    dispatch(setAlert('Updated Account', 'success'));
+    dispatch(
+      showModal(
+        {
+          open: true,
+          toggle: hideModal,
+          error: 'Success',
+          context: 'Updated Account'
+        },
+        'alert'
+      )
+    );
     history.push('/');
   } catch (err) {
     const errors = err.response.data.errors;
+    console.log(err.response.data);
 
     if (errors) {
-      Object.keys(errors).forEach(key =>
-        dispatch(setAlert(errors[key]['image'][0], 'danger'))
+      // Object.keys(errors).forEach(key =>
+      //   dispatch(setAlert(errors[key]['image'][0], 'danger'))
+      // );
+      dispatch(
+        showModal(
+          {
+            open: true,
+            toggle: hideModal,
+            context: errors['profile']['image'][0],
+            error: 'Profile Update Error'
+          },
+          'alert'
+        )
       );
     }
 

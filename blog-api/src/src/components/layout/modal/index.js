@@ -27,9 +27,9 @@ function MainModal({ modal: { modalProps, modalType } }) {
     <Portal>
       {isOpen && (
         <Modal size='tiny' open={isOpen} onClose={() => closeModal()}>
-          <Modal.Header>{modalProps.context}</Modal.Header>
+          <Modal.Header>{modalProps.error}</Modal.Header>
           <Modal.Content>
-            <p>Please re-enter credentials.</p>
+            <p>{modalProps.context}</p>
           </Modal.Content>
           <Modal.Actions style={{ height: '70px' }}>
             {/* <Button

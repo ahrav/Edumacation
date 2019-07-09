@@ -62,7 +62,12 @@ export const login = (email, password) => async dispatch => {
       // errors.forEach(error => dispatch(setAlert(error, 'danger')));
       dispatch(
         showModal(
-          { open: true, toggle: hideModal, context: errors[0] },
+          {
+            open: true,
+            toggle: hideModal,
+            error: errors[0],
+            context: 'Please re-enter credentials'
+          },
           'alert'
         )
       );
@@ -102,7 +107,12 @@ export const register = (username, email, password) => async dispatch => {
       // errors.forEach(error => dispatch(setAlert(error, 'danger')));
       dispatch(
         showModal(
-          { open: true, toggle: hideModal, context: errors[0] },
+          {
+            open: true,
+            toggle: hideModal,
+            error: errors[0],
+            context: 'Please re-enter credentials'
+          },
           'alert'
         )
       );
