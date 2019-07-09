@@ -50,17 +50,17 @@ export const updateUser = (formData, history) => async dispatch => {
       type: UPDATE_PROFILE,
       payload: res.data
     });
-    dispatch(
-      showModal(
-        {
-          open: true,
-          toggle: hideModal,
-          error: 'Success',
-          context: 'Updated Account'
-        },
-        'alert'
-      )
-    );
+    // dispatch(
+    //   showModal(
+    //     {
+    //       open: true,
+    //       toggle: hideModal,
+    //       error: 'Success',
+    //       context: 'Updated Account'
+    //     },
+    //     'alert'
+    //   )
+    // );
     history.push('/');
   } catch (err) {
     const errors = err.response.data.errors;

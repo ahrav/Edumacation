@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CommentList from './CommentList';
-import ListErrors from '../ListErrors';
 import CommentInput from './CommentInput';
 
 const CommentContainer = ({ comments, errors, slug, currentUser }) => {
@@ -10,7 +9,6 @@ const CommentContainer = ({ comments, errors, slug, currentUser }) => {
     return (
       <div className='col-xs-12 col-md-8 offset-md-2'>
         <div>
-          <ListErrors errors={errors} />
           <CommentInput slug={slug} currentUser={currentUser} />
         </div>
 

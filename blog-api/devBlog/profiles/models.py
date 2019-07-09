@@ -9,7 +9,7 @@ class Profile(TimestampModel):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    image = models.CharField(blank=True, null=True, max_length=400)
+    image = models.URLField(blank=True, null=True)
     follows = models.ManyToManyField(
         "self", related_name="followed_by", symmetrical=False
     )
@@ -55,3 +55,8 @@ class Profile(TimestampModel):
         """return true if user has favorited an article, else returns false"""
 
         return self.favorites.filter(pk=article.pk).exists()
+
+    def follower_count(self):
+        """ return the number of followers a user has"""
+
+        return self.followed_by.count()

@@ -103,42 +103,61 @@ const Profile = ({
   const isUser = currentUser && profile.username === currentUser.username;
 
   return (
-    <div className='profile-page'>
-      <div className='user-info'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12 col-md-10 offset-md-1'>
-              <img src={profile.image} alt='' className='user-img' />
-              <h4>{profile.username}</h4>
-              <p>{profile.bio}</p>
-
-              <EditProfileSettings isUser={isUser} />
-              <FollowUserButton
-                isUser={isUser}
-                user={profile}
-                follow={followProfile}
-                unfollow={unFollowProfile}
-              />
-            </div>
+    <div id='main'>
+      <article className='post'>
+        <header>
+          <div className='title'>
+            <h2>{profile.username}</h2>
+            <p>{profile.bio}</p>
           </div>
-        </div>
-      </div>
-
-      <div className='container'>
-        <div className='row'>
-          <div className='col-xs-12 col-md-10 offset-md-1'>
-            <div className='articles-toggle'>{renderTabs()}</div>
-
-            <ArticleList
-              articles={articles}
-              articlesCount={articleCount}
-              currentPage={currentPage}
-              onSetPage={setPage}
-            />
+          <div className='meta'>
+            <time className='published'>
+              followers: {profile.followerCount}
+            </time>
+            <a href='' className='author'>
+              {/* <span className='name'>{article.author.username}</span> */}
+              <img src={profile.image} alt='' />
+            </a>
           </div>
-        </div>
-      </div>
+        </header>
+      </article>
     </div>
+    // <div className='profile-page'>
+    //   <div className='user-info'>
+    //     <div className='container'>
+    //       <div className='row'>
+    //         <div className='col-xs-12 col-md-10 offset-md-1'>
+    //           <img src={profile.image} alt='' className='user-img' />
+    //           <h4>{profile.username}</h4>
+    //           <p>{profile.bio}</p>
+
+    //           <EditProfileSettings isUser={isUser} />
+    //           <FollowUserButton
+    //             isUser={isUser}
+    //             user={profile}
+    //             follow={followProfile}
+    //             unfollow={unFollowProfile}
+    //           />
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+
+    //   <div className='container'>
+    //     <div className='row'>
+    //       <div className='col-xs-12 col-md-10 offset-md-1'>
+    //         <div className='articles-toggle'>{renderTabs()}</div>
+
+    //         <ArticleList
+    //           articles={articles}
+    //           articlesCount={articleCount}
+    //           currentPage={currentPage}
+    //           onSetPage={setPage}
+    //         />
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 
