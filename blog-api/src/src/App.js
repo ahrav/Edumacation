@@ -44,7 +44,7 @@ const App = ({ common: { appName, appLoaded }, auth: { user, view } }) => {
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
           <PrivateRoute exact path='/settings' component={Settings} />
-          {/*
+
           <PrivateRoute exact path='/article/:id' component={Article} />
 
           <PrivateRoute
@@ -52,7 +52,7 @@ const App = ({ common: { appName, appLoaded }, auth: { user, view } }) => {
             path='/@:username/favorites'
             component={ProfileFavorites}
           />
-          */}
+
           <PrivateRoute exact path='/editor/:slug' component={Editor} />
           <PrivateRoute exact path='/editor' component={Editor} />
           <PrivateRoute exact path='/@:username' component={Profile} />

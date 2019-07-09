@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
 
@@ -14,10 +14,10 @@ import { getArticlesByAuthor, onSetPage } from '../../actions/articles';
 const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
     return (
-      <Fragment>
+      <span id='profileSettingsButton'>
         <Link to='/settings'>Edit Profile Settings</Link>
         <Icon style={{ marginLeft: '.40em' }} name='settings' />
-      </Fragment>
+      </span>
     );
   }
   return null;
@@ -80,19 +80,29 @@ const Profile = ({
 
   const renderTabs = () => {
     return (
-      <ul className='nav nav-pills outline-active'>
-        <li className='nav-item'>
-          <Link className='nav-link active' to={`/@${profile.username}`}>
-            My Articles
-          </Link>
-        </li>
+      <nav className='links'>
+        <ul>
+          <li>
+            <NavLink
+              exact
+              activeClassName='activeLink'
+              to={`/@${profile.username}`}
+            >
+              My Articles
+            </NavLink>
+          </li>
 
-        <li className='nav-item'>
-          <Link className='nav-link' to={`/@${profile.username}/favorites`}>
-            Favorited Articles
-          </Link>
-        </li>
-      </ul>
+          <li className='nav-item'>
+            <NavLink
+              exact
+              activeClassName='activeLink'
+              to={`/@${profile.username}/favorites`}
+            >
+              Favorited Articles
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
     );
   };
 
@@ -105,32 +115,43 @@ const Profile = ({
   const isUser = currentUser && profile.username === currentUser.username;
 
   return (
-    <div id='main'>
-      <article className='post'>
-        <header>
-          <div className='title'>
-            <h2>{profile.username}</h2>
-            <p>{profile.bio}</p>
-          </div>
-          <div className='meta'>
-            <time className='published'>
-              followers: {profile.followerCount}
-            </time>
-            <a href='' className='author'>
-              {/* <span className='name'>{article.author.username}</span> */}
-              <img src={profile.image} alt='' />
-            </a>
-            <EditProfileSettings id='profileSettingsButton' isUser={isUser} />
-            <FollowUserButton
-              isUser={isUser}
-              user={profile}
-              follow={followProfile}
-              unfollow={unFollowProfile}
-            />
-          </div>
-        </header>
-      </article>
-    </div>
+    <Fragment>
+      <div id='main'>
+        <article style={{ marginBottom: '1em' }} className='post'>
+          <header>
+            <div className='title'>
+              <h2>{profile.username}</h2>
+              <p>{profile.bio}</p>
+            </div>
+            <div className='meta'>
+              <time className='published'>
+                followers: {profile.followerCount}
+              </time>
+              <a href='' className='author'>
+                {/* <span className='name'>{article.author.username}</span> */}
+                <img src={profile.image} alt='' />
+              </a>
+              <EditProfileSettings isUser={isUser} />
+              <FollowUserButton
+                isUser={isUser}
+                user={profile}
+                follow={followProfile}
+                unfollow={unFollowProfile}
+              />
+            </div>
+          </header>
+        </article>
+        <div id='main2'>
+          <header id='header2'>{renderTabs()}</header>
+          <ArticleList
+            articles={articles}
+            articlesCount={articleCount}
+            currentPage={currentPage}
+            onSetPage={setPage}
+          />
+        </div>
+      </div>
+    </Fragment>
     // <div className='profile-page'>
     //   <div className='user-info'>
     //     <div className='container'>
