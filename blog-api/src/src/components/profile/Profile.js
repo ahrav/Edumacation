@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
 
 import ArticleList from '../article/ArticleList';
 import {
@@ -14,10 +15,10 @@ const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
     return (
       <Link
-        to='settings'
+        to='/settings'
         className='btn btn-sm btn-outline-secondary action-btn'
       >
-        <i className='ion-gear-a' /> Edit Profile Settings
+        <i className='fa fa-gear' /> Edit Profile Settings
       </Link>
     );
   }
@@ -118,6 +119,10 @@ const Profile = ({
               {/* <span className='name'>{article.author.username}</span> */}
               <img src={profile.image} alt='' />
             </a>
+            <span id='profileSettingsButton'>
+              <EditProfileSettings isUser={isUser} />
+              <Icon style={{ marginLeft: '.40em' }} name='settings' />
+            </span>
           </div>
         </header>
       </article>
