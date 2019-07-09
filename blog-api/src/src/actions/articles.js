@@ -176,7 +176,7 @@ export const getFeed = page => async dispatch => {
     dispatch({
       type: GET_FEED,
       payload: res.data,
-      page: page
+      page: page || 0
     });
   } catch (err) {
     dispatch({

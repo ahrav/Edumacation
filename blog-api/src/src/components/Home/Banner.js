@@ -4,7 +4,7 @@ const Banner = ({ appName }) => {
   return (
     <section id='intro'>
       <a href='#' className='logo'>
-        <img src='images/logo.jpg' alt='' />
+        <img src='images/hi.jpg' alt='' />
       </a>
       <header>
         <h2>{appName}</h2>

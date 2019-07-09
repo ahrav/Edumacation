@@ -26,7 +26,7 @@ const initialState = {
   article: null,
   articleCount: null,
   loading: true,
-  tab: 'all',
+  tab: null,
   error: {},
   tags: null,
   tag: null,
@@ -150,7 +150,7 @@ export default (state = initialState, action) => {
     case CLEAR_ARTICLE:
       return {
         ...state,
-        tab: 'all',
+        tab: null,
         loading: false
       };
     default:

@@ -37,7 +37,7 @@ const MainView = ({
     tab === 'feed'
       ? (feedType = () => getFeed(page))
       : (feedType = () => getArticles(page));
-    onSetPage(view);
+    onSetPage(feedType);
   };
 
   const setPage = page => settingPage(tab, page);

@@ -12,9 +12,9 @@ import {
 
 const Home = ({
   common: { appName },
+  articles: { tab, tags, currentPage },
   token,
   getTags,
-  tags,
   getArticlesByTag,
   getArticles,
   getFeed,
@@ -23,7 +23,7 @@ const Home = ({
   useEffect(() => {
     (async () => {
       await getTags();
-      await (token ? getFeed() : getArticles());
+      await (tab === 'feed' ? getFeed(currentPage) : getArticles(currentPage));
     })();
   }, [getTags]);
 
@@ -49,8 +49,7 @@ const Home = ({
 const mapStateToProps = state => ({
   common: state.common,
   token: state.auth.token,
-  tags: state.articles.tags,
-  activeTag: state.articles.tag
+  articles: state.articles
 });
 
 export default connect(

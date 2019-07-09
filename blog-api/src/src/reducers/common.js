@@ -1,7 +1,7 @@
 import { APP_LOAD, REDIRECT } from '../actions/types';
 
 const defaultState = {
-  appName: 'BloggIn',
+  appName: 'YAP',
   viewChangeCounter: 0
 };
 

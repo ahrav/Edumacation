@@ -38,7 +38,7 @@ const Tags = ({ tags, onClickTag, activeTag }) => {
             <a href=''>Popular Tags</a>
           </h3>
           <a href='#' className='author'>
-            <img src='images/avatar.jpg' alt='' />
+            <img src='images/oof.jpg' alt='' />
           </a>
         </header>
         {/* <a href='single.html' className='image'>

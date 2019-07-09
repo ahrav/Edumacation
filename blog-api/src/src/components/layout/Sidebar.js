@@ -21,11 +21,11 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
                 October 19, 2015
               </time>
               <a href='#' className='author'>
-                <img src='images/avatar.jpg' alt='' />
+                <img src='images/oof.jpg' alt='' />
               </a>
             </header>
             <a href='single.html' className='image'>
-              <img src='images/pic05.jpg' alt='' />
+              <img src='images/skye2.jpg' alt='' />
             </a>
           </article>
 
@@ -42,7 +42,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
               </a>
             </header>
             <a href='single.html' className='image'>
-              <img src='images/pic06.jpg' alt='' />
+              <img src='images/kitties.jpg' alt='' />
             </a>
           </article>
 

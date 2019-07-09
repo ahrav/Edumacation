@@ -3597,7 +3597,8 @@ input, select, textarea {
 	#intro header h2 {
 		font-size: 2em;
 		font-weight: 900;
-		font-family: "Font Awesome 5 Free"
+		font-family: "Font Awesome 5 Free";
+		letter-spacing: 0.05em;
 	}
 
 	#intro header p {

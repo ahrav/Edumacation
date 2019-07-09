@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GlobalFeedTab = ({ getArticles, onTabClick, tab, loading }) => {
+const GlobalFeedTab = ({ getArticles, onTabClick, tab }) => {
   const clickHandler = async e => {
     e.preventDefault();
     await getArticles();

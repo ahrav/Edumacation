@@ -75,12 +75,12 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
           </time>
           <Link to={`${article.author.username}`} className='author'>
             <span className='name'>{article.author.username}</span>
-            <img src='/images/avatar.jpg' alt='' />
+            <img src='/images/oof.jpg' alt='' />
           </Link>
         </div>
       </header>
       <Link to={`/article/${article.slug}`} className='image featured'>
-        <img src='/images/pic01.jpg' alt='' />
+        <img src='/images/skye.jpg' alt='' />
       </Link>
       <p>{article.body}</p>
       <footer>
