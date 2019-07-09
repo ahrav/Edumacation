@@ -143,12 +143,14 @@ const Profile = ({
         </article>
         <div id='main2'>
           <header id='header2'>{renderTabs()}</header>
+          <div className="profileArticle">
           <ArticleList
             articles={articles}
             articlesCount={articleCount}
             currentPage={currentPage}
             onSetPage={setPage}
           />
+          </div>
         </div>
       </div>
     </Fragment>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
 
 import Spinner from '../layout/Spinner';
 import {
@@ -147,10 +148,10 @@ const Editor = ({
               <div className='tag-list'>
                 {(tagList || []).map(tag => {
                   return (
-                    <span className='tag-default tag-pill' key={tag}>
-                      <i
-                        className='fa fa-close'
-                        style={{ paddingRight: '2px' }}
+                    <span style={{ marginRight: '2px' }} key={tag}>
+                      <Icon
+                        name='cancel'
+                        style={{ paddingRight: '0px', margin: 0 }}
                         onClick={() => removeTagHandler(tag)}
                       />
                       {tag}
