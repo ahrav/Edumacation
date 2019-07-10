@@ -1,11 +1,13 @@
 import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import ArticleMeta from './ArticleMeta';
 import CommentContainer from './CommentContainer';
 import Spinner from '../layout/Spinner';
 import marked from 'marked';
+import { Icon } from 'semantic-ui-react';
 import { getArticle, getArticleComments } from '../../actions/articles';
 
 const Article = ({
@@ -33,6 +35,9 @@ const Article = ({
           <header>
             <div className='title'>
               <h2>{article.title}</h2>
+              <time className='published' dateTime={article.createdAt}>
+                {moment(article.createdAt).format('MMMM DD, YYYY')}
+              </time>
             </div>
             <ArticleMeta article={article} canModify={canModify} />
           </header>

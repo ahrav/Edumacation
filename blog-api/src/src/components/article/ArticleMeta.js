@@ -6,13 +6,11 @@ import ArticleActions from './ArticleActions';
 const ArticleMeta = ({ article, canModify }) => {
   return (
     <div className='meta'>
-      <time className='published'>
-        {new Date(article.createdAt).toDateString()}
-      </time>
       <Link to={`/@${article.author.username}`} className='author'>
         <span className='name'>{article.author.username}</span>
         <img src={article.author.image} alt='' />
       </Link>
+      <ArticleActions canModify={canModify} article={article} />
     </div>
     // <div className='article-meta'>
     //   <Link to={`/@${article.author.username}`}>

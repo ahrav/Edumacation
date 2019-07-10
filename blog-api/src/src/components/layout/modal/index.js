@@ -43,7 +43,6 @@ function MainModal({ modal: { modalProps, modalType } }) {
 
   return (
     <Portal>
-      {console.log(list)}
       {isOpen && (
         <Modal size='tiny' open={isOpen} onClose={() => closeModal()}>
           <Modal.Header>{modalProps.error}</Modal.Header>
