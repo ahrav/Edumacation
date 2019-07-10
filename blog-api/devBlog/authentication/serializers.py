@@ -83,7 +83,9 @@ class UserSerializer(serializers.ModelSerializer):
 
     profile = ProfileSerializer(write_only=True)
     bio = serializers.CharField(source="profile.bio", read_only=True)
-    image = serializers.CharField(source="profile.image", read_only=True)
+    image = serializers.SerializerMethodField(
+        source="profile.image", read_only=True
+    )
 
     class Meta:
         model = User
@@ -97,6 +99,13 @@ class UserSerializer(serializers.ModelSerializer):
             "image",
         )
         read_only_fields = ("token",)
+
+    def get_image(self, obj):
+        """returns an image object"""
+        if obj.profile.image:
+            return obj.profile.image
+
+        return "hhttps://www.carrollsirishgifts.com/media/catalog/product/cache/11/image/9df78eab33525d08d6e5fb8d27136e95/c/1/c102324.jpg"
 
     def update(self, instance, validated_data):
         """Update User"""

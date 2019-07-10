@@ -12,17 +12,6 @@ import { getFavoritedArticles, onSetPage } from '../../actions/articles';
 import ArticleList from '../article/ArticleList';
 
 const EditProfileSettings = ({ isUser }) => {
-  // if (isUser) {
-  //   return (
-  //     <Link
-  //       to='settings'
-  //       className='btn btn-sm btn-outline-secondary action-btn'
-  //     >
-  //       <i className='ion-gear-a' /> Edit Profile Settings
-  //     </Link>
-  //   );
-  // }
-  // return null;
   if (isUser) {
     return (
       <span id='profileSettingsButton'>
@@ -44,12 +33,6 @@ const FollowUserButton = ({
     return null;
   }
 
-  // let classes = 'btn btn-sm action-btn';
-  // if (user.following) {
-  //   classes += ' btn-secondary';
-  // } else {
-  //   classes += ' btn-outline-secondary';
-  // }
   let id;
   let sign;
   if (user.following) {
@@ -70,11 +53,6 @@ const FollowUserButton = ({
   };
 
   return (
-    // <button className={classes} onClick={e => handleClick(e)}>
-    //   <i className='ion-plus-round' />
-    //   &nbsp;
-    //   {user.following ? 'Unfollow' : 'Follow'} {user.username}
-    // </button>
     <button id={id} onClick={e => handleClick(e)}>
       <Icon name={sign} />
       &nbsp;
@@ -103,26 +81,6 @@ const ProfileFavorites = ({
     onSetPage(() => getFavoritedArticles(profile.username, page));
   };
 
-  // const renderTabs = () => {
-  //   return (
-  //     <ul className='nav nav-pills outline-active'>
-  //       <li className='nav-item'>
-  //         <Link className='nav-link' to={`/@${profile.username}`}>
-  //           My Articles
-  //         </Link>
-  //       </li>
-
-  //       <li className='nav-item'>
-  //         <Link
-  //           className='nav-link active'
-  //           to={`/@${profile.username}/favorites`}
-  //         >
-  //           Favorited Articles
-  //         </Link>
-  //       </li>
-  //     </ul>
-  //   );
-  // };
   const renderTabs = () => {
     return (
       <nav className='links'>
@@ -153,42 +111,6 @@ const ProfileFavorites = ({
   const isUser = currentUser && profile.username === currentUser.username;
   const setPage = page => settingPage(page);
   return (
-    // <div className='profile-page'>
-    //   <div className='user-info'>
-    //     <div className='container'>
-    //       <div className='row'>
-    //         <div className='col-xs-12 col-md-10 offset-md-1'>
-    //           <img src={profile.image} className='user-img' />
-    //           <h4>{profile.username}</h4>
-    //           <p>{profile.bio}</p>
-
-    //           <EditProfileSettings isUser={isUser} />
-    //           <FollowUserButton
-    //             isUser={isUser}
-    //             user={profile}
-    //             follow={followProfile}
-    //             unfollow={unFollowProfile}
-    //           />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className='container'>
-    //     <div className='row'>
-    //       <div className='col-xs-12 col-md-10 offset-md-1'>
-    //         <div className='articles-toggle'>{renderTabs()}</div>
-
-    //         <ArticleList
-    //           articles={articles}
-    //           currentPage={currentPage}
-    //           articlesCount={articleCount}
-    //           onSetPage={setPage}
-    //         />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
     <div id='main'>
       <article style={{ marginBottom: '1em' }} className='post'>
         <header>

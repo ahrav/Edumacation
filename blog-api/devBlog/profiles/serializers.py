@@ -8,10 +8,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     username = serializers.CharField(source="user.username")
     bio = serializers.CharField(allow_blank=True, required=False)
-    image = serializers.URLField(
-        allow_blank=True,
-        allow_null=True,
-        error_messages={"invalid": "Image must be a valid URL."},
+    image = serializers.SerializerMethodField(
+        error_messages={"invalid": "Image must be a valid URL."}
     )
     following = serializers.SerializerMethodField()
     followerCount = serializers.SerializerMethodField(
@@ -22,12 +20,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ("username", "bio", "image", "following", "followerCount")
 
-    # def get_image(self, obj):
-    #     """returns an image object"""
-    #     if obj.image:
-    #         return obj.image
+    def get_image(self, obj):
+        """returns an image object"""
+        if obj.image:
+            return obj.image
 
-    #     return "https://static.productionready.io/images/smiley-cyrus.jpg"
+        return "https://www.carrollsirishgifts.com/media/catalog/product/cache/11/image/9df78eab33525d08d6e5fb8d27136e95/c/1/c102324.jpg"
 
     def get_follower_count(self, instance):
         """return number of followers for given users"""

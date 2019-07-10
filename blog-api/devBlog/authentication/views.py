@@ -37,7 +37,7 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
             "password": request.data.get("password", request.user.password),
             "profile": {
                 "bio": request.data.get("bio", request.user.profile.bio),
-                "image": request.data.get("image"),
+                "image": request.data.get("image", request.user.profile.image),
             },
         }
 

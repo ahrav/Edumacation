@@ -152,42 +152,6 @@ const Profile = ({
         </div>
       </div>
     </div>
-    // <div className='profile-page'>
-    //   <div className='user-info'>
-    //     <div className='container'>
-    //       <div className='row'>
-    //         <div className='col-xs-12 col-md-10 offset-md-1'>
-    //           <img src={profile.image} alt='' className='user-img' />
-    //           <h4>{profile.username}</h4>
-    //           <p>{profile.bio}</p>
-
-    //           <EditProfileSettings isUser={isUser} />
-    //           <FollowUserButton
-    //             isUser={isUser}
-    //             user={profile}
-    //             follow={followProfile}
-    //             unfollow={unFollowProfile}
-    //           />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className='container'>
-    //     <div className='row'>
-    //       <div className='col-xs-12 col-md-10 offset-md-1'>
-    //         <div className='articles-toggle'>{renderTabs()}</div>
-
-    //         <ArticleList
-    //           articles={articles}
-    //           articlesCount={articleCount}
-    //           currentPage={currentPage}
-    //           onSetPage={setPage}
-    //         />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

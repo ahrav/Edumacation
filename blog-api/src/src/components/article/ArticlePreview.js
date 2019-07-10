@@ -74,7 +74,7 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
           </time>
           <Link to={`/@${article.author.username}`} className='author'>
             <span className='name'>{article.author.username}</span>
-            <img src='/images/oof.jpg' alt='' />
+            <img src={article.author.image} alt='' />
           </Link>
         </div>
       </header>
@@ -108,7 +108,7 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
           >
             <Icon
               id={favoriteButtonID}
-              color='darkred'
+              color='red'
               name='heart'
               size='large'
             />

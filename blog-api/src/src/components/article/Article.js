@@ -28,7 +28,17 @@ const Article = ({
     currentUser && currentUser.username === article.author.username;
   return (
     <Fragment>
-      <div className='article-page'>
+      <div id='main'>
+        <article className='post'>
+          <header>
+            <div className='title'>
+              <h2>{article.title}</h2>
+            </div>
+            <ArticleMeta article={article} canModify={canModify} />
+          </header>
+        </article>
+      </div>
+      {/* <div className='article-page'>
         <div className='banner'>
           <div className='container'>
             <h1>{article.title}</h1>
@@ -66,7 +76,7 @@ const Article = ({
             />
           </div>
         </div>
-      </div>
+      </div> */}
     </Fragment>
   );
 };
