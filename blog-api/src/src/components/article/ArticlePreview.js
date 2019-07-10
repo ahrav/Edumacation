@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Icon, Button, Label } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
+import moment from 'moment';
 
 import { favoriteArticle, unFavoriteArticle } from '../../actions/articles';
 
@@ -70,7 +71,7 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
         </div>
         <div className='meta'>
           <time className='published'>
-            {new Date(article.createdAt).toDateString()}
+            {moment(article.createdAt).format('MMMM DD, YYYY')}
           </time>
           <Link to={`/@${article.author.username}`} className='author'>
             <span className='name'>{article.author.username}</span>

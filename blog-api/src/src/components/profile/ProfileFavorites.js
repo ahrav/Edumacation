@@ -14,7 +14,7 @@ import ArticleList from '../article/ArticleList';
 const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
     return (
-      <span id='profileSettingsButton'>
+      <span className='profileSettingsButton'>
         <Link to='/settings'>Edit Profile Settings</Link>
         <Icon style={{ marginLeft: '.40em' }} name='settings' />
       </span>

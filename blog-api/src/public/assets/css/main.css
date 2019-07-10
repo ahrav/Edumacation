@@ -2825,7 +2825,7 @@ input, select, textarea {
 					white-space: nowrap;
 				}
 
-		.post > header .meta #profileSettingsButton {
+		.post > header .meta .profileSettingsButton {
 			-moz-appearance: none;
 		-webkit-appearance: none;
 		-ms-appearance: none;
@@ -2835,18 +2835,28 @@ input, select, textarea {
 		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		background-color: #666 !important;
-		border-radius: 6px;
-		border: 0;
+		border-radius: 6px !important;
+		border: 0 !important;
 		color: white !important;
-		cursor: pointer;
-		display: inline-block;
-		font-weight: 400;
-		height: 2em;
-		line-height: 2em;
-		padding: 0 .5em;
-		text-align: center;
-		text-decoration: none;
-		white-space: nowrap;
+		cursor: pointer !important;
+		display: inline-block !important;
+		font-weight: 400 !important;
+		height: 2em !important;
+		line-height: 2em !important;
+		padding: 0 .5em !important;
+		text-align: center !important;
+		text-decoration: none !important;
+		white-space: nowrap !important;
+		margin-bottom: 8px;
+		}
+
+		#deleteArticleButton {
+			color: white !important;
+			font-family: 'Font Awesome 5 Free'
+		}
+
+		#deleteArticleButton:hover {
+			color: red
 		}
 
 		.post > header .meta #profileFollowButtonFollow {

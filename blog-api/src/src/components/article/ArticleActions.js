@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Button } from 'semantic-ui-react';
 
 import { deleteArticle } from '../../actions/articles';
 
@@ -13,10 +13,32 @@ const ArticleActions = ({
 }) => {
   if (canModify) {
     return (
-      <span id='profileSettingsButton'>
-        <Link to={`/editor/${slug}`}>Edit Article</Link>
-        <Icon style={{ marginLeft: '.40em' }} name='edit' />
-      </span>
+      <Fragment>
+        <span className='profileSettingsButton'>
+          <Link style={{ borderBottom: 'none' }} to={`/editor/${slug}`}>
+            Edit Article
+          </Link>
+          <Icon style={{ marginLeft: '.40em' }} name='edit' />
+        </span>
+        <span style={{ width: '131px' }} className='profileSettingsButton'>
+          <Button
+            id='deleteArticleButton'
+            style={{
+              letterSpacing: '.06em',
+              fontSize: '100%',
+              fontWeight: 400,
+              width: '140px',
+              height: '30px'
+            }}
+            content='Delete'
+            size='tiny'
+            labelPosition='right'
+          >
+            Delete Article
+            <Icon style={{ marginLeft: '.4em' }} name='trash' />
+          </Button>
+        </span>
+      </Fragment>
       // <span>
       //   <Link
       //     to={`/editor/${slug}`}
