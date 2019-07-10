@@ -20,7 +20,11 @@ const ArticleActions = ({
           </Link>
           <Icon style={{ marginLeft: '.40em' }} name='edit' />
         </span>
-        <span style={{ width: '131px' }} className='profileSettingsButton'>
+        <span
+          id='delete'
+          style={{ width: '131px' }}
+          className='profileSettingsButton'
+        >
           <Button
             id='deleteArticleButton'
             style={{
@@ -35,7 +39,7 @@ const ArticleActions = ({
             labelPosition='right'
           >
             Delete Article
-            <Icon style={{ marginLeft: '.4em' }} name='trash' />
+            <Icon style={{ marginLeft: '.2em' }} name='trash' />
           </Button>
         </span>
       </Fragment>

@@ -2817,7 +2817,7 @@ input, select, textarea {
 					color: #3c3b3b;
 					display: block;
 					font-family: "Raleway", Helvetica, sans-serif;
-					font-size: 0.7em;
+					font-size: 0.85em;
 					font-weight: 800;
 					letter-spacing: 0.25em;
 					margin-top: 0.5em;
@@ -2847,7 +2847,7 @@ input, select, textarea {
 		text-align: center !important;
 		text-decoration: none !important;
 		white-space: nowrap !important;
-		margin-bottom: 8px;
+		margin-bottom: 4px;
 		}
 
 		#deleteArticleButton {
@@ -2855,9 +2855,17 @@ input, select, textarea {
 			font-family: 'Font Awesome 5 Free'
 		}
 
-		#deleteArticleButton:hover {
-			color: red
+		#delete:hover {
+			background-color: red !important;
+			color: white !important;
+			border: 3px solid red;
+			font-weight: 700;
+			font-size: 105%;
 		}
+
+		/* #deleteArticleButton:hover {
+			color: red !important
+		} */
 
 		.post > header .meta #profileFollowButtonFollow {
 			-moz-appearance: none;

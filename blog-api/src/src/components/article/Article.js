@@ -28,6 +28,7 @@ const Article = ({
   const markup = { __html: marked(article.body) };
   const canModify =
     currentUser && currentUser.username === article.author.username;
+
   return (
     <Fragment>
       <div id='main'>
@@ -41,6 +42,29 @@ const Article = ({
             </div>
             <ArticleMeta article={article} canModify={canModify} />
           </header>
+          <a href='' className='image featured'>
+            <img src={article.image} alt='' />
+          </a>
+          <p>{article.body}</p>
+          <footer>
+            <ul className='stats'>
+              {article.tagList.map(tag => {
+                return (
+                  <li key={tag}>
+                    <i className='icon solid fa-hashtag' />
+                    {tag}
+                  </li>
+                );
+              })}
+
+              <li>
+                <Icon name='heart' size='large' />
+                <span style={{ fontSize: '1.4em' }}>
+                  {article.favoritesCount}
+                </span>
+              </li>
+            </ul>
+          </footer>
         </article>
       </div>
       {/* <div className='article-page'>
