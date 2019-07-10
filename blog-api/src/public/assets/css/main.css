@@ -2985,18 +2985,31 @@ input, select, textarea {
 						border-bottom: 0;
 					}
 
-						.post > footer .stats li .icon:before {
-							color: rgba(24, 23, 23, 0.74);
+					.post > footer .stats li .icon:before {
+						color: rgba(24, 23, 23, 0.74);
+						margin-right: 0.75em;
+					}
+
+					.iconStyle:hover, .iconNoStyle:hover {
+						color: darkred !important;
+					}
+
+					#hover:hover:before {
+						color: darkred !important
+					}
+
+						.iconStyle:before {
+							color:red !important;
 							margin-right: 0.75em;
 						}
 
-		#iconStyle {
+		.iconStyle {
 			color:darkred;
 			text-shadow: 0 0 5px darkred;
 		}
 
-		#iconNoStyle {
-			color: darkred;
+		.iconNoStyle {
+			color: rgba(24, 23, 23, 0.74)
 		}
 
 		#likeIcon:hover {

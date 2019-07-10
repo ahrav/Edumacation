@@ -107,12 +107,14 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
             // className={favoriteButtonClass}
           >
             <Icon
-              id={favoriteButtonID}
-              color='red'
+              id='hover'
+              className={favoriteButtonID}
               name='heart'
               size='large'
             />
-            {article.favoritesCount}
+            <span className={favoriteButtonID} style={{ fontSize: '1.4em' }}>
+              {article.favoritesCount}
+            </span>
           </li>
         </ul>
       </footer>
