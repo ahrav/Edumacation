@@ -3106,13 +3106,18 @@ input, select, textarea {
 					}
 
 					#hover:hover:before {
-						color: darkred !important
+						color: darkred !important;
+						cursor: pointer;
 					}
 
 						.iconStyle:before {
 							color:red !important;
 							margin-right: 0.75em;
 						}
+
+		.commentIcon:hover:before{
+			color: #2ebaae !important
+		}
 
 		.iconStyle {
 			color:darkred;
