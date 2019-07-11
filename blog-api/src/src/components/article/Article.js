@@ -63,6 +63,12 @@ const Article = ({
                   {article.favoritesCount}
                 </span>
               </li>
+              <li>
+                <Icon name='comments' size='large' />
+                <span style={{ fontSize: '1.4em' }}>
+                  {article.commentsCount}
+                </span>
+              </li>
             </ul>
           </footer>
         </article>
