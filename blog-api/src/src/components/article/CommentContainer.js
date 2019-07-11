@@ -6,37 +6,23 @@ import CommentInput from './CommentInput';
 
 const LoggedOutView = ({ currentUser }) => {
   if (!currentUser)
-    return (
-      <div />
-      // <div className='col-xs-12 col-md-8 offset-md-2'>
-      //     <p>
-      //       <Link to='/login'>Sign in</Link>
-      //       &nbsp;or&nbsp;
-      //       <Link to='/register'>sign up</Link>
-      //       &nbsp;to add comments on this article.
-      //     </p>
-
-      //     <CommentList
-      //       comments={comments}
-      //       slug={slug}
-      //       currentUser={currentUser}
-      //     />
-      //   </div>
-    );
+    return null;
+    // <div className='col-xs-12 col-md-8 offset-md-2'>
+    //     <p>
+    //       <Link to='/login'>Sign in</Link>
+    //       &nbsp;or&nbsp;
+    //       <Link to='/register'>sign up</Link>
+    //       &nbsp;to add comments on this article.
+    //     </p>
+  return null;
 };
 
 const LoggedInView = ({ comments, currentUser, slug, loading }) => {
   if (currentUser)
     return (
       <CommentInput slug={slug} currentUser={currentUser} loading={loading} />
-
-      //     <CommentList
-      //       comments={comments}
-      //       slug={slug}
-      //       currentUser={currentUser}
-      //     />
-      //   </div>
     );
+  return null;
 };
 
 const CommentContainer = ({ comments, loading, slug, currentUser }) => {
@@ -56,6 +42,8 @@ const CommentContainer = ({ comments, loading, slug, currentUser }) => {
         comments={comments}
         loading={loading}
       />
+      <LoggedOutView currentUser={currentUser} />
+      <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </section>
   );
 };
