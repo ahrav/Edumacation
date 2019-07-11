@@ -29,13 +29,27 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
+function hashLinkScroll() {
+  const { hash } = window.location;
+  if (hash !== '') {
+    // Push onto callback queue so it runs after the DOM is updated,
+    // this is required when navigating from a different page so that
+    // the element is rendered on the page before trying to getElementById.
+    setTimeout(() => {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) element.scrollIntoView();
+    }, 0);
+  }
+}
+
 const App = ({ common: { appName, appLoaded }, auth: { user, view } }) => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
 
   return (
-    <Router>
+    <Router onUpdate={hashLinkScroll}>
       <Fragment>
         <MainModal />
         <Header appName={appName} currentUser={user} view={view} />

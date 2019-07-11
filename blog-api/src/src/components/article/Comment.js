@@ -8,7 +8,7 @@ const Comment = ({ comment, currentUser, slug, loading }) => {
   const show = currentUser && currentUser.username === comment.author.username;
   return (
     <div className='rowForm gtr-50 gtr-uniform'>
-      <div className='col-12Form'>
+      <div id={comment.id} className='col-12Form'>
         <div id='commentBody'>{comment.body}</div>
 
         <div
