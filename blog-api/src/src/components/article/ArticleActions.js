@@ -43,22 +43,6 @@ const ArticleActions = ({
           </Button>
         </span>
       </Fragment>
-      // <span>
-      //   <Link
-      //     to={`/editor/${slug}`}
-      //     className='btn btn-outline-secondary btn-sm'
-      //   >
-      //     <i className='ion-edit' /> Edit Article
-      //   </Link>
-
-      //   <button
-      //     className='btn btn-outline-danger btn-sm'
-      //     onClick={() => deleteArticle(slug, history)}
-      //     style={{ marginLeft: '3px' }}
-      //   >
-      //     <i className='ion-trash-a' /> Delete Article
-      //   </button>
-      // </span>
     );
   }
   return null;

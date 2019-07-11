@@ -67,6 +67,13 @@ const Article = ({
           </footer>
         </article>
       </div>
+      <CommentContainer
+        comments={article.comments || []}
+        errors={article.commentErrors}
+        slug={match.params.id}
+        currentUser={currentUser}
+        loading={loading}
+      />
       {/* <div className='article-page'>
         <div className='banner'>
           <div className='container'>

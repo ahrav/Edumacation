@@ -1886,6 +1886,26 @@ input, select, textarea {
 		white-space: nowrap;
 	}
 
+	#commentImg {
+		margin-left: 2em;
+		margin-top: .66em;
+		border-radius: 50%
+	}
+
+	#commentButton {
+		margin-left: 41em;
+		margin-top: .95em;
+		background-color: #666;
+		color: white !important;
+		font-family: "Font Awesome 5 Free";
+		font-size: .7em;
+		font-weight: 500;
+		height: 3.8em;
+		line-height: 4em;
+		padding: 0 1.5em .5em 1.5em;
+		border-radius: .6em
+	}
+
 		input[type="submit"]:hover,
 		input[type="reset"]:hover,
 		input[type="button"]:hover,
