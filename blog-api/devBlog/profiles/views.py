@@ -33,6 +33,27 @@ class ProfileRetrieveAPIView(RetrieveUpdateDestroyAPIView):
         )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    # def update(self, request, username, *args, **kwargs):
+
+    #     serializer_data = {
+    #         "bio": request.data.get("bio", request.user.username),
+    #         "image": request.data.get("image", request.user.username),
+    #     }
+
+    #     try:
+    #         profile = self.queryset.get(user__username=username)
+    #         self.check_object_permissions(self.request, profile)
+    #     except Profile.DoesNotExist:
+    #         raise NotFound("A profile with this username does not exist")
+
+    #     serializer = self.serializer_class(
+    #         profile, data=serializer_data, partial=True
+    #     )
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class ProfileFollowAPIView(APIView):
     """view which will handle following other profiles"""

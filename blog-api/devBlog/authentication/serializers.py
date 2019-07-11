@@ -1,9 +1,21 @@
+import re
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
 from profiles.serializers import ProfileSerializer
 
 from .models import User
+
+
+regex = re.compile(
+    r"^(?:http|ftp)s?://"  # http:// or https://
+    r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # domain...
+    r"localhost|"  # localhost...
+    r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # ...or ip
+    r"(?::\d+)?"  # optional port
+    r"(?:/?|[/?]\S+)$",
+    re.IGNORECASE,
+)
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -83,9 +95,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     profile = ProfileSerializer(write_only=True)
     bio = serializers.CharField(source="profile.bio", read_only=True)
-    image = serializers.SerializerMethodField(
-        source="profile.image", read_only=True
-    )
+    image = serializers.CharField(source="profile.image", read_only=True)
 
     class Meta:
         model = User
@@ -100,12 +110,13 @@ class UserSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ("token",)
 
-    def get_image(self, obj):
-        """returns an image object"""
-        if obj.profile.image:
-            return obj.profile.image
-
-        return "hhttps://www.carrollsirishgifts.com/media/catalog/product/cache/11/image/9df78eab33525d08d6e5fb8d27136e95/c/1/c102324.jpg"
+    def validate_profile(self, profile):
+        print(profile["image"])
+        if not re.match(regex, profile["image"]):
+            raise serializers.ValidationError(
+                "Please ensure image field is a valid URL"
+            )
+        return profile
 
     def update(self, instance, validated_data):
         """Update User"""
