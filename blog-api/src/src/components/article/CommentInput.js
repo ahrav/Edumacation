@@ -44,7 +44,7 @@ const CommentInput = ({ addComment, slug, currentUser, loading }) => {
               </li>
               <li>
                 <button
-                  id='commentButton'
+                  className='commentButton'
                   type='button'
                   onClick={e => onSubmit(e)}
                   disabled={loading}

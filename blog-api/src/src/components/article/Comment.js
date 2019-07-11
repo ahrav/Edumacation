@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import DeleteButton from '../layout/DeleteButton';
 
-const Comment = ({ comment, currentUser, slug }) => {
+const Comment = ({ comment, currentUser, slug, loading }) => {
   const show = currentUser && currentUser.username === comment.author.username;
   return (
     <div className='rowForm gtr-50 gtr-uniform'>
@@ -39,9 +39,20 @@ const Comment = ({ comment, currentUser, slug }) => {
               </Link>
             </li>
             <li id='commentTime'>
-              <time style={{fontSize: '.92em', fontStyle: 'italic'}} className='published'>
+              <time
+                style={{ fontSize: '.92em', fontStyle: 'italic' }}
+                className='published'
+              >
                 {moment(comment.createdAt).format('lll')}
               </time>
+            </li>
+            <li id='commentDelete'>
+              <DeleteButton
+                show={show}
+                slug={slug}
+                commentId={comment.id}
+                loading={loading}
+              />
             </li>
           </ul>
         </div>

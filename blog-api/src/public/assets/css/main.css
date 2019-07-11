@@ -1892,7 +1892,7 @@ input, select, textarea {
 		border-radius: 50%
 	}
 
-	#commentButton {
+	.commentButton {
 		margin-left: 41em;
 		margin-top: .95em;
 		background-color: #666;
@@ -1906,7 +1906,7 @@ input, select, textarea {
 		border-radius: .6em
 	}
 
-	#commentButton:hover {
+	.commentButton:hover {
 		box-shadow: #2ebaae;
 		color: #2ebaae !important;
 		background-color: white
@@ -1939,6 +1939,32 @@ input, select, textarea {
 	#commentTime {
 		margin-top: .85em;
 		padding-left: 5px;
+	}
+
+	#commentDelete {
+		width: 165px;
+		padding-left: 0px;
+		margin-left: 15em;
+	}
+
+	.deleteButton {
+		margin-left: 6em;
+		width: 105px;
+	}
+
+	#deleteIcon {
+		width: 1.75em;
+		height: 3.1em;
+		margin-left: .3em;
+		margin-right: 0;
+		font-size: 1.1em;
+	}
+
+	.deleteButton:hover {
+		box-shadow: crimson;
+		color: white !important;
+		background-color: crimson;
+		font-weight: 700
 	}
 
 		input[type="submit"]:hover,
@@ -2915,7 +2941,7 @@ input, select, textarea {
 			color: white !important;
 			border: 3px solid red;
 			font-weight: 700;
-			font-size: 105%;
+			box-shadow: red;
 		}
 
 		/* #deleteArticleButton:hover {
