@@ -117,6 +117,21 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
               {article.favoritesCount}
             </span>
           </li>
+          <li
+          // id='likeIcon'
+          // onClick={e => handleClick(e)}
+          // className={favoriteButtonClass}
+          >
+            <Link
+              style={{ borderBottom: 'none' }}
+              to={`/article/${article.slug}`}
+            >
+              <Icon name='comments' size='large' />
+              <span className={favoriteButtonID} style={{ fontSize: '1.4em' }}>
+                {article.commentsCount}
+              </span>
+            </Link>
+          </li>
         </ul>
       </footer>
     </article>

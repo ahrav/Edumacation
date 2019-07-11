@@ -23,6 +23,9 @@ class ArticleSerializer(serializers.ModelSerializer):
     favoritesCount = serializers.SerializerMethodField(
         method_name="get_favorites_count"
     )
+    commentsCount = serializers.SerializerMethodField(
+        method_name="get_comments_count"
+    )
     tagList = TagRelatedField(many=True, required=False, source="tags")
     createdAt = serializers.SerializerMethodField(method_name="get_created_at")
     updatedAt = serializers.SerializerMethodField(method_name="get_updated_at")
@@ -36,6 +39,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             "description",
             "favorited",
             "favoritesCount",
+            "commentsCount",
             "slug",
             "tagList",
             "title",
@@ -75,6 +79,11 @@ class ArticleSerializer(serializers.ModelSerializer):
         """return number of times an article has been favorited"""
 
         return instance.favorited_by.count()
+
+    def get_comments_count(self, instance):
+        """return number of comments for an article"""
+
+        return instance.comments.count()
 
 
 class CommentSerializer(serializers.ModelSerializer):

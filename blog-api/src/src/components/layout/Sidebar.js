@@ -198,8 +198,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
           </li>
         </ul>
         <p className='copyright'>
-          &copy; Untitled. Design: <a href='http://html5up.net'>HTML5 UP</a>.
-          Images: <a href='http://unsplash.com'>Unsplash</a>.
+          &copy; Untitled. Design: <a href='' />. : <a href='' />.
         </p>
       </section>
     </section>
