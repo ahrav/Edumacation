@@ -1906,6 +1906,12 @@ input, select, textarea {
 		border-radius: .6em
 	}
 
+	#commentButton:hover {
+		box-shadow: #2ebaae;
+		color: #2ebaae !important;
+		background-color: white
+	}
+
 		input[type="submit"]:hover,
 		input[type="reset"]:hover,
 		input[type="button"]:hover,
