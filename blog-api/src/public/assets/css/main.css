@@ -3116,7 +3116,8 @@ input, select, textarea {
 						}
 
 		.commentIcon:hover:before{
-			color: #2ebaae !important
+			color: #2ebaae !important;
+			text-shadow: 0 0 4px #2ebaae;
 		}
 
 		.iconStyle {
