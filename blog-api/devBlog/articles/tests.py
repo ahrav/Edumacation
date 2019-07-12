@@ -189,6 +189,16 @@ class ArticleApiTests(TestCase):
         self.assertIsInstance(res.data['results'], list)
         self.assertGreater(res.data['results'][0]['favoritesCount'], res.data['results'][1]['favoritesCount'])
 
+    def test_retrieve_popular_articles_by_comments(self):
+        """return list or articles that have the most comments"""
+
+        res = self.client.get(ARTICLES_POPULAR_COMMENTS)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data['results']), 2)
+        self.assertIsInstance(res.data['results'], list)
+        self.assertGreater(res.data['results'][0]['commentsCount'], res.data['results'][1]['commentsCount'])
+
     def test_update_article(self):
         """user should be able to update article"""
         self.client.force_authenticate(user=self.user)
