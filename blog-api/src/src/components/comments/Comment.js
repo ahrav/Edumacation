@@ -30,7 +30,7 @@ const Comment = ({ comment, currentUser, slug, loading }) => {
                 <img
                   className='commentImg'
                   // id='commentImg'
-                  src='/images/avatar.jpg'
+                  src={comment.author.image}
                   alt=''
                 />
               </Link>

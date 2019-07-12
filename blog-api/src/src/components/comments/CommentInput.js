@@ -44,7 +44,7 @@ const CommentInput = ({ addComment, slug, currentUser, loading }) => {
                   <img
                     // id='commentImg'
                     className='commentImg'
-                    src='/images/avatar.jpg'
+                    src={currentUser.image}
                     alt=''
                   />
                 </a>

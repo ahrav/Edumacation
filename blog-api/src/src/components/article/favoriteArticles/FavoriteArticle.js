@@ -30,11 +30,7 @@ const FavoriteArticle = ({ article, onClickTag }) => {
           {moment(article.createdAt).format('LL')}
         </time>
         <Link to={`/@${article.author.username}`} className='author'>
-          <img
-            // src={article.author.image}
-            src='images/oof.jpg'
-            alt=''
-          />
+          <img src={article.author.image || 'images/oof.jpg'} />
         </Link>
       </header>
       <Link to={`/article/${article.slug}`} id='articlePreview'>
@@ -48,7 +44,7 @@ const FavoriteArticle = ({ article, onClickTag }) => {
               onClickTag(tag);
             };
             return (
-              <li onClick={ev => handleClick(ev, tag)} key={tag}>
+              <li key={tag}>
                 <i className='icon solid fa-hashtag' />
                 {tag}
               </li>

@@ -159,8 +159,8 @@ export default (state = initialState, action) => {
     case GET_POPULAR_ARTICLES:
       return {
         ...state,
-        favoriteArticles: payload[0],
-        commentArticles: payload[1],
+        favoriteArticles: payload[0] || [],
+        commentArticles: payload[1] || [],
         loading: false
       };
     default:
