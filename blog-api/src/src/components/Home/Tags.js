@@ -5,7 +5,11 @@ import Spinner from '../layout/Spinner';
 const Tags = ({ tags, onClickTag, activeTag }) => {
   if (tags) {
     return (
-      <article style={{ flexDirection: 'column' }} className='mini-post'>
+      <article
+        id='tagsPost'
+        style={{ flexDirection: 'column' }}
+        className='mini-post'
+      >
         <header style={{ boxShadow: '0 4px 6px -5px #666' }}>
           <h3>
             <a>Popular Tags</a>

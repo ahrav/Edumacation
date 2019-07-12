@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import Spinner from '../../layout/Spinner';
 import FavoriteArticle from './FavoriteArticle';
@@ -16,7 +16,12 @@ const FavoriteArticleList = ({ favoriteArticles, loading, onClickTag }) => {
           />
         );
       }));
-  return view;
+  return (
+    <Fragment>
+      <h3 id='tagsPost'>Popular Articles</h3>
+      {view}
+    </Fragment>
+  );
 };
 
 export default FavoriteArticleList;
