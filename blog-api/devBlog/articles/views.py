@@ -193,10 +193,14 @@ class ArticlesPopularAPIView(generics.ListAPIView):
     ).order_by("-favorite_count")[:5]
 
     def list(self, request):
-        serializer_data = self.get_queryset()
-        serializer = self.serializer_class(serializer_data, many=True)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer_context = {"request": request}
+        page = self.paginate_queryset(self.get_queryset())
+        serializer = self.serializer_class(
+            page, context=serializer_context, many=True
+        )
+
+        return self.get_paginated_response(serializer.data)
 
 
 class CommentsListCreateAPIView(generics.ListCreateAPIView):
