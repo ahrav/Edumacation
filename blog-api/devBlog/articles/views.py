@@ -183,7 +183,7 @@ class ArticlesFeedAPIView(generics.ListAPIView):
         return self.get_paginated_response(serializer.data)
 
 
-class ArticlesPopularAPIView(generics.ListAPIView):
+class ArticlesPopularFavoritesAPIView(generics.ListAPIView):
     """view to return list of most popular articles based on favoritesCount"""
 
     permission_classes = (AllowAny,)
@@ -191,6 +191,26 @@ class ArticlesPopularAPIView(generics.ListAPIView):
     queryset = Article.objects.annotate(
         favorite_count=Count("favorited_by")
     ).order_by("-favorite_count")[:5]
+
+    def list(self, request):
+
+        serializer_context = {"request": request}
+        page = self.paginate_queryset(self.get_queryset())
+        serializer = self.serializer_class(
+            page, context=serializer_context, many=True
+        )
+
+        return self.get_paginated_response(serializer.data)
+
+
+class ArticlesPopularCommentsAPIView(generics.ListAPIView):
+    """view to return list of most popular articles based on number of comments per article"""
+
+    permission_classes = (AllowAny,)
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.annotate(
+        comments_count=Count("comments")
+    ).order_by("-comments_count")[:5]
 
     def list(self, request):
 

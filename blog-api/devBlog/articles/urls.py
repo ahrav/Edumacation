@@ -8,7 +8,8 @@ from .views import (
     CommentsDestroyAPIView,
     CommentsListCreateAPIView,
     TagListAPIView,
-    ArticlesPopularAPIView,
+    ArticlesPopularFavoritesAPIView,
+    ArticlesPopularCommentsAPIView,
 )
 
 router = DefaultRouter()
@@ -16,7 +17,13 @@ router.register("articles", ArticleViewSet)
 
 app_name = "articles"
 urlpatterns = [
-    path("articles/popular/", ArticlesPopularAPIView.as_view()),
+    path(
+        "articles/popular/favorites/",
+        ArticlesPopularFavoritesAPIView.as_view(),
+    ),
+    path(
+        "articles/popular/comments/", ArticlesPopularCommentsAPIView.as_view()
+    ),
     path("articles/feed/", ArticlesFeedAPIView.as_view(), name="article-feed"),
     path(
         "articles/<slug:article_slug>/favorite/",
