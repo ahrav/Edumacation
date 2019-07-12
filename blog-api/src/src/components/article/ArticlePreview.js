@@ -22,47 +22,15 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
       favoriteArticle(article.slug);
     }
   };
+  const articlePreview =
+    article.body.length > 15
+      ? article.body
+          .split(' ')
+          .splice(0, 15)
+          .join(' ')
+          .concat(' ...')
+      : article.body;
   return (
-    // <div className='article-preview'>
-    //   <div className='article-meta'>
-    //     <Link to={`${article.author.username}`}>
-    //       <img src={article.author.image} />
-    //     </Link>
-
-    //     <div className='info'>
-    //       <Link to={`/@${article.author.username}`} className='author'>
-    //         {article.author.username}
-    //       </Link>
-    //       <span className='date'>
-    //         {new Date(article.createdAt).toDateString()}
-    //       </span>
-    //     </div>
-
-    //     <div className='pull-xs-right'>
-    //       <button
-    //         onClick={e => handleClick(e)}
-    //         className={favoriteButtonClass}
-    //       >
-    //         <i className='ion-heart' /> {article.favoritesCount}
-    //       </button>
-    //     </div>
-    //   </div>
-
-    //   <Link to={`/article/${article.slug}`} className='preview-link'>
-    //     <h1>{article.title}</h1>
-    //     <p>{article.description}</p>
-    //     <span>Read more...</span>
-    //     <ul className='tag-list'>
-    //       {article.tagList.map(tag => {
-    //         return (
-    //           <li className='tag-default tag-pill tag-outline' key={tag}>
-    //             {tag}
-    //           </li>
-    //         );
-    //       })}
-    //     </ul>
-    //   </Link>
-    // </div>
     <article className='post'>
       <header>
         <div className='title'>
@@ -84,17 +52,19 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
       <Link to={`/article/${article.slug}`} className='image featured'>
         <img src={article.image} alt='' />
       </Link>
-      <p>{article.body}</p>
+      <p>{articlePreview}</p>
       <footer>
         <ul className='actions'>
           <li>
-            <Link to={`/article/${article.slug}`} className='button large'>
-              Continue Reading
-            </Link>
+            {article.body.length > 15 ? (
+              <Link to={`/article/${article.slug}`} className='button large'>
+                Continue Reading
+              </Link>
+            ) : null}
           </li>
         </ul>
         <ul className='stats'>
-          {article.tagList.map(tag => {
+          {article.tagList.splice(0, 6).map(tag => {
             return (
               <li key={tag}>
                 <i className='icon solid fa-hashtag' />

@@ -3065,8 +3065,8 @@ input, select, textarea {
 					font-weight: 400;
 					letter-spacing: 0.25em;
 					line-height: 1;
-					margin: 0 0 0 2em;
-					padding: 0 0 0 2em;
+					margin: 0 0 0 1em;
+					padding: 0 0 0 1em;
 					text-transform: uppercase;
 				}
 
@@ -3074,7 +3074,7 @@ input, select, textarea {
 					/* border-left: solid 1px rgba(160, 160, 160, 0.3); */
 					display: inline-block;
 					font-family: "Raleway", Helvetica, sans-serif;
-					font-size: 0.69em;
+					font-size: 0.65em;
 					font-weight: 500;
 					letter-spacing: 0.16em;
 					line-height: 1;
