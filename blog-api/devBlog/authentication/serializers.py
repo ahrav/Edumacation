@@ -111,7 +111,11 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ("token",)
 
     def validate_profile(self, profile):
-        print(profile["image"])
+        if not profile["image"]:
+            profile[
+                "image"
+            ] == "https://cdn11.bigcommerce.com/s-nf2x4/images/stencil/1280x1280/products/307/4245/muscle__52045.1520090269.png?c=2&imbypass=on"
+            return profile
         if not re.match(regex, profile["image"]):
             raise serializers.ValidationError(
                 "Please ensure image field is a valid URL"

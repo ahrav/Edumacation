@@ -15,6 +15,7 @@ django-extensions = "*"
 djangorestframework = "*"
 pyjwt = "*"
 six = "*"
+django-nose = "*"
 
 [requires]
 python_version = "3.7"

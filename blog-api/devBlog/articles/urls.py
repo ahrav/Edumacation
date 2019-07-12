@@ -20,9 +20,12 @@ urlpatterns = [
     path(
         "articles/popular/favorites/",
         ArticlesPopularFavoritesAPIView.as_view(),
+        name="articles-popular-favorites",
     ),
     path(
-        "articles/popular/comments/", ArticlesPopularCommentsAPIView.as_view()
+        "articles/popular/comments/",
+        ArticlesPopularCommentsAPIView.as_view(),
+        name="articles-popular-comments",
     ),
     path("articles/feed/", ArticlesFeedAPIView.as_view(), name="article-feed"),
     path(

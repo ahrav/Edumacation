@@ -8,6 +8,8 @@ from authentication.models import User
 from .models import Article, Comment, Tag
 
 ARTICLE_URL = reverse("articles:article-list")
+ARTICLES_POPULAR_FAVORITES = reverse('articles:articles-popular-favorites')
+ARTICLES_POPULAR_COMMENTS = reverse('articles:articles-popular-comments')
 TAGS_URL = reverse('articles:tag-list')
 FEED_URL = reverse('articles:article-feed')
 CREATE_ARTICLE_PAYLOAD = {
@@ -64,6 +66,10 @@ class ArticleApiTests(TestCase):
         self.user = create_user(
             email="test@test.com", username="test_user", password="test_pass"
         )
+        self.user2 = create_user(
+            email="test2@test.com", username="test2_user", password="test2_pass"
+        )
+        
         self.article = create_article(
             body="test body",
             title="test title",
@@ -78,6 +84,14 @@ class ArticleApiTests(TestCase):
             author=self.user.profile,
             slug="test-slug-2",
         )
+        self.comment1 = create_comment(
+            body="comment1", article=self.article, author=self.user.profile
+        )
+        self.comment2 = create_comment(
+            body="comment2", article=self.article, author=self.user.profile
+        )
+        self.user2.profile.favorite(self.article)
+        self.user2.profile.favorite(self.article)
 
     def test_create_article_unauthorized(self):
         """Unauthorized users should not be able to create articles"""
@@ -126,19 +140,19 @@ class ArticleApiTests(TestCase):
         """user can not delete article if they are not the author"""
 
         self.client.force_authenticate(user=self.user)
-        user2 = create_user(
-            email='test2@test.com',
-            username='username22',
+        user3 = create_user(
+            email='test3@test.com',
+            username='username3',
             password='testpass')
 
-        user2_article = create_article(
+        user3_article = create_article(
             body='tet boy',
             title='cant delete me',
             description='this will last',
-            author=user2.profile, 
+            author=user3.profile, 
             slug='slug=no-delete')
 
-        url = get_detail_article_url(user2_article.slug)
+        url = get_detail_article_url(user3_article.slug)
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
@@ -164,6 +178,16 @@ class ArticleApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data['results']), 2)
         self.assertIsInstance(res.data['results'], list)
+
+    def test_retrieve_popular_articles_by_favorites(self):
+        """return list or articles that have been favorites the most"""
+
+        res = self.client.get(ARTICLES_POPULAR_FAVORITES)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data['results']), 2)
+        self.assertIsInstance(res.data['results'], list)
+        self.assertGreater(res.data['results'][0]['favoritesCount'], res.data['results'][1]['favoritesCount'])
 
     def test_update_article(self):
         """user should be able to update article"""
@@ -206,18 +230,18 @@ class ArticleApiTests(TestCase):
 
         self.client.force_authenticate(user=self.user)
 
-        url = get_favorite_article_url(self.article.slug)
+        url = get_favorite_article_url(self.article2.slug)
         res = self.client.post(url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertTrue(res.data["favorited"])
-        self.assertEqual(res.data["slug"], self.article.slug)
+        self.assertEqual(res.data["slug"], self.article2.slug)
         self.assertEqual(res.data["favoritesCount"], 1)
 
     def test_favorite_article_un_authenticated(self):
         """unauthenticated users should not be able to favorite articles"""
 
-        url = get_favorite_article_url(self.article.slug)
+        url = get_favorite_article_url(self.article2.slug)
         res = self.client.post(url)
 
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
@@ -228,15 +252,15 @@ class ArticleApiTests(TestCase):
         and article if already favorited"""
 
         self.client.force_authenticate(user=self.user)
-        self.article.author.favorite(self.article)
+        self.article.author.favorite(self.article2)
 
-        url = get_favorite_article_url(self.article.slug)
+        url = get_favorite_article_url(self.article2.slug)
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data["favoritesCount"], 0)
         self.assertFalse(res.data["favorited"])
-        self.assertEqual(res.data["slug"], self.article.slug)
+        self.assertEqual(res.data["slug"], self.article2.slug)
 
     def test_un_favorite_article_un_authenticated(self):
         """unauthenticated user should not be able to unfavorite articles"""

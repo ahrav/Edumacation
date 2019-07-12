@@ -128,9 +128,9 @@ class UpdateUserApiTest(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = create_user(
-            email="ahrav@go.com",
+            email="test@go.com",
             password="thisisatestpass",
-            username="test_username",
+            username="test2_username",
         )
         self.client.force_authenticate(user=self.user)
 
@@ -142,6 +142,8 @@ class UpdateUserApiTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_update_user_authorized(self):
+        """authorized users can update their account details"""
+
         payload = {"email": "edited@go.com"}
 
         res = self.client.put(UPDATE_USER_URL, payload)
