@@ -3131,6 +3131,11 @@ input, select, textarea {
 			font-size: .9em;
 		}
 
+		#articlePreview {
+			border-bottom: none;
+			box-shadow: 0 4px 7px -5px #666
+		}
+
 		#articlePreview:hover {
 			color: inherit !important
 		}
