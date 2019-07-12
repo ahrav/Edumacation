@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setAlert } from './alert';
+import { setAlert, showModal, hideModal } from './alert';
 import {
   GET_ALL_ARTICLES,
   GET_ARTICLE,
@@ -19,7 +19,8 @@ import {
   FAVORITE_ARTICLE,
   UN_FAVORITE_ARTICLE,
   UPDATE_ARTICLE,
-  CREATE_ARTICLE
+  CREATE_ARTICLE,
+  GET_POPULAR_ARTICLES
 } from './types';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
@@ -379,5 +380,39 @@ export const createArticle = (formData, history) => async dispatch => {
         status: err.response.status
       }
     });
+  }
+};
+
+export const getPopularArticles = () => async dispatch => {
+  try {
+    const res1 = await axios.get('/api/v1/articles/popular/favorites/');
+    const res2 = await axios.get('/api/v1/articles/popular/comments/');
+
+    dispatch({
+      type: GET_POPULAR_ARTICLES,
+      payload: [res1.data, res2.data]
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+    const articlesError = [];
+
+    if (errors) {
+      Object.keys(errors).forEach(key =>
+        // dispatch(setAlert(errors[key]['image'][0], 'danger'))
+        articlesError.push(errors[key])
+      );
+      dispatch(
+        showModal(
+          {
+            open: true,
+            toggle: hideModal,
+            context: articlesError,
+            error: 'Articles Load Error'
+          },
+          'alert'
+        )
+      );
+    }
+    dispatch(articlesError(err));
   }
 };

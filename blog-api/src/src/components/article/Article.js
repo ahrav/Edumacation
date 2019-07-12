@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 import ArticleMeta from './ArticleMeta';
-import CommentContainer from './CommentContainer';
+import CommentContainer from '../comments/CommentContainer';
 import Spinner from '../layout/Spinner';
 import marked from 'marked';
 import { Icon } from 'semantic-ui-react';

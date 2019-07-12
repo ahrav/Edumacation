@@ -2,8 +2,17 @@ import React from 'react';
 
 import Banner from '../home/Banner';
 import Tags from '../home/Tags';
+import FavoriteArticleList from '../article/favoriteArticles/FavoriteArticleList';
 
-const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
+const Sidebar = ({
+  appName,
+  tags,
+  onClickTag,
+  activeTag,
+  favoriteArticles,
+  commentArticles,
+  loading
+}) => {
   return (
     <section id='sidebar'>
       <Banner appName={appName} />
@@ -12,24 +21,12 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
         <div className='mini-posts'>
           <Tags tags={tags} onClickTag={onClickTag} activeTag={activeTag} />
 
-          <article className='mini-post'>
-            <header>
-              <h3>
-                <a href='single.html'>Rutrum neque accumsan</a>
-              </h3>
-              <time className='published' dateTime='2015-10-19'>
-                October 19, 2015
-              </time>
-              <a href='#' className='author'>
-                <img src='images/oof.jpg' alt='' />
-              </a>
-            </header>
-            <a href='single.html' className='image'>
-              <img src='images/skye2.jpg' alt='' />
-            </a>
-          </article>
+          <FavoriteArticleList
+            favoriteArticles={favoriteArticles}
+            loading={loading}
+          />
 
-          <article className='mini-post'>
+          {/* <article className='mini-post'>
             <header>
               <h3>
                 <a href='single.html'>Odio congue mattis</a>
@@ -61,7 +58,7 @@ const Sidebar = ({ appName, tags, onClickTag, activeTag }) => {
             <a href='single.html' className='image'>
               <img src='images/pic07.jpg' alt='' />
             </a>
-          </article>
+          </article> */}
         </div>
       </section>
 

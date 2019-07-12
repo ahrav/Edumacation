@@ -18,7 +18,8 @@ import {
   UN_FAVORITE_ARTICLE,
   CREATE_ARTICLE,
   UPDATE_ARTICLE,
-  CLEAR_ARTICLE
+  CLEAR_ARTICLE,
+  GET_POPULAR_ARTICLES
 } from '../actions/types';
 
 const initialState = {
@@ -30,7 +31,9 @@ const initialState = {
   error: {},
   tags: null,
   tag: null,
-  currentPage: 0
+  currentPage: 0,
+  favoriteArticles: [],
+  commentArticles: []
 };
 
 export default (state = initialState, action) => {
@@ -151,6 +154,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tab: null,
+        loading: false
+      };
+    case GET_POPULAR_ARTICLES:
+      return {
+        ...state,
+        favoriteArticles: payload[0],
+        commentArticles: payload[1],
         loading: false
       };
     default:

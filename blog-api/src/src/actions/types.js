@@ -38,3 +38,4 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const CLEAR_ARTICLE = 'CLEAR_ARTICLE';
+export const GET_POPULAR_ARTICLES = 'GET_POPULAR_ARTICLES';

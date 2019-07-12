@@ -7,21 +7,30 @@ import {
   getTags,
   getArticlesByTag,
   getArticles,
-  getFeed
+  getFeed,
+  getPopularArticles
 } from '../../actions/articles';
 
 const Home = ({
   common: { appName },
-  articles: { tab, tags, currentPage },
-  token,
+  articles: {
+    tab,
+    tags,
+    currentPage,
+    favoriteArticles,
+    commentArticles,
+    loading
+  },
   getTags,
   getArticlesByTag,
   getArticles,
   getFeed,
-  activeTag
+  activeTag,
+  getPopularArticles
 }) => {
   useEffect(() => {
     (async () => {
+      await getPopularArticles();
       await getTags();
       await (tab === 'feed' ? getFeed(currentPage) : getArticles(currentPage));
     })();
@@ -37,6 +46,9 @@ const Home = ({
         <MainView />
       </div>
       <Sidebar
+        favoriteArticles={favoriteArticles}
+        commentArticles={commentArticles}
+        loading={loading}
         activeTag={activeTag}
         appName={appName}
         tags={tags}
@@ -54,5 +66,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getTags, getArticlesByTag, getArticles, getFeed }
+  { getTags, getArticlesByTag, getArticles, getFeed, getPopularArticles }
 )(Home);
