@@ -1813,6 +1813,11 @@ input, select, textarea {
 			width: 4em;
 		}
 
+		.commentImg {
+			margin-left: 2em;
+			margin-top: .9em
+		}
+
 		.author:hover .name {
 			border-bottom-color: transparent;
 		}
@@ -1886,15 +1891,9 @@ input, select, textarea {
 		white-space: nowrap;
 	}
 
-	#commentImg {
-		margin-left: 2em;
-		margin-top: .66em;
-		border-radius: 50%
-	}
-
 	.commentButton {
 		margin-left: 41em;
-		margin-top: .95em;
+		margin-top: .65em;
 		background-color: #666;
 		color: white !important;
 		font-family: "Font Awesome 5 Free";
@@ -2933,7 +2932,7 @@ input, select, textarea {
 
 		#deleteArticleButton {
 			color: white !important;
-			font-family: 'Font Awesome 5 Free'
+			font-family: 'Font Awesome 5 Free';
 		}
 
 		#delete:hover {
@@ -2944,9 +2943,6 @@ input, select, textarea {
 			box-shadow: red;
 		}
 
-		/* #deleteArticleButton:hover {
-			color: red !important
-		} */
 
 		.post > header .meta #profileFollowButtonFollow {
 			-moz-appearance: none;

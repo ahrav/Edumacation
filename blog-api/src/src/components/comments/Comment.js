@@ -25,8 +25,14 @@ const Comment = ({ comment, currentUser, slug, loading }) => {
               <Link
                 style={{ borderBottom: 'none' }}
                 to={`/@${comment.author.username}`}
+                className='author'
               >
-                <img id='commentImg' src='/images/avatar.jpg' alt='' />
+                <img
+                  className='commentImg'
+                  // id='commentImg'
+                  src='/images/avatar.jpg'
+                  alt=''
+                />
               </Link>
             </li>
             <li id='commentAuthor'>

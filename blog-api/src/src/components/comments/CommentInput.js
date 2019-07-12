@@ -40,7 +40,14 @@ const CommentInput = ({ addComment, slug, currentUser, loading }) => {
           >
             <ul className='actionsForm specialForm'>
               <li>
-                <img id='commentImg' src='/images/avatar.jpg' alt='' />
+                <a className='author'>
+                  <img
+                    // id='commentImg'
+                    className='commentImg'
+                    src='/images/avatar.jpg'
+                    alt=''
+                  />
+                </a>
               </li>
               <li>
                 <button

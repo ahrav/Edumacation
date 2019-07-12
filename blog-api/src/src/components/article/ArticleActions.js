@@ -22,7 +22,7 @@ const ArticleActions = ({
         </span>
         <span
           id='delete'
-          style={{ width: '131px' }}
+          style={{ width: '8.8em' }}
           className='profileSettingsButton'
         >
           <Button
@@ -34,7 +34,6 @@ const ArticleActions = ({
               width: '140px',
               height: '30px'
             }}
-            content='Delete'
             size='tiny'
             labelPosition='right'
           >
