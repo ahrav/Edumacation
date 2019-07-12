@@ -6,11 +6,13 @@ import moment from 'moment';
 
 import { favoriteArticle, unFavoriteArticle } from '../../actions/articles';
 
-const FAVORITED_ID = 'iconStyle';
-const NOT_FAVORITED_ID = 'iconNoStyle';
+const FAVORITE_BUTTON_CLASS = 'iconStyle';
+const NOT_FAVORITE_BUTTON_CLASS = 'iconNoStyle';
 
 const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
-  const favoriteButtonID = article.favorited ? FAVORITED_ID : NOT_FAVORITED_ID;
+  const favoriteButtonClass = article.favorited
+    ? FAVORITE_BUTTON_CLASS
+    : NOT_FAVORITE_BUTTON_CLASS;
 
   const handleClick = e => {
     e.preventDefault();
@@ -109,11 +111,14 @@ const ArticlePreview = ({ article, favoriteArticle, unFavoriteArticle }) => {
           >
             <Icon
               id='hover'
-              className={favoriteButtonID}
+              className={favoriteButtonClass}
               name='heart'
               size='large'
             />
-            <span className={favoriteButtonID} style={{ fontSize: '1.4em' }}>
+            <span
+              className={favoriteButtonClass}
+              style={{ fontSize: '1.4em' }}
+            >
               {article.favoritesCount}
             </span>
           </li>

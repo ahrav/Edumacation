@@ -2341,10 +2341,6 @@ input, select, textarea {
 			font-weight: 400;
 		}
 
-		.icon > .label {
-			display: none;
-		}
-
 		.icon:before {
 			line-height: inherit;
 		}
@@ -2359,6 +2355,10 @@ input, select, textarea {
 
 		.icon.suffix:before {
 			float: right;
+		}
+
+		.icon > span {
+			cursor: pointer;
 		}
 
 /* Image */
@@ -3072,6 +3072,7 @@ input, select, textarea {
 					line-height: 1;
 					padding: 0 0 0 .5em;
 					text-transform: uppercase;
+					cursor: pointer;
 				}
 
 				.mini-post .stats li:hover, li:focus {
@@ -3103,6 +3104,7 @@ input, select, textarea {
 
 					.iconStyle:hover, .iconNoStyle:hover {
 						color: darkred !important;
+						cursor: pointer;
 					}
 
 					#hover:hover:before {
@@ -3114,6 +3116,24 @@ input, select, textarea {
 							color:red !important;
 							margin-right: 0.75em;
 						}
+
+		#miniPost {
+			margin-top: 8px;
+			margin-left: .5em;
+			display: inline-block;
+			float: left;
+			vertical-align: middle;
+			max-width: 275px;
+		}
+
+		#miniPostPreview {
+			margin: 1em;
+			font-size: .9em;
+		}
+
+		#miniPost > li {
+			font-size: .55em;
+		}
 
 		.commentIcon:hover:before{
 			color: #2ebaae !important;
