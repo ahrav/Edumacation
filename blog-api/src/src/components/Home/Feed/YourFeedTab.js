@@ -11,7 +11,7 @@ const YourFeedTab = ({ token, getFeed, tab, onTabClick }) => {
     return (
       <li>
         <a
-          href=''
+          href='/#'
           className={tab === 'feed' ? 'nav-active' : ''}
           // className={tab === 'feed' ? 'nav-link active' : 'nav-link'}
           onClick={e => clickHandler(e)}

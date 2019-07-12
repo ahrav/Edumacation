@@ -38,7 +38,7 @@ const ListPagination = ({ articlesCount, onSetPage, currentPage }) => {
               onClick={onClick}
               key={v.toString()}
             >
-              <a href=''>{v + 1}</a>
+              <a href='/#'>{v + 1}</a>
             </li>
           );
         })}
@@ -54,37 +54,7 @@ const ListPagination = ({ articlesCount, onSetPage, currentPage }) => {
             Next Page
           </a>
         </li>
-        {/* <li>
-            <a href='' className='disabled button large previous'>
-              Previous Page
-            </a>
-          </li>
-          <li>
-            <a href='#' className='button large next'>
-              Next Page
-            </a>
-          </li> */}
       </ul>
-      {/* <ul className='pagination'>
-        {range.map(v => {
-          const isCurrent = v === currentPage;
-          const onClick = ev => {
-            ev.preventDefault();
-            setPage(v);
-          };
-          return (
-            <li
-              className={isCurrent ? 'page-item active' : 'page-item'}
-              onClick={onClick}
-              key={v.toString()}
-            >
-              <a className='page-link' href=''>
-                {v + 1}
-              </a>
-            </li>
-          );
-        })}
-      </ul> */}
     </nav>
   );
 };

@@ -26,40 +26,6 @@ const Sidebar = ({
             loading={loading}
             onClickTag={onClickTag}
           />
-
-          {/* <article className='mini-post'>
-            <header>
-              <h3>
-                <a href='single.html'>Odio congue mattis</a>
-              </h3>
-              <time className='published' dateTime='2015-10-18'>
-                October 18, 2015
-              </time>
-              <a href='#' className='author'>
-                <img src='images/avatar.jpg' alt='' />
-              </a>
-            </header>
-            <a href='single.html' className='image'>
-              <img src='images/kitties.jpg' alt='' />
-            </a>
-          </article>
-
-          <article className='mini-post'>
-            <header>
-              <h3>
-                <a href='single.html'>Enim nisl veroeros</a>
-              </h3>
-              <time className='published' dateTime='2015-10-17'>
-                October 17, 2015
-              </time>
-              <a href='#' className='author'>
-                <img src='images/avatar.jpg' alt='' />
-              </a>
-            </header>
-            <a href='single.html' className='image'>
-              <img src='images/pic07.jpg' alt='' />
-            </a>
-          </article> */}
         </div>
       </section>
 
@@ -196,7 +162,7 @@ const Sidebar = ({
           </li>
         </ul>
         <p className='copyright'>
-          &copy; Untitled. Design: <a href='' />. : <a href='' />.
+          &copy; Untitled. Design: <a href='/#' />. : <a href='/#' />.
         </p>
       </section>
     </section>

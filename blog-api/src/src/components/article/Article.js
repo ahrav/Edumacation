@@ -42,7 +42,7 @@ const Article = ({
             </div>
             <ArticleMeta article={article} canModify={canModify} />
           </header>
-          <a href='' className='image featured'>
+          <a href='/#' className='image featured'>
             <img src={article.image} alt='' />
           </a>
           <p>{article.body}</p>

@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 import store from './store';
 import Login from './components/auth/Login';
-import Alert from './components/layout/Alert';
 import Register from './components/auth/Register';
 import Settings from './components/settings/Settings';
 import './index.css';
@@ -23,7 +22,6 @@ import ProfileFavorites from './components/profile/ProfileFavorites';
 import Editor from './components/editor/Editor';
 import PrivateRoute from './components/routing/PrivateRoute';
 import MainModal from './components/layout/modal/index';
-import useToggle from './utils/useToggle';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

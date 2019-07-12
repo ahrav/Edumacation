@@ -10,7 +10,7 @@ const GlobalFeedTab = ({ getArticles, onTabClick, tab }) => {
   return (
     <li>
       <a
-        href=''
+        href='/#'
         // className={tab === 'all' ? 'nav-link active' : 'nav-link'}
         className={tab === 'all' ? 'nav-active' : ''}
         onClick={e => clickHandler(e)}

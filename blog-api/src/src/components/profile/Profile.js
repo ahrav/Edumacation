@@ -126,7 +126,7 @@ const Profile = ({
             <time className='published'>
               followers: {profile.followerCount}
             </time>
-            <a href='' className='author'>
+            <a href='/#' className='author'>
               {/* <span className='name'>{article.author.username}</span> */}
               <img src={profile.image} alt='' />
             </a>
