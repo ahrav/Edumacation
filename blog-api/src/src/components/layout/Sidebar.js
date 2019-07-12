@@ -24,6 +24,7 @@ const Sidebar = ({
           <FavoriteArticleList
             favoriteArticles={favoriteArticles}
             loading={loading}
+            onClickTag={onClickTag}
           />
 
           {/* <article className='mini-post'>

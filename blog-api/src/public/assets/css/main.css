@@ -3131,6 +3131,10 @@ input, select, textarea {
 			font-size: .9em;
 		}
 
+		#articlePreview:hover {
+			color: inherit !important
+		}
+
 		#miniPost > li {
 			font-size: .55em;
 		}
@@ -3145,9 +3149,6 @@ input, select, textarea {
 			text-shadow: 0 0 5px darkred;
 		}
 
-		.iconNoStyle {
-			color: rgba(24, 23, 23, 0.74)
-		}
 
 		#likeIcon:hover {
 			color: darkred;

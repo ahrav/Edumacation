@@ -52,14 +52,6 @@ const Tags = ({ tags, onClickTag, activeTag }) => {
             };
 
             return (
-              // <a
-              //   href=''
-              //   className='tag-default tag-pill'
-              //   key={tag}
-              //   onClick={ev => handleClick(ev, tag)}
-              // >
-              //   {tag}
-              // </a>
               <li onClick={ev => handleClick(ev, tag)} key={tag}>
                 <i
                   style={{ margin: '.05rem 0 0' }}
