@@ -5,37 +5,10 @@ import Spinner from '../layout/Spinner';
 const Tags = ({ tags, onClickTag, activeTag }) => {
   if (tags) {
     return (
-      //     <div className='tag-list'>
-      //       {tags.map(tag => {
-      //         const handleClick = (ev, tag) => {
-      //           ev.preventDefault();
-      //           onClickTag(tag);
-      //         };
-
-      //         return (
-      //           <a
-      //             href=''
-      //             className='tag-default tag-pill'
-      //             key={tag}
-      //             onClick={ev => handleClick(ev, tag)}
-      //           >
-      //             {tag}
-      //           </a>
-      //         );
-      //       })}
-      //     </div>
-      //   );
-      // } else {
-      //   return (
-      //     <Fragment>
-      //       <div>Loading Tags...</div>
-      //       <Spinner />
-      //     </Fragment>
-      //   );
-      <article className='mini-post'>
-        <header>
+      <article style={{ flexDirection: 'column' }} className='mini-post'>
+        <header style={{ boxShadow: '0 4px 6px -5px #666' }}>
           <h3>
-            <a href=''>Popular Tags</a>
+            <a>Popular Tags</a>
           </h3>
           <a href='#' className='author'>
             <img src='images/oof.jpg' alt='' />
@@ -44,7 +17,7 @@ const Tags = ({ tags, onClickTag, activeTag }) => {
         {/* <a href='single.html' className='image'>
         <img src='images/pic04.jpg' alt='' />
       </a> */}
-        <ul className='stats'>
+        <ul style={{ marginTop: '1em' }} className='stats'>
           {tags.map(tag => {
             const handleClick = (ev, tag) => {
               ev.preventDefault();
