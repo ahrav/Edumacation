@@ -3332,10 +3332,9 @@ input, select, textarea {
 		font-family: "Raleway", Helvetica, sans-serif;
 		font-size: 0.7em;
 		font-weight: 400;
-		letter-spacing: 0.25em;
+		letter-spacing: 0.15em;
 		line-height: 2.5;
 		margin-top: -1em;
-		text-transform: uppercase;
 	}
 
 /* Table */
@@ -3864,7 +3863,7 @@ input, select, textarea {
 	}
 
 	#intro header p {
-		font-size: 0.8em;
+		font-size: 0.95em;
 	}
 
 	@media screen and (max-width: 1280px) {
@@ -3879,7 +3878,7 @@ input, select, textarea {
 			}
 
 			#intro header p {
-				font-size: 0.7em;
+				font-size: 1.1em;
 			}
 
 	}

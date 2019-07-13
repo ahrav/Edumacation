@@ -8,7 +8,7 @@ const Banner = ({ appName }) => {
       </a>
       <header>
         <h2>{appName}</h2>
-        <p>Spread the knowledge</p>
+        <p>Share your knowledge. The more you give, the more you grow.</p>
       </header>
     </section>
   );

@@ -1,7 +1,7 @@
 import { APP_LOAD, REDIRECT } from '../actions/types';
 
 const defaultState = {
-  appName: 'YAP',
+  appName: 'YAPTASTIC!',
   viewChangeCounter: 0
 };
 
