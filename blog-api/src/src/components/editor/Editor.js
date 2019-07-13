@@ -149,7 +149,10 @@ const Editor = ({
               <div className='tag-list'>
                 {(tagList || []).map(tag => {
                   return (
-                    <span style={{ marginRight: '2px' }} key={tag}>
+                    <span
+                      style={{ marginRight: '2px', fontStyle: 'italic' }}
+                      key={tag}
+                    >
                       <Icon
                         name='cancel'
                         style={{ paddingRight: '0px', margin: 0 }}

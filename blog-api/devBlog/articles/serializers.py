@@ -58,6 +58,16 @@ class ArticleSerializer(serializers.ModelSerializer):
 
         return article
 
+    def validate_image(self, image):
+        """ensure image extension is valid type"""
+
+        ext = image.name.split(".")[-1].upper()
+        if ext not in ["JPG", "JPEG", "PNG"]:
+            raise serializers.ValidationError(
+                "Please upload correct filetype (JPG, JPEG, PNG)"
+            )
+        return image
+
     def get_created_at(self, instance):
         return instance.created_at.isoformat()
 
