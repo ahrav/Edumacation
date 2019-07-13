@@ -88,6 +88,7 @@ const Editor = ({
               <input
                 minLength='1'
                 className='input100'
+                required
                 type='text'
                 value={title}
                 onChange={e => onChange(e)}

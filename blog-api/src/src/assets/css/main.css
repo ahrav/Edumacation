@@ -26,6 +26,7 @@
 
 		.rowForm.gtr-uniform > * > :last-child {
 			margin-bottom: 0;
+			cursor: pointer;
 		}
 
 		.rowForm.aln-left {

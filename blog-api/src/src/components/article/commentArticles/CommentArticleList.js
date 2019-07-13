@@ -5,7 +5,7 @@ import CommentArticle from './CommentArticle';
 
 const CommentArticleList = ({ commentArticles, loading }) => {
   let view;
-  loading
+  loading || !commentArticles
     ? (view = <Spinner />)
     : (view = commentArticles.map(article => {
         return <CommentArticle key={article.slug} article={article} />;

@@ -5,7 +5,7 @@ import FavoriteArticle from './FavoriteArticle';
 
 const FavoriteArticleList = ({ favoriteArticles, loading, onClickTag }) => {
   let view;
-  loading
+  loading || !favoriteArticles
     ? (view = <Spinner />)
     : (view = favoriteArticles.map(article => {
         return (
