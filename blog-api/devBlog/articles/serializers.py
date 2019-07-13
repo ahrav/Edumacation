@@ -44,6 +44,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             "tagList",
             "title",
             "updatedAt",
+            "image",
         )
 
     def create(self, validated_data):

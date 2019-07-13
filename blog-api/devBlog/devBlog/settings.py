@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "authentication",
     "core",
     "profiles",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -123,6 +124,22 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_ACCESS_KEY_ID = "AKIARHCBTTCZRGPIQEVR"
+
+print(os.environ.get("aws_secret_access_key"))
+
+AWS_SECRET_ACCESS_KEY = "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"
+
+AWS_STORAGE_BUCKET_NAME = "yaptastic-bucket"
+
+AWS_S3_HOST = "s3.us-west-1.amazonaws.com"
+
+S3_USE_SIGV4 = True
+
 AUTH_USER_MODEL = "authentication.User"
 
 REST_FRAMEWORK = {
@@ -134,3 +151,4 @@ REST_FRAMEWORK = {
         "authentication.backends.JWTAuthentication",
     ),
 }
+

@@ -16,6 +16,9 @@ djangorestframework = "*"
 pyjwt = "*"
 six = "*"
 django-nose = "*"
+django-storages = "*"
+pillow = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.7"

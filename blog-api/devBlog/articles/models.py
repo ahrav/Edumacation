@@ -5,6 +5,16 @@ from core.models import TimestampModel
 from profiles.models import Profile
 
 
+def article_image_name(instance, filename):
+    """Change name of file to be author's username"""
+    ext = filename.split(".")[-1]
+    filename = (
+        f"{instance.author.user.username}-{instance.author.user_id}.{ext}"
+    )
+
+    return filename
+
+
 class Article(TimestampModel):
     """Articles related to users"""
 
@@ -18,6 +28,7 @@ class Article(TimestampModel):
         Profile, on_delete=models.CASCADE, related_name="articles"
     )
     tags = models.ManyToManyField("Tag", related_name="articles")
+    image = models.ImageField(blank=True, upload_to=article_image_name)
 
     def __str__(self):
         return self.title
