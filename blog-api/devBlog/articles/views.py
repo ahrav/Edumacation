@@ -58,7 +58,7 @@ class ArticleViewSet(
             "author": request.user.profile,
             "request": request,
         }
-        serializer_data = request.data
+        serializer_data = request.data.get("article", {})
         serializer = self.serializer_class(
             data=serializer_data, context=serializer_context
         )

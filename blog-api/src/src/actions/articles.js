@@ -321,7 +321,7 @@ export const onSetPage = view => dispatch => {
 export const updateArticle = (slug, formData, history) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'multipart/form-data'
     }
   };
   try {
@@ -334,12 +334,26 @@ export const updateArticle = (slug, formData, history) => async dispatch => {
     history.push(`/article/${slug}`);
   } catch (err) {
     const errors = err.response.data.errors;
+    const articleErrors = [];
 
     if (errors) {
       Object.keys(errors).forEach(key =>
-        dispatch(setAlert(errors[key][0], 'danger'))
+        // dispatch(setAlert(errors[key]['image'][0], 'danger'))
+        articleErrors.push(errors[key])
+      );
+      dispatch(
+        showModal(
+          {
+            open: true,
+            toggle: hideModal,
+            context: articleErrors,
+            error: 'Please retry'
+          },
+          'alert'
+        )
       );
     }
+
     dispatch({
       type: ARTICLE_ERROR,
       payload: {
@@ -353,7 +367,7 @@ export const updateArticle = (slug, formData, history) => async dispatch => {
 export const createArticle = (formData, history) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'multipart/form-data'
     }
   };
   try {
@@ -366,10 +380,23 @@ export const createArticle = (formData, history) => async dispatch => {
     history.push(`/article/${res.data.slug}`);
   } catch (err) {
     const errors = err.response.data.errors;
+    const articleErrors = [];
 
     if (errors) {
       Object.keys(errors).forEach(key =>
-        dispatch(setAlert(errors[key][0], 'danger'))
+        // dispatch(setAlert(errors[key]['image'][0], 'danger'))
+        articleErrors.push(errors[key])
+      );
+      dispatch(
+        showModal(
+          {
+            open: true,
+            toggle: hideModal,
+            context: articleErrors,
+            error: 'Please retry'
+          },
+          'alert'
+        )
       );
     }
 

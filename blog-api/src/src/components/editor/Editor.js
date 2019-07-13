@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
@@ -24,13 +24,18 @@ const Editor = ({
     title: '',
     description: '',
     body: '',
+    image: '',
     tagList: []
   });
+  const [initialTitle, setInitialTitle] = useState('');
   const [tagListInput, setTagListInput] = useState('');
 
   useEffect(() => {
     (async () => {
       await (match.params.slug ? getArticle(match.params.slug) : null);
+      await setInitialTitle(
+        loading || !article || !article.title ? '' : article.title
+      );
       await setFormData({
         title: loading || !article || !article.title ? '' : article.title,
         description:
@@ -38,13 +43,14 @@ const Editor = ({
             ? ''
             : article.description,
         body: loading || !article || !article.body ? '' : article.body,
+        image: loading || !article || !article.image ? [] : article.image,
         tagList: loading || !article || !article.tagList ? [] : article.tagList
       });
       await setTagListInput('');
     })();
-  }, [match.params.slug, setFormData]);
+  }, [match.params.slug]);
 
-  const { title, description, body, tagList } = formData;
+  const { title, description, body, tagList, image } = formData;
 
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -78,8 +84,9 @@ const Editor = ({
   return (
     <section id='mainForm' className='containerForm medium'>
       <header>
-        <h2>{title || 'New Article'}</h2>
-        <p>{title ? 'Edit article' : 'Publish new article'}</p>
+        <h2>{initialTitle ? initialTitle : 'New Article'}</h2>
+        <p>{initialTitle ? 'Edit Article' : 'Publish Article'}</p>
+        <p />
       </header>
       <div className='boxForm'>
         <form>
@@ -125,6 +132,22 @@ const Editor = ({
                 placeholder='Write your article in markdown'
                 onChange={e => onChange(e)}
                 value={body}
+              />
+              <span className='focus-input100' />
+              <span className='symbol-input100'>
+                {/* <i className='fa fa-trophy' aria-hidden='true' /> */}
+              </span>
+            </div>
+
+            <div className='col-12Form'>
+              <input
+                type='file'
+                name='image'
+                onChange={e =>
+                  setFormData({ ...formData, [e.target.name]: e.target.value })
+                }
+                value={image}
+                accept='image/png, image/jpg, image/jpeg'
               />
               <span className='focus-input100' />
               <span className='symbol-input100'>
