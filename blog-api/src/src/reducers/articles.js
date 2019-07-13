@@ -32,8 +32,8 @@ const initialState = {
   tags: null,
   tag: null,
   currentPage: 0,
-  favoriteArticles: [],
-  commentArticles: []
+  favoriteArticles: null,
+  commentArticles: null
 };
 
 export default (state = initialState, action) => {
@@ -159,8 +159,8 @@ export default (state = initialState, action) => {
     case GET_POPULAR_ARTICLES:
       return {
         ...state,
-        favoriteArticles: payload[0] || [],
-        commentArticles: payload[1] || [],
+        favoriteArticles: payload[0].results,
+        commentArticles: payload[1].results,
         loading: false
       };
     default:

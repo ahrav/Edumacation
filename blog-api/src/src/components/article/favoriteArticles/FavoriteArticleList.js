@@ -7,7 +7,7 @@ const FavoriteArticleList = ({ favoriteArticles, loading, onClickTag }) => {
   let view;
   loading
     ? (view = <Spinner />)
-    : (view = favoriteArticles.results.map(article => {
+    : (view = favoriteArticles.map(article => {
         return (
           <FavoriteArticle
             key={article.slug}

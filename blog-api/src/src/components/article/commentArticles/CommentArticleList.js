@@ -7,7 +7,7 @@ const CommentArticleList = ({ commentArticles, loading }) => {
   let view;
   loading
     ? (view = <Spinner />)
-    : (view = commentArticles.results.map(article => {
+    : (view = commentArticles.map(article => {
         return <CommentArticle key={article.slug} article={article} />;
       }));
   return (
