@@ -44,7 +44,7 @@ const FavoriteArticle = ({ article, onClickTag }) => {
               onClickTag(tag);
             };
             return (
-              <li key={tag}>
+              <li onClick={ev => handleClick(ev, tag)} key={tag}>
                 <i className='icon solid fa-hashtag' />
                 {tag}
               </li>

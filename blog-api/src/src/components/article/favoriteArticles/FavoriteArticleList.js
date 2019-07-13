@@ -18,7 +18,7 @@ const FavoriteArticleList = ({ favoriteArticles, loading, onClickTag }) => {
       }));
   return (
     <Fragment>
-      <h3 id='tagsPost'>Popular Articles</h3>
+      <h3 className='miniPostHeader'>Popular Articles</h3>
       {view}
     </Fragment>
   );

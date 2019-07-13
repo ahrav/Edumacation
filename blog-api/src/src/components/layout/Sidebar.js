@@ -3,6 +3,7 @@ import React from 'react';
 import Banner from '../home/Banner';
 import Tags from '../home/Tags';
 import FavoriteArticleList from '../article/favoriteArticles/FavoriteArticleList';
+import CommentArticleList from '../article/commentArticles/CommentArticleList';
 
 const Sidebar = ({
   appName,
@@ -28,8 +29,16 @@ const Sidebar = ({
           />
         </div>
       </section>
-
       <section>
+        <ul className='posts'>
+          <CommentArticleList
+            commentArticles={commentArticles}
+            loading={loading}
+          />
+        </ul>
+      </section>
+
+      {/* <section>
         <ul className='posts'>
           <li>
             <article>
@@ -115,7 +124,7 @@ const Sidebar = ({
             </article>
           </li>
         </ul>
-      </section>
+      </section> */}
 
       <section className='blurb'>
         <h2>About</h2>

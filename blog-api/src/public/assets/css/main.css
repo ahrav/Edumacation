@@ -2786,7 +2786,7 @@ input, select, textarea {
 		margin: 0 0 2em 0;
 	}
 
-	#tagsPost {
+	.miniPostHeader {
 		font-size: 1.15em;
 		letter-spacing: .13em;
 	}
@@ -2805,7 +2805,7 @@ input, select, textarea {
 				width: calc(100% + 2em);
 			}
 
-			#tagsPost {
+			.miniPostHeader {
 				display: block;
 				width: 100%;
 				text-align: center;
