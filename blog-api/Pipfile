@@ -19,6 +19,7 @@ django-nose = "*"
 django-storages = "*"
 pillow = "*"
 boto3 = "*"
+django-environ = "*"
 
 [requires]
 python_version = "3.7"

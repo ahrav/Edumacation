@@ -11,19 +11,16 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from environ import Env, Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ENV = Env()
 
+BASE_DIR = Path(__file__) - 2
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+SECRET_KEY = ENV.str("SECRET_KEY")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "_-4w#z-#+s6wp$el^*dm9h3)_h^=-b8&bu%gso4f%7ju$+027w"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = ENV.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = []
 
@@ -128,15 +125,13 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-AWS_ACCESS_KEY_ID = "AKIARHCBTTCZRGPIQEVR"
+AWS_ACCESS_KEY_ID = ENV.str("AWS_ACCESS_KEY_ID")
 
-print(os.environ.get("aws_secret_access_key"))
+AWS_SECRET_ACCESS_KEY = ENV.str("AWS_SECRET_ACCESS_KEY")
 
-AWS_SECRET_ACCESS_KEY = "ZRYFp2ioSahTyv+9hrg7Ihn9IIaTgw4CspDSbMS2"
+AWS_STORAGE_BUCKET_NAME = ENV.str("AWS_STORAGE_BUCKET_NAME")
 
-AWS_STORAGE_BUCKET_NAME = "yaptastic-bucket"
-
-AWS_S3_HOST = "s3.us-west-1.amazonaws.com"
+AWS_S3_HOST = ENV.str("AWS_S3_HOST")
 
 S3_USE_SIGV4 = True
 
