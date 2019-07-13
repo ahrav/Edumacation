@@ -6,9 +6,8 @@ const Tags = ({ tags, onClickTag, activeTag }) => {
   if (tags) {
     return (
       <article
-        id='tagsPost'
         style={{ flexDirection: 'column' }}
-        className='mini-post'
+        className='miniPostHeader mini-post'
       >
         <header style={{ boxShadow: '0 4px 6px -5px #666' }}>
           <h3>

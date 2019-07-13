@@ -2788,7 +2788,7 @@ input, select, textarea {
 
 	.miniPostHeader {
 		font-size: 1.15em;
-		letter-spacing: .13em;
+		letter-spacing: .13em !important;
 	}
 
 		@media screen and (max-width: 1280px) {
@@ -2806,10 +2806,10 @@ input, select, textarea {
 			}
 
 			.miniPostHeader {
-				display: block;
-				width: 100%;
-				text-align: center;
-				margin-top: 1.5em
+				display: block !important;
+				width: 100% !important;
+				text-align: center !important;
+				margin-top: 1.5em !important;
 			}
 
 				.mini-posts > * {
