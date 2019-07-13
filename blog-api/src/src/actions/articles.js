@@ -318,14 +318,20 @@ export const onSetPage = view => dispatch => {
   }
 };
 
-export const updateArticle = (slug, formData, history) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  };
+export const updateArticle = (
+  slug,
+  { formData: { title, description, body, tagList } },
+  image,
+  history
+) => async dispatch => {
+  const data = new FormData();
+  data.append('image', image);
+  data.append('title', title);
+  data.append('description', description);
+  data.append('body', body);
+  data.append('tagList', tagList);
   try {
-    const res = await axios.put(`/api/v1/articles/${slug}/`, formData, config);
+    const res = await axios.put(`/api/v1/articles/${slug}/`, data);
 
     dispatch({
       type: UPDATE_ARTICLE,
@@ -364,14 +370,22 @@ export const updateArticle = (slug, formData, history) => async dispatch => {
   }
 };
 
-export const createArticle = (formData, history) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  };
+export const createArticle = (
+  { formData: { title, description, body, tagList } },
+  image,
+  history
+) => async dispatch => {
+  const data = new FormData();
+  data.append('image', image);
+  data.append('title', title);
+  data.append('description', description);
+  data.append('body', body);
+  data.append('tagList', tagList);
+
   try {
-    const res = await axios.post(`/api/v1/articles/`, formData, config);
+    const res = await axios.post(`/api/v1/articles/`, data);
+
+    console.log(res);
 
     dispatch({
       type: CREATE_ARTICLE,

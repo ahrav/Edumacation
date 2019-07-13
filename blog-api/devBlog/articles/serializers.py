@@ -48,6 +48,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
+        print(validated_data)
         author = self.context.get("author", None)
         tags = validated_data.pop("tags", [])
 

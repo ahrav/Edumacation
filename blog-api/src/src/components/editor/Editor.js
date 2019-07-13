@@ -24,10 +24,10 @@ const Editor = ({
     title: '',
     description: '',
     body: '',
-    image: '',
     tagList: []
   });
   const [initialTitle, setInitialTitle] = useState('');
+  const [image, setImage] = useState('');
   const [tagListInput, setTagListInput] = useState('');
 
   useEffect(() => {
@@ -43,14 +43,13 @@ const Editor = ({
             ? ''
             : article.description,
         body: loading || !article || !article.body ? '' : article.body,
-        image: loading || !article || !article.image ? [] : article.image,
         tagList: loading || !article || !article.tagList ? [] : article.tagList
       });
       await setTagListInput('');
     })();
   }, [match.params.slug]);
 
-  const { title, description, body, tagList, image } = formData;
+  const { title, description, body, tagList } = formData;
 
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -77,8 +76,8 @@ const Editor = ({
   const onSubmit = e => {
     e.preventDefault();
     article
-      ? updateArticle(article.slug, { article: formData }, history)
-      : createArticle({ article: formData }, history);
+      ? updateArticle(article.slug, { formData }, image, history)
+      : createArticle({ formData }, image, history);
   };
   if (loading) return <Spinner />;
   return (
@@ -143,10 +142,7 @@ const Editor = ({
               <input
                 type='file'
                 name='image'
-                onChange={e =>
-                  setFormData({ ...formData, [e.target.name]: e.target.value })
-                }
-                value={image}
+                onChange={e => setImage(e.target.files[0])}
                 accept='image/png, image/jpg, image/jpeg'
               />
               <span className='focus-input100' />
