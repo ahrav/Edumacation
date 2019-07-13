@@ -1,4 +1,8 @@
+import sys
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from rest_framework import serializers
+from PIL import Image
 
 from profiles.serializers import ProfileSerializer
 
@@ -67,7 +71,21 @@ class ArticleSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Please upload correct filetype (JPG, JPEG, PNG)"
             )
-        return image
+        img = image.file
+        resized_image = Image.open(img)
+        resized_image = resized_image.resize((675, 285), Image.ANTIALIAS)
+        output = BytesIO()
+        resized_image.save(output, format="JPEG", quality=90)
+        output.seek(0)
+
+        return InMemoryUploadedFile(
+            output,
+            "ImageField",
+            image.name,
+            "image/jpeg",
+            sys.getsizeof(output),
+            None,
+        )
 
     def get_created_at(self, instance):
         return instance.created_at.isoformat()

@@ -34,6 +34,7 @@ const ArticleActions = ({
               width: '140px',
               height: '30px'
             }}
+            onClick={() => deleteArticle(slug, history)}
             size='tiny'
             labelPosition='right'
           >
