@@ -1,4 +1,5 @@
 import React from 'react';
+import scrollToTop from '../../utils/scrollToTop';
 
 const ListPagination = ({ articlesCount, onSetPage, currentPage }) => {
   if (articlesCount <= 10) {
@@ -11,12 +12,18 @@ const ListPagination = ({ articlesCount, onSetPage, currentPage }) => {
   }
 
   const setPage = page => onSetPage(page);
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <nav>
       <ul className='actions pagination'>
         <li>
           <a
-            onClick={() => setPage(currentPage - 1)}
+            onClick={() => {
+              setPage(currentPage - 1);
+              scrollToTop();
+            }}
             className={
               currentPage === 0
                 ? 'disabled button large previous'
@@ -44,7 +51,10 @@ const ListPagination = ({ articlesCount, onSetPage, currentPage }) => {
         })}
         <li>
           <a
-            onClick={() => setPage(currentPage + 1)}
+            onClick={() => {
+              setPage(currentPage + 1);
+              scrollToTop();
+            }}
             className={
               range[range.length - 1] > currentPage
                 ? 'button large next'
