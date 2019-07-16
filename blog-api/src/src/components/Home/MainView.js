@@ -17,7 +17,7 @@ const TagFilterTab = ({ tag }) => {
   if (!tag) return null;
   return (
     <li>
-      <a className='nav-active'>
+      <a href='#' className='nav-active'>
         <i className='icon solid fa-hashtag' /> {tag}
       </a>
     </li>
@@ -75,31 +75,6 @@ const MainView = ({
       {view}
     </Fragment>
   );
-  // <div className='col-md-9'>
-  {
-    /* <div className='feed-toggle'>
-        <ul className='nav nav-pills outline-active'>
-          <YourFeedTab
-            getFeed={getFeed}
-            token={token}
-            tab={tab}
-            onTabClick={onTabClick}
-          />
-
-          <GlobalFeedTab
-            getArticles={getArticles}
-            tab={tab}
-            onTabClick={onTabClick}
-          />
-
-          <TagFilterTab tag={tag} />
-        </ul>
-      </div> */
-  }
-
-  {
-    /* </div> */
-  }
 };
 
 const mapStateToProps = state => ({

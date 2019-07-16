@@ -357,7 +357,6 @@ export const updateArticle = (
   tagList.forEach(item => {
     data.append('tagList', item);
   });
-  console.log(data['tagList']);
   try {
     const res = await axios.put(`/api/v1/articles/${slug}/`, data);
 
@@ -408,12 +407,12 @@ export const createArticle = (
   data.append('title', title);
   data.append('description', description);
   data.append('body', body);
-  data.append('tagList', tagList);
+  tagList.forEach(item => {
+    data.append('tagList', item);
+  });
 
   try {
     const res = await axios.post(`/api/v1/articles/`, data);
-
-    console.log(res);
 
     dispatch({
       type: CREATE_ARTICLE,

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Menu from './Menu';

@@ -1,8 +1,16 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
 import { Button, Modal, Icon } from 'semantic-ui-react';
+
 import './index.css';
+import AlertModal from './AlertModal';
+import ErrorModal from './ErrorModal';
+
+const MODAL_TYPES = {
+  alert: AlertModal,
+  error: ErrorModal
+};
 
 // Creates a portal outside the DOM hierarchy
 function Portal({ children }) {
@@ -23,53 +31,18 @@ function MainModal({ modal: { modalProps, modalType } }) {
     setIsOpen(false);
   };
   const cancel = <Icon id='modalIcon' name='cancel' />;
-  const errors = modalProps.context;
-
-  const list = [];
-
-  const errorList = errors
-    ? errors.forEach(key => {
-        if (Array.isArray(key)) {
-          list.push(key[0]);
-          return key[0];
-        } else {
-          Object.keys(key).forEach(val => {
-            list.push(key[val][0]);
-            return key[val][0];
-          });
-        }
-      })
-    : null;
+  const SpecifiedModal = MODAL_TYPES[modalType];
 
   return (
     <Portal>
       {isOpen && (
-        <Modal size='tiny' open={isOpen} onClose={() => closeModal()}>
-          <Modal.Header>{modalProps.error}</Modal.Header>
-          <Modal.Content>
-            <p>{list[0]}</p>
-            <p>{list[1]}</p>
-            <p>{list[2]}</p>
-          </Modal.Content>
-          <Modal.Actions style={{ height: '70px' }}>
-            <Button
-              id='modalButton'
-              negative
-              icon={cancel}
-              labelPosition='right'
-              content='OK'
-              onClick={() => closeModal()}
-            />
-          </Modal.Actions>
-        </Modal>
-        // <StyledModal.ModalWrapper onClick={() => closeModal()}>
-        //   <StyledModal.ModalBody onClick={event => event.stopPropagation()}>
-        //     <StyledModal.CloseButton onClick={() => closeModal()}>
-        //       <i className='fa fa-close' />
-        //     </StyledModal.CloseButton>
-        //     {modalProps.context}
-        //   </StyledModal.ModalBody>
-        // </StyledModal.ModalWrapper>
+        <SpecifiedModal
+          cancel={cancel}
+          isOpen={isOpen}
+          error={modalProps.error}
+          closeModal={closeModal}
+          context={modalProps.context}
+        />
       )}
     </Portal>
   );
