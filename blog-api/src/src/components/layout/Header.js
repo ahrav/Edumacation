@@ -120,15 +120,6 @@ const Header = ({
                 value={query}
                 id={'search'}
               />
-              {/* <form id='search' onSubmit={e => onSubmit(e)}>
-                <input
-                  type='text'
-                  name='query'
-                  placeholder='Search'
-                  onChange={onChangeHandler}
-                  value={query}
-                />
-              </form> */}
             </li>
             <li className='menu'>
               <a className='fa-bars' href='#menu'>
