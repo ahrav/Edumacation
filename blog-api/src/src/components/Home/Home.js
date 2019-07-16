@@ -33,7 +33,6 @@ const Home = ({
       await getPopularArticles();
       await getTags();
       await (tab === 'feed' ? getFeed(currentPage) : getArticles(currentPage));
-      console.log(currentPage);
     })();
   }, [getTags, currentPage]);
 

@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Q
 
 from rest_framework import generics, mixins, status, viewsets
 from rest_framework.exceptions import NotFound
@@ -47,6 +47,14 @@ class ArticleViewSet(
         if favorited_by:
             queryset = queryset.filter(
                 favorited_by__user__username=favorited_by
+            )
+
+        article = self.request.query_params.get("article", None)
+        if article:
+            queryset = queryset.filter(
+                Q(title__icontains=article)
+                | Q(author__user__username=article)
+                | Q(description__icontains=article)
             )
 
         return queryset
@@ -115,6 +123,19 @@ class ArticleViewSet(
         )
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SearchArticlesAPIView(generics.ListAPIView):
+    """Return list of articles that closely match search query params"""
+
+    permission_classes = (AllowAny,)
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        """Custom queryset to get articles or authors from query params"""
+
+        article = self.request.query_params.get("article", None)
+        queryset = Article.objects.filter(Q())
 
 
 class ArticlesFavoriteAPIView(APIView):
