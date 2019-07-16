@@ -19,7 +19,8 @@ import {
   CREATE_ARTICLE,
   UPDATE_ARTICLE,
   CLEAR_ARTICLE,
-  GET_POPULAR_ARTICLES
+  GET_POPULAR_ARTICLES,
+  GET_ARTICLES_BY_QUERY_PARAM
 } from '../actions/types';
 
 const initialState = {
@@ -61,6 +62,16 @@ export default (state = initialState, action) => {
         tag: tag || null,
         tab: null,
         loading: false
+      };
+    case GET_ARTICLES_BY_QUERY_PARAM:
+      return {
+        ...state,
+        articles: payload.results || [],
+        articleCount: payload.count,
+        tag: null,
+        loading: false,
+        currentPage: page || 0,
+        article: null
       };
     case GET_ARTICLE:
     case CREATE_ARTICLE:

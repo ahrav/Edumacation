@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Menu from './Menu';
 import { logout } from '../../actions/auth';
+import { getArticlesByQueryParam } from '../../actions/articles';
 
 const LoggedOutView = ({ currentUser, appName }) => {
   if (!currentUser) {
@@ -71,7 +72,20 @@ const LoggedInView = ({ currentUser }) => {
   return null;
 };
 
-const Header = ({ appName, currentUser, logout, history }) => {
+const Header = ({
+  appName,
+  currentUser,
+  logout,
+  history,
+  getArticlesByQueryParam
+}) => {
+  const [query, setQuery] = useState('');
+
+  const onSubmit = e => {
+    e.preventDefault();
+    getArticlesByQueryParam(query);
+    setQuery('');
+  };
   const onLogout = e => {
     e.preventDefault();
     logout(history);
@@ -94,8 +108,13 @@ const Header = ({ appName, currentUser, logout, history }) => {
               <a className='fa-search' href='#search'>
                 Search
               </a>
-              <form id='search' method='get' action='#'>
-                <input type='text' name='query' placeholder='Search' />
+              <form id='search' onSubmit={e => onSubmit(e)}>
+                <input
+                  type='text'
+                  name='query'
+                  placeholder='Search'
+                  onChange={e => setQuery(e.target.value)}
+                />
               </form>
             </li>
             <li className='menu'>
@@ -118,5 +137,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { logout, getArticlesByQueryParam }
 )(Header);

@@ -20,7 +20,8 @@ import {
   UN_FAVORITE_ARTICLE,
   UPDATE_ARTICLE,
   CREATE_ARTICLE,
-  GET_POPULAR_ARTICLES
+  GET_POPULAR_ARTICLES,
+  GET_ARTICLES_BY_QUERY_PARAM
 } from './types';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
@@ -243,6 +244,30 @@ export const getArticlesByAuthor = (username, page) => async dispatch => {
 
     dispatch({
       type: GET_ARTICLES_BY_AUTHOR,
+      payload: res.data,
+      page: page
+    });
+  } catch (err) {
+    dispatch({
+      type: ARTICLE_ERROR,
+      payload: {
+        msg: err.response.errors
+      }
+    });
+  }
+};
+
+export const getArticlesByQueryParam = (
+  queryParam,
+  page
+) => async dispatch => {
+  try {
+    const res = await axios.get(
+      `/api/v1/articles?article=${queryParam}&${limit(10, page)}`
+    );
+
+    dispatch({
+      type: GET_ARTICLES_BY_QUERY_PARAM,
       payload: res.data,
       page: page
     });
