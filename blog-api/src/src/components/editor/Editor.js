@@ -101,7 +101,6 @@ const Editor = ({
                 name='title'
                 placeholder='Article title'
               />
-              <span className='focus-input100' />
               <span className='symbol-input100'>
                 {/* <i className='fa fa-trophy' aria-hidden='true' /> */}
               </span>
@@ -116,7 +115,6 @@ const Editor = ({
                 onChange={e => onChange(e)}
                 value={description}
               />
-              <span className='focus-input100' />
               <span className='symbol-input100'>
                 {/* <i className='fa fa-trophy' aria-hidden='true' /> */}
               </span>
@@ -132,7 +130,6 @@ const Editor = ({
                 onChange={e => onChange(e)}
                 value={body}
               />
-              <span className='focus-input100' />
               <span className='symbol-input100'>
                 {/* <i className='fa fa-trophy' aria-hidden='true' /> */}
               </span>
@@ -145,7 +142,6 @@ const Editor = ({
                 onChange={e => setImage(e.target.files[0])}
                 accept='image/png, image/jpg, image/jpeg'
               />
-              <span className='focus-input100' />
               <span className='symbol-input100'>
                 {/* <i className='fa fa-trophy' aria-hidden='true' /> */}
               </span>
@@ -161,7 +157,6 @@ const Editor = ({
                 onKeyUp={e => watchForEnter(e)}
                 value={tagListInput}
               />
-              <span className='focus-input100' />
               <span className='symbol-input100'>
                 {/* <i className='fa fa-envelope' aria-hidden='true' /> */}
               </span>
