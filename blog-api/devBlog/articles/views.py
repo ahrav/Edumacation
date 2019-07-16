@@ -125,19 +125,6 @@ class ArticleViewSet(
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class SearchArticlesAPIView(generics.ListAPIView):
-    """Return list of articles that closely match search query params"""
-
-    permission_classes = (AllowAny,)
-    serializer_class = ArticleSerializer
-
-    def get_queryset(self):
-        """Custom queryset to get articles or authors from query params"""
-
-        article = self.request.query_params.get("article", None)
-        queryset = Article.objects.filter(Q())
-
-
 class ArticlesFavoriteAPIView(APIView):
     """view to handle favoriting articles"""
 
