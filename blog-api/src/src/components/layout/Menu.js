@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-const Menu = ({ currentUser, logout }) => {
+import QueryForm from './QueryForm';
+
+const Menu = ({ currentUser, logout, onSubmit, onChange, value }) => {
   let user;
   if (currentUser)
     user = (
@@ -45,9 +47,15 @@ const Menu = ({ currentUser, logout }) => {
   return (
     <section id='menu'>
       <section>
-        <form className='search'>
+        <QueryForm
+          onChange={onChange}
+          onSubmit={onSubmit}
+          value={value}
+          className={'search'}
+        />
+        {/* <form className='search'>
           <input type='text' name='query' placeholder='Search' />
-        </form>
+        </form> */}
       </section>
 
       <section>

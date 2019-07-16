@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Menu from './Menu';
+import QueryForm from './QueryForm';
 import { logout } from '../../actions/auth';
 import { getArticlesByQueryParam } from '../../actions/articles';
 
@@ -86,6 +87,11 @@ const Header = ({
     getArticlesByQueryParam(query);
     setQuery('');
   };
+
+  const onChangeHandler = e => {
+    setQuery(e.target.value);
+  };
+
   const onLogout = e => {
     e.preventDefault();
     logout(history);
@@ -108,14 +114,21 @@ const Header = ({
               <a className='fa-search' href='#search'>
                 Search
               </a>
-              <form id='search' onSubmit={e => onSubmit(e)}>
+              <QueryForm
+                onChange={onChangeHandler}
+                onSubmit={onSubmit}
+                value={query}
+                id={'search'}
+              />
+              {/* <form id='search' onSubmit={e => onSubmit(e)}>
                 <input
                   type='text'
                   name='query'
                   placeholder='Search'
-                  onChange={e => setQuery(e.target.value)}
+                  onChange={onChangeHandler}
+                  value={query}
                 />
-              </form>
+              </form> */}
             </li>
             <li className='menu'>
               <a className='fa-bars' href='#menu'>
@@ -125,7 +138,13 @@ const Header = ({
           </ul>
         </nav>
       </header>
-      <Menu currentUser={currentUser} logout={e => onLogout(e)} />
+      <Menu
+        onChange={onChangeHandler}
+        onSubmit={onSubmit}
+        value={query}
+        currentUser={currentUser}
+        logout={e => onLogout(e)}
+      />
     </Fragment>
   );
 };

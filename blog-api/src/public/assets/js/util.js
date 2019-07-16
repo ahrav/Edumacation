@@ -71,6 +71,9 @@
         // Hide panel on escape keypress.
         hideOnEscape: false,
 
+        // Hide panel on enter
+        hideOnEnter: false,
+
         // Hide panel on swipe.
         hideOnSwipe: false,
 
@@ -156,6 +159,14 @@
       });
     }
 
+    if (config.hideOnEnter) {
+      $this.find('form');
+
+      $this.on('submit', function(event) {
+        $this._hide();
+      });
+    }
+
     // Event: Touch stuff.
     $this.on('touchstart', function(event) {
       $this.touchPosX = event.originalEvent.touches[0].pageX;
@@ -222,13 +233,13 @@
 
     // Event: Prevent certain events inside the panel from bubbling.
     $this.on('click touchend touchstart touchmove', function(event) {
-      // event.stopPropagation();
+      event.stopPropagation();
     });
 
     // Event: Hide panel if a child anchor tag pointing to its ID is clicked.
     $this.on('click', 'a[href="#' + id + '"]', function(event) {
-      // event.preventDefault();
-      // event.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
 
       config.target.removeClass(config.visibleClass);
     });
@@ -255,6 +266,11 @@
       $window.on('keydown', function(event) {
         if (event.keyCode == 27) $this._hide(event);
       });
+
+    // if (config.hideOnEnter)
+    //   $window.on('keydown', function(event) {
+    //     if (event.keyCode == 13) $this._hide(event);
+    //   });
 
     return $this;
   };
@@ -367,6 +383,7 @@
       .on('submit', function() {
         $this
           .find('input[type=text],input[type=password],textarea')
+
           .each(function(event) {
             var i = $(this);
 
