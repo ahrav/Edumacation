@@ -28,7 +28,11 @@ const Tags = ({ tags, onClickTag, activeTag }) => {
             };
 
             return (
-              <li onClick={ev => handleClick(ev, tag)} key={tag}>
+              <li
+                onClick={ev => handleClick(ev, tag)}
+                key={tag}
+                style={{ letterSpacing: '.08em' }}
+              >
                 <i
                   style={{ margin: '.05rem 0 0' }}
                   className='icon solid fa-hashtag'
